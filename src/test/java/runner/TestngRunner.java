@@ -5,7 +5,7 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(features = { ".\\src\\test\\java\\FeatureFiles\\Labs.feature" }, glue = {
 		"stepDefinitions" }, dryRun = false, plugin = { "pretty", "testng:target/testng-report.xml",
-				"html:target/cucumber.html" }, monochrome = true, tags = ""
+				"html:target/cucumber.html" }, monochrome = true, tags = "@createLabByTenantAdmin"
 
 )
 

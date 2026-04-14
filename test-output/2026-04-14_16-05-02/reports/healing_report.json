@@ -1,0 +1,20 @@
+[
+  {
+    "originalLocator": "Locator@//a[@href\u003d\u0027/subscriptions?type\u003dall\u0027]",
+    "healedLocator": "Locator@//a[@href\u003d\u0027/subscriptions?type\u003dall\u0027]",
+    "healingMethod": "none",
+    "retryCount": 3,
+    "finalStatus": "FAILED",
+    "stepDescription": "labs link",
+    "timestamp": 1776162963722
+  },
+  {
+    "originalLocator": "Locator@//a[@href\u003d\u0027/subscriptions?type\u003dall\u0027]",
+    "healedLocator": "Locator@//a[@href\u003d\u0027/subscriptions?type\u003dall\u0027]",
+    "healingMethod": "none",
+    "retryCount": 3,
+    "finalStatus": "FAILED",
+    "stepDescription": "labs link",
+    "timestamp": 1776162963722
+  }
+]

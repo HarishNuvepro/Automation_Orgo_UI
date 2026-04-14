@@ -5,6 +5,7 @@ import java.util.Date;
 
 import Generic_Utility.ExcelUtility;
 import Generic_Utility.WebDriverUtility;
+import POM.LabControlPanelPage;
 import POM.LabStorePage;
 import POM.LabsDropdownPage;
 import POM.LabsPage;
@@ -57,8 +58,13 @@ public class Labs {
 
 	@And("click on request lab button")
 	public void click_on_request_lab_button() throws Throwable {
-		Hook.base.shDriver.click(Pages.LabsPage.getRequestLabBtn(), "request lab button");
+		Hook.base.page.waitForLoadState();
+		Thread.sleep(2000);
+		com.microsoft.playwright.Locator requestBtn = Hook.base.page.locator("//button[@id='marketplace']");
+		requestBtn.scrollIntoViewIfNeeded();
 		Thread.sleep(500);
+		requestBtn.click();
+		Thread.sleep(2000);
 	}
 
 	@And("search for the plan id and click on that tile")
@@ -94,11 +100,53 @@ public class Labs {
 
 	@And("verify the latest action status is \"Complete\"")
 	public void verify_the_latest_action_status_is_Complete() throws Throwable {
-		String status = Pages.LabsPage.getAllTableRows().first().locator("td:nth-child(10)").textContent();
-		System.out.println("Latest Action Status: " + status);
-		if (!status.trim().contains("Complete")) {
-			throw new RuntimeException("Latest action status is not Complete. Actual: " + status);
+		int maxWaitTime = 180;
+		int interval = 5;
+		String status = "";
+		for (int elapsed = 0; elapsed < maxWaitTime; elapsed += interval) {
+			status = Pages.LabsPage.getAllTableRows().first().locator("td:nth-child(10)").textContent();
+			System.out.println("Latest Action Status: " + status);
+			if (status.trim().contains("Complete")) {
+				System.out.println("Lab creation is complete!");
+				return;
+			}
+			Thread.sleep(interval * 1000);
 		}
+		throw new RuntimeException("Timeout: Latest action status did not become Complete within " + maxWaitTime + " seconds. Actual: " + status);
+	}
+
+	@And("click on the created lab to open Lab Control Panel")
+	public void click_on_the_created_lab_to_open_lab_control_panel() throws Throwable {
+		Hook.base.shDriver.click(Pages.LabsPage.getAllTableRows().first().locator("td:nth-child(2)"), "lab link");
+		Thread.sleep(1000);
+	}
+
+	@And("verify the lab is ready to use")
+	public void verify_the_lab_is_ready_to_use() throws Throwable {
+		LabControlPanelPage controlPanel = new LabControlPanelPage(Hook.base.page);
+		String isReadyToUse = controlPanel.getIsReadyToUseValue().textContent();
+		System.out.println("Is Ready To Use: " + isReadyToUse);
+		if (!isReadyToUse.trim().equals("true")) {
+			throw new RuntimeException("Lab is not ready to use. Actual: " + isReadyToUse);
+		}
+		System.out.println("Lab is ready to use");
+	}
+
+	@And("wait until the deployment status shows \"Complete\"")
+	public void wait_until_the_deployment_status_shows_Complete() throws Throwable {
+		LabControlPanelPage controlPanel = new LabControlPanelPage(Hook.base.page);
+		int maxWaitTime = 300;
+		int interval = 5;
+		for (int elapsed = 0; elapsed < maxWaitTime; elapsed += interval) {
+			String status = controlPanel.getLatestStatusText().textContent();
+			System.out.println("Deployment Status: " + status);
+			if (status.trim().contains("Complete")) {
+				System.out.println("Lab deployment is complete!");
+				return;
+			}
+			Thread.sleep(interval * 1000);
+		}
+		throw new RuntimeException("Timeout: Lab deployment did not complete within " + maxWaitTime + " seconds");
 	}
 
 }
