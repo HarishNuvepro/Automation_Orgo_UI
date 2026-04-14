@@ -1,0 +1,20 @@
+[
+  {
+    "originalLocator": "Locator@activateBtn",
+    "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+    "healingMethod": "fallback",
+    "retryCount": 3,
+    "finalStatus": "FAILED",
+    "stepDescription": "activate confirm button",
+    "timestamp": 1775960520744
+  },
+  {
+    "originalLocator": "Locator@activateBtn",
+    "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+    "healingMethod": "fallback",
+    "retryCount": 3,
+    "finalStatus": "FAILED",
+    "stepDescription": "activate confirm button",
+    "timestamp": 1775960520744
+  }
+]

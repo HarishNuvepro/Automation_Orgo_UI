@@ -1,0 +1,20 @@
+[
+  {
+    "originalLocator": "Locator@#advanceSearchBtn",
+    "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+    "healingMethod": "fallback",
+    "retryCount": 3,
+    "finalStatus": "FAILED",
+    "stepDescription": "advanced search button",
+    "timestamp": 1775973931617
+  },
+  {
+    "originalLocator": "Locator@#advanceSearchBtn",
+    "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+    "healingMethod": "fallback",
+    "retryCount": 3,
+    "finalStatus": "FAILED",
+    "stepDescription": "advanced search button",
+    "timestamp": 1775973931617
+  }
+]

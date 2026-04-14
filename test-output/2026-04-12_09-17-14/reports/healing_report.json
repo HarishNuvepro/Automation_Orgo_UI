@@ -1,0 +1,20 @@
+[
+  {
+    "originalLocator": "Locator@#searchTypes a[data-value\u003d\u0027email\u0027]",
+    "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+    "healingMethod": "fallback",
+    "retryCount": 3,
+    "finalStatus": "FAILED",
+    "stepDescription": "search by email option",
+    "timestamp": 1775965711350
+  },
+  {
+    "originalLocator": "Locator@#searchTypes a[data-value\u003d\u0027email\u0027]",
+    "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+    "healingMethod": "fallback",
+    "retryCount": 3,
+    "finalStatus": "FAILED",
+    "stepDescription": "search by email option",
+    "timestamp": 1775965711350
+  }
+]

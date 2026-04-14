@@ -1,0 +1,29 @@
+[
+  {
+    "originalLocator": "Locator@//label[contains(text(),\u0027Member\u0027)]",
+    "healedLocator": "//*[contains(@id,\u0027submit\u0027)]",
+    "healingMethod": "fallback",
+    "retryCount": 1,
+    "finalStatus": "SUCCESS",
+    "stepDescription": "member role",
+    "timestamp": 1775824070551
+  },
+  {
+    "originalLocator": "Locator@//label[contains(text(),\u0027Member\u0027)]",
+    "healedLocator": "//*[contains(@id,\u0027submit\u0027)]",
+    "healingMethod": "fallback",
+    "retryCount": 1,
+    "finalStatus": "SUCCESS",
+    "stepDescription": "member role",
+    "timestamp": 1775824070551
+  },
+  {
+    "originalLocator": "Locator@//label[contains(text(),\u0027Member\u0027)]",
+    "healedLocator": "//*[contains(@id,\u0027submit\u0027)]",
+    "healingMethod": "fallback",
+    "retryCount": 1,
+    "finalStatus": "SUCCESS",
+    "stepDescription": "member role",
+    "timestamp": 1775824070551
+  }
+]

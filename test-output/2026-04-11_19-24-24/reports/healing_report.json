@@ -1,0 +1,20 @@
+[
+  {
+    "originalLocator": "Locator@#userDeActiveButton",
+    "healedLocator": "text\u003dDeactivate",
+    "healingMethod": "fallback",
+    "retryCount": 3,
+    "finalStatus": "FAILED",
+    "stepDescription": "deactivate button",
+    "timestamp": 1775915689537
+  },
+  {
+    "originalLocator": "Locator@#userDeActiveButton",
+    "healedLocator": "text\u003dDeactivate",
+    "healingMethod": "fallback",
+    "retryCount": 3,
+    "finalStatus": "FAILED",
+    "stepDescription": "deactivate button",
+    "timestamp": 1775915689537
+  }
+]

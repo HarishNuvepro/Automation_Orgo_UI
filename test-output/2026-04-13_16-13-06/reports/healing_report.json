@@ -1,0 +1,20 @@
+[
+  {
+    "originalLocator": "Locator@//button[@id\u003d\u0027marketplace\u0027]",
+    "healedLocator": "Locator@//button[@id\u003d\u0027marketplace\u0027]",
+    "healingMethod": "none",
+    "retryCount": 3,
+    "finalStatus": "FAILED",
+    "stepDescription": "request lab button",
+    "timestamp": 1776077023420
+  },
+  {
+    "originalLocator": "Locator@//button[@id\u003d\u0027marketplace\u0027]",
+    "healedLocator": "Locator@//button[@id\u003d\u0027marketplace\u0027]",
+    "healingMethod": "none",
+    "retryCount": 3,
+    "finalStatus": "FAILED",
+    "stepDescription": "request lab button",
+    "timestamp": 1776077023420
+  }
+]

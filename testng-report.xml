@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testng-results failed="0" passed="2" skipped="0" total="2">
+<suite duration-ms="33601" name="io.cucumber.core.plugin.TestNGFormatter">
+<test duration-ms="33601" name="io.cucumber.core.plugin.TestNGFormatter">
+<class name="Users">
+<test-method duration-ms="22849" finished-at="2023-02-01T13:13:36.140Z" name="Create a user with valid details" started-at="2023-02-01T13:13:13.255Z" status="PASS"/>
+</class>
+<class name="Login to the Orgo portal">
+<test-method duration-ms="10327" finished-at="2023-02-01T13:13:46.499Z" name="Login orgo portal with valid credentials" started-at="2023-02-01T13:13:36.169Z" status="PASS"/>
+</class>
+</test>
+</suite>
+</testng-results>
