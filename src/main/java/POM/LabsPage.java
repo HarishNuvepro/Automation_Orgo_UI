@@ -128,7 +128,7 @@ public class LabsPage {
 	}
 
 	public Locator getLabLatestActionStatusById(String labId) {
-		return page.locator("//table[@id='mySubscriptionsTable']//td[text()='" + labId + "']/following-sibling::td[7]//label");
+		return page.locator("//table[@id='mySubscriptionsTable']//td[text()='" + labId + "']/following-sibling::td[8]//label");
 	}
 
 	public Locator getViewLabLinkById(String labId) {

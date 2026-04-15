@@ -10,6 +10,7 @@ import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 
+import Generic_Utility.ExecutionContext;
 import Generic_Utility.WebDriverUtility;
 import Generic_Utility.Base;
 import Generic_Utility.ConstantFilePath;
@@ -28,7 +29,6 @@ public class Hook extends WebDriverUtility {
 	ExcelUtility eLib = new ExcelUtility();
 	public static Base base;
 	public SelfHealingWebDriver shDriver;
-	public static String runFolder;
 	public static String screenshotFolder;
 	public static String reportFolder;
 
@@ -36,16 +36,11 @@ public class Hook extends WebDriverUtility {
 	public void beforeScenario(Scenario scenario) throws Throwable {
 		base = new Base();
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-		String timestamp = sdf.format(new Date());
-		runFolder = "./test-output/" + timestamp;
-		screenshotFolder = runFolder + "/screenshots";
-		reportFolder = runFolder + "/reports";
+		ExecutionContext.initialize();
+		screenshotFolder = ExecutionContext.getScreenshotFolder();
+		reportFolder = ExecutionContext.getReportFolder();
 		
-		Files.createDirectories(Paths.get(screenshotFolder));
-		Files.createDirectories(Paths.get(reportFolder));
-		
-		System.out.println("Run folder created: " + runFolder);
+		System.out.println("Run folder created: " + ExecutionContext.getRunFolder());
 
 		String browser = eLib.getDataFromExcel("Credentials", 12, 1);
 		System.out.println(browser);
