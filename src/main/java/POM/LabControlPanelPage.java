@@ -134,4 +134,20 @@ public class LabControlPanelPage {
 	public Locator getUsageCostPanel() {
 		return page.locator("//div[contains(@class,'account-usage')]");
 	}
+
+	public Locator getLabDuration() {
+		return page.locator("//label[text()='Total duration allotted']/following-sibling::span");
+	}
+
+	public Locator getExpiryDate() {
+		return page.locator("//label[text()='Expiry Date']/following-sibling::span");
+	}
+
+	public Locator getPoliciesTab() {
+		return page.locator("//a[@class='collapsed' and contains(@href,'#lab-policies')]");
+	}
+
+	public Locator getPolicyRowByName(String policyName) {
+		return page.locator("//table[@id='policyTable']//tr[contains(@class,'odd') or contains(@class,'even')]//td[2][text()='" + policyName + "']");
+	}
 }

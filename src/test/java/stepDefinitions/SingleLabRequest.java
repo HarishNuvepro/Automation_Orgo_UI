@@ -22,7 +22,7 @@ public class SingleLabRequest {
     public static Map<String, String> testData = new HashMap<>();
     public static String createdLabId;
 
-    @When("get test data from excel {string}")
+    @When("get test data from excel {word}")
     public void get_test_data_from_excel(String tcId) throws Throwable {
         testData.clear();
 
@@ -38,6 +38,7 @@ public class SingleLabRequest {
                 testData.put("LabType", eLib.getDataFromExcel("Lab", i, 3));
                 testData.put("TeamID", eLib.getDataFromExcel("Lab", i, 4));
                 testData.put("PlanID", eLib.getDataFromExcel("Lab", i, 5));
+                testData.put("PolicyName", eLib.getDataFromExcel("Lab", i, 7));
 
                 System.out.println("Test data loaded for TC_ID: " + tcId);
                 System.out.println("  PlanType: " + testData.get("PlanType"));
@@ -45,6 +46,7 @@ public class SingleLabRequest {
                 System.out.println("  LabType: " + testData.get("LabType"));
                 System.out.println("  TeamID: " + testData.get("TeamID"));
                 System.out.println("  PlanID: " + testData.get("PlanID"));
+                System.out.println("  PolicyName: " + testData.get("PolicyName"));
                 return;
             }
         }
@@ -137,7 +139,9 @@ public class SingleLabRequest {
 
         for (int elapsed = 0; elapsed < maxWaitTime; elapsed += interval) {
 
-            String status = controlPanel.getLatestStatusText().textContent();
+            Hook.base.page.waitForLoadState();
+
+            String status = Hook.base.shDriver.getText(controlPanel.getLatestStatusText(), "deployment status");
             System.out.println("Deployment Status: " + status);
 
             // Fail immediately if status is Failed
@@ -168,6 +172,64 @@ public class SingleLabRequest {
         }
 
         throw new RuntimeException("Timeout: Lab deployment did not complete within " + maxWaitTime + " seconds");
+    }
+
+    @Then("verify expiry date values are loading on lab control panel")
+    public void verify_expiry_date_values() throws Throwable {
+        LabControlPanelPage controlPanel = new LabControlPanelPage(Hook.base.page);
+
+        Hook.base.page.waitForLoadState();
+
+        String expiryDate = Hook.base.shDriver.getText(controlPanel.getExpiryDate(), "expiry date");
+
+        System.out.println("Expiry Date: " + expiryDate);
+
+        if (expiryDate == null || expiryDate.trim().isEmpty()) {
+            throw new RuntimeException("Expiry Date is empty!");
+        }
+
+        Assert.assertFalse(expiryDate.isEmpty(), "Expiry Date should not be empty");
+
+        System.out.println("Expiry Date value loaded successfully on control panel: " + expiryDate);
+    }
+
+    @Then("verify expiry duration values are loading on lab control panel")
+    public void verify_expiry_duration_values() throws Throwable {
+        LabControlPanelPage controlPanel = new LabControlPanelPage(Hook.base.page);
+
+        Hook.base.page.waitForLoadState();
+
+        String expiryDuration = Hook.base.shDriver.getText(controlPanel.getLabDuration(), "expiry duration");
+
+        System.out.println("Expiry Duration: " + expiryDuration);
+
+        if (expiryDuration == null || expiryDuration.trim().isEmpty()) {
+            throw new RuntimeException("Expiry Duration is empty!");
+        }
+
+        Assert.assertFalse(expiryDuration.isEmpty(), "Expiry Duration should not be empty");
+
+        System.out.println("Expiry Duration value loaded successfully on control panel: " + expiryDuration);
+    }
+
+    @Then("verify default policy is assigned to the lab")
+    public void verify_default_policy_is_assigned() throws Throwable {
+        LabControlPanelPage controlPanel = new LabControlPanelPage(Hook.base.page);
+
+        Hook.base.page.waitForLoadState();
+
+        Hook.base.shDriver.click(controlPanel.getPoliciesTab(), "policies tab");
+
+        Hook.base.page.waitForLoadState();
+
+        String policyName = testData.get("PolicyName");
+        System.out.println("Checking for default policy: " + policyName);
+
+        boolean policyFound = controlPanel.getPolicyRowByName(policyName).first().isVisible();
+
+        Assert.assertTrue(policyFound, "Default policy '" + policyName + "' should be assigned to the lab");
+
+        System.out.println("Default policy '" + policyName + "' is assigned to the lab");
     }
 
     // Commented out - Not used in current feature file

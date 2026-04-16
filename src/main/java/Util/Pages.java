@@ -3,6 +3,7 @@ package Util;
 import com.microsoft.playwright.Page;
 
 import POM.AddToTeamModalPage;
+import POM.BatchProvisionPage;
 import POM.CreateUserPage;
 import POM.EditUserPage;
 import POM.HomeDropdownPage;
@@ -33,6 +34,7 @@ public class Pages {
 	public static LabsPage LabsPage;
 	public static SubscribePlanPage SubscribePlanPage;
 	public static LabControlPanelPage LabControlPanelPage;
+	public static BatchProvisionPage BatchProvisionPage;
 
 	public static void loadPages(Page page) {
 		LoginPage = new LoginPage(page);
@@ -49,6 +51,7 @@ public class Pages {
 		LabsPage = new LabsPage(page);
 		SubscribePlanPage = new SubscribePlanPage(page);
 		LabControlPanelPage = new LabControlPanelPage(page);
+		BatchProvisionPage = new BatchProvisionPage(page);
 
 	}
 
