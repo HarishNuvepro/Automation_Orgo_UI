@@ -147,7 +147,11 @@ public class LabControlPanelPage {
 		return page.locator("//a[@class='collapsed' and contains(@href,'#lab-policies')]");
 	}
 
-	public Locator getPolicyRowByName(String policyName) {
-		return page.locator("//table[@id='policyTable']//tr[contains(@class,'odd') or contains(@class,'even')]//td[2][text()='" + policyName + "']");
-	}
+public Locator getPolicyRowByName(String policyName) {
+        return page.locator("//table[@id='policyTable']//tr[contains(@class,'odd') or contains(@class,'even')]//td[2][text()='" + policyName + "']");
+    }
+
+    public Locator getLaunchLabButton() {
+        return page.locator("#leftActionBtn");
+    }
 }

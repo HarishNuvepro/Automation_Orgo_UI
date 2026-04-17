@@ -139,11 +139,55 @@ public class LabsPage {
 		return page.locator("//table[@id='mySubscriptionsTable']//td[text()='" + labId + "']/following-sibling::td[8]//a[contains(@href,'subscriptions/launch')]");
 	}
 
+	public Locator getActionsCellByLabId(String labId) {
+		return page.locator("//table[@id='mySubscriptionsTable']//td[text()='" + labId + "']/following-sibling::td[8]");
+	}
+
+	public Locator getActionsDropdownByLabId(String labId) {
+		return page.locator("//table[@id='mySubscriptionsTable']//tr[td[text()='" + labId + "']]//td[8]//button").first();
+	}
+
+	public Locator getAccessLabLinkInDropdownByLabId(String labId) {
+		return page.locator("//table[@id='mySubscriptionsTable']//tr[td[text()='" + labId + "']]//td[8]//ul//a[contains(@href,'subscriptions/launch')]").first();
+	}
+
+	public Locator getAccessLabButtonByLabId(String labId) {
+		return page.locator("//table[@id='mySubscriptionsTable']//tr[td[text()='" + labId + "']]//td[8]//a[contains(@href,'subscriptions/launch')]").first();
+	}
+
+	public Locator getLabCheckboxById(String labId) {
+		return page.locator("//table[@id='mySubscriptionsTable']//td[text()='" + labId + "']/preceding-sibling::td[contains(@class,'select-checkbox')]");
+	}
+
 	public Locator getAllTableRows() {
 		return page.locator("//table[@id='mySubscriptionsTable']//tbody//tr");
 	}
 
 	public Locator getTableRowCount() {
 		return page.locator("//table[@id='mySubscriptionsTable']//tbody//tr");
+	}
+
+	public Locator getSearchOptionDropdown() {
+		return page.locator("#searchItemDisplay");
+	}
+
+	public Locator getSearchOptionByText(String optionText) {
+		return page.locator("#searchTypes li a[data-value='" + optionText.toLowerCase() + "']");
+	}
+
+	public Locator getAllLabsSearchInput() {
+		return page.locator("#stringSearch");
+	}
+
+	public Locator getAllLabsSearchBtn() {
+		return page.locator("#doSearchBtn");
+	}
+
+	public Locator getSelectAllCheckbox() {
+		return page.locator("#mySubscriptionsTable th.select-checkbox");
+	}
+
+	public Locator getLabTileById(String labId) {
+		return page.locator("//table[@id='mySubscriptionsTable']//td[text()='" + labId + "']").first();
 	}
 }

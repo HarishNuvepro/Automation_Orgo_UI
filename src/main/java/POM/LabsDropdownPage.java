@@ -82,4 +82,8 @@ public class LabsDropdownPage {
 	public Locator getRequestNewLabLink() {
 		return page.locator("//a[text()='Request new Lab']");
 	}
+
+	public Locator getMyLabsLink() {
+		return page.locator("//a[@href='/subscriptions']");
+	}
 }

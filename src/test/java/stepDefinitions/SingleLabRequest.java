@@ -39,6 +39,9 @@ public class SingleLabRequest {
                 testData.put("TeamID", eLib.getDataFromExcel("Lab", i, 4));
                 testData.put("PlanID", eLib.getDataFromExcel("Lab", i, 5));
                 testData.put("PolicyName", eLib.getDataFromExcel("Lab", i, 7));
+                testData.put("BatchName", eLib.getDataFromExcel("Lab", i, 8));
+                testData.put("BatchDescription", eLib.getDataFromExcel("Lab", i, 9));
+                testData.put("UserEmail", eLib.getDataFromExcel("Lab", i, 10));
 
                 System.out.println("Test data loaded for TC_ID: " + tcId);
                 System.out.println("  PlanType: " + testData.get("PlanType"));
@@ -47,6 +50,9 @@ public class SingleLabRequest {
                 System.out.println("  TeamID: " + testData.get("TeamID"));
                 System.out.println("  PlanID: " + testData.get("PlanID"));
                 System.out.println("  PolicyName: " + testData.get("PolicyName"));
+                System.out.println("  BatchName: " + testData.get("BatchName"));
+                System.out.println("  BatchDescription: " + testData.get("BatchDescription"));
+                System.out.println("  UserEmail: " + testData.get("UserEmail"));
                 return;
             }
         }
