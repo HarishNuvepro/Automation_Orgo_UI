@@ -79,7 +79,29 @@ public class ExcelUtility {
 		Workbook wb = WorkbookFactory.create(fis);
 		Sheet sh = wb.getSheet(sheetName);
 		int lastRowNum = sh.getLastRowNum();
+		wb.close();
+		fis.close();
 		return lastRowNum;
+	}
+
+	public void setDataToExcel(String sheetName, int rowNum, int celNum, String data)
+			throws EncryptedDocumentException, Throwable {
+		FileInputStream fis = new FileInputStream(ConstantFilePath.excelfilepath);
+		Workbook wb = WorkbookFactory.create(fis);
+		fis.close();
+
+		Sheet sh = wb.getSheet(sheetName);
+		Row row = sh.getRow(rowNum);
+		if (row == null) row = sh.createRow(rowNum);
+
+		Cell cell = row.getCell(celNum);
+		if (cell == null) cell = row.createCell(celNum);
+		cell.setCellValue(data);
+
+		FileOutputStream fos = new FileOutputStream(ConstantFilePath.excelfilepath);
+		wb.write(fos);
+		wb.close();
+		fos.close();
 	}
 
 }

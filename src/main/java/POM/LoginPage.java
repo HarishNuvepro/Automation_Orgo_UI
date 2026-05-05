@@ -91,6 +91,11 @@ public class LoginPage {
       return page.locator("img.brand-logo");
    }
 
+   // Sysadmin logout link — <a href="/user/logout">Log out</a>
+   public Locator getSysAdminLogoutLink() {
+      return page.locator("a[href='/user/logout']");
+   }
+
    // Login error message
    public Locator getLoginErrorMsg() {
       return page.locator("#sl_loginError");

@@ -152,6 +152,6 @@ public Locator getPolicyRowByName(String policyName) {
     }
 
     public Locator getLaunchLabButton() {
-        return page.locator("#leftActionBtn");
+        return page.locator("#launchBtn");
     }
 }

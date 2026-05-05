@@ -6,7 +6,12 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class GeminiClient {
+
+    private static final Logger log = LoggerFactory.getLogger(GeminiClient.class);
 
     private static final String GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
     private static final int TIMEOUT_SECONDS = 30;
@@ -25,12 +30,12 @@ public class GeminiClient {
 
     public String getSmartLocator(String html, String failedLocator, String elementName) {
         if (apiKey == null || apiKey.isEmpty()) {
-            System.err.println("[GeminiClient] API key not configured. Set GEMINI_API_KEY environment variable.");
+            log.error("API key not configured. Set GEMINI_API_KEY environment variable.");
             return null;
         }
 
         if (html == null || html.isEmpty()) {
-            System.err.println("[GeminiClient] HTML content is empty.");
+            log.error("HTML content is empty.");
             return null;
         }
 
@@ -41,11 +46,11 @@ public class GeminiClient {
             String locator = parseLocator(response);
 
             if (locator != null && isValidLocator(locator)) {
-                System.out.println("[GeminiClient] AI suggested locator for '" + elementName + "': " + locator);
+                log.info("AI suggested locator for '{}': {}", elementName, locator);
                 return locator;
             }
         } catch (Exception e) {
-            System.err.println("[GeminiClient] Failed to get smart locator: " + e.getMessage());
+            log.error("Failed to get smart locator", e);
         }
 
         return null;
@@ -121,7 +126,7 @@ public class GeminiClient {
 
             return locator;
         } catch (Exception e) {
-            System.err.println("[GeminiClient] Parse error: " + e.getMessage());
+            log.error("Parse error", e);
             return null;
         }
     }

@@ -1,0 +1,134 @@
+{
+  "healed": {
+    "Locator@//label[contains(text(),\u0027Karthik\u0027)]": {
+      "healedLocator": "//*[contains(@id,\u0027submit\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "role",
+      "healCount": 1,
+      "lastHealedAt": 1777719094920
+    },
+    "Locator@//label[contains(text(),\u0027jack@gmail.com\u0027)]": {
+      "healedLocator": "//*[contains(@id,\u0027submit\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "role",
+      "healCount": 1,
+      "lastHealedAt": 1777978773303
+    },
+    "Locator@//label[contains(text(),\u0027Member\u0027)]": {
+      "healedLocator": "//*[contains(@id,\u0027submit\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "role",
+      "healCount": 1,
+      "lastHealedAt": 1777655426950
+    },
+    "Locator@//label[contains(text(),\u0027\u0027)]": {
+      "healedLocator": "//*[contains(@id,\u0027submit\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "new role checkbox",
+      "healCount": 1,
+      "lastHealedAt": 1777972321802
+    }
+  },
+  "failed": {
+    "Locator@#addBtn": {
+      "elementName": "create user button",
+      "failCount": 1,
+      "lastFailedAt": 1777978697033
+    },
+    "Locator@//td[text()\u003d\u0027harish143954\u0027]/preceding-sibling::td[@class\u003d\u0027 select-checkbox noVis\u0027]": {
+      "elementName": "user checkbox",
+      "failCount": 1,
+      "lastFailedAt": 1777375196852
+    },
+    "Locator@#select2-teamId-container": {
+      "elementName": "team dropdown",
+      "failCount": 1,
+      "lastFailedAt": 1777726168071
+    },
+    "Locator@#usersListTable tbody tr:first-child td.select-checkbox": {
+      "elementName": "user checkbox",
+      "failCount": 1,
+      "lastFailedAt": 1777984588940
+    },
+    "Locator@#importBtn": {
+      "elementName": "import button",
+      "failCount": 1,
+      "lastFailedAt": 1777629219970
+    },
+    "Locator@//span[@id\u003d\u0027deploymentStatus\u0027]": {
+      "elementName": "deployment status",
+      "failCount": 1,
+      "lastFailedAt": 1777983400812
+    },
+    "Locator@button.btn-success.wizardButton[data-target\u003d\u0027#confirmProvision\u0027]": {
+      "elementName": "finish button",
+      "failCount": 1,
+      "lastFailedAt": 1777631540561
+    },
+    "Locator@#sl_password": {
+      "elementName": "password field",
+      "failCount": 1,
+      "lastFailedAt": 1777640838439
+    },
+    "Locator@//li[@class\u003d\u0027dropdown\u0027]//a[@class\u003d\u0027dropdown-toggle\u0027]": {
+      "elementName": "user profile dropdown",
+      "failCount": 1,
+      "lastFailedAt": 1777640838327
+    },
+    "Locator@#addUserIntoTeamBtn": {
+      "elementName": "add to teams button",
+      "failCount": 1,
+      "lastFailedAt": 1777978017931
+    },
+    "Locator@input[name\u003d\u0027roleName\u0027][value\u003d\u00279\u0027]": {
+      "elementName": "team admin radio",
+      "failCount": 1,
+      "lastFailedAt": 1777977747411
+    },
+    "Locator@#searchTypes a[data-value\u003d\u0027email\u0027]": {
+      "elementName": "search by email",
+      "failCount": 1,
+      "lastFailedAt": 1777978308706
+    },
+    "Locator@#sl_userName": {
+      "elementName": "username field",
+      "failCount": 1,
+      "lastFailedAt": 1777640838395
+    },
+    "Locator@a[href\u003d\u0027/user/logout\u0027]": {
+      "elementName": "sysadmin logout link",
+      "failCount": 1,
+      "lastFailedAt": 1777963709814
+    },
+    "Locator@#searchTypes a[data-value\u003d\u0027name\u0027]": {
+      "elementName": "search by name",
+      "failCount": 1,
+      "lastFailedAt": 1777971052756
+    },
+    "Locator@#searchItemDisplay": {
+      "elementName": "search item display",
+      "failCount": 1,
+      "lastFailedAt": 1777973644227
+    },
+    "Locator@//button[@class\u003d\u0027qqq\u0027]": {
+      "elementName": "create user button",
+      "failCount": 2,
+      "lastFailedAt": 1777375182504
+    },
+    "Locator@#user_sign_in_button": {
+      "elementName": "sign in button",
+      "failCount": 1,
+      "lastFailedAt": 1777974435145
+    },
+    "Locator@//a[@href\u003d\u0027/users\u0027 and @class\u003d\u0027dropdown-header\u0027]": {
+      "elementName": "user tab",
+      "failCount": 1,
+      "lastFailedAt": 1777375346967
+    },
+    "Locator@//button[@id\u003d\u0027marketplace\u0027]": {
+      "elementName": "request lab button",
+      "failCount": 1,
+      "lastFailedAt": 1777631780322
+    }
+  }
+}

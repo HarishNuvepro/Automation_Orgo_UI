@@ -1,0 +1,19 @@
+2026-05-05 19:15:34.039 [main] INFO  Generic_Utility.ExecutionContext     - Created execution folder: ./test-output/2026-05-05_19-15-34
+2026-05-05 19:15:34.199 [main] INFO  Generic_Utility.ExecutionContext     - _latest → 2026-05-05_19-15-34
+2026-05-05 19:15:34.807 [main] INFO  Generic_Utility.DotEnvLoader         - Environment 'elb' loaded from C:\Users\HarishKumar\Downloads\Automation_Orgo\Automation_Orgo_UI_Test\Automation_Orgo_UI_Test\.env.elb — 10 key(s)
+2026-05-05 19:15:44.037 [main] INFO  G.ExcelToJsonConverter               - Lab sheet → lab_data.json (58 test cases)
+2026-05-05 19:15:44.574 [main] INFO  G.ExcelToJsonConverter               - User sheet → user_data.json (27 fields)
+2026-05-05 19:15:44.641 [main] INFO  G.ExcelToJsonConverter               - Credentials sheet → credentials.json (browser + negative-test values)
+2026-05-05 19:15:44.645 [main] INFO  G.ExcelToJsonConverter               - Excel → JSON complete. Output: C:\Users\HarishKumar\Downloads\Automation_Orgo\Automation_Orgo_UI_Test\Automation_Orgo_UI_Test\src\test\resources\testdata
+2026-05-05 19:15:44.674 [main] INFO  Generic_Utility.TestDataManager      - TestDataManager ready — 58 lab test cases, 27 user fields
+2026-05-05 19:15:44.674 [main] INFO  stepDefinitions.Hook                 - Run folder: ./test-output/2026-05-05_19-15-34 | Thread: main
+2026-05-05 19:15:56.608 [main] WARN  Generic_Utility.CredentialManager    - GEMINI_API_KEY not found in env or .env — using fallback from ConstantFilePath
+2026-05-05 19:15:56.613 [main] INFO  stepDefinitions.Hook                 - Browser ready | Thread: main
+2026-05-05 19:15:57.236 [main] INFO  Generic_Utility.HealingCache         - Loaded — healed: 4, known failures: 20
+2026-05-05 19:15:59.439 [main] INFO  stepDefinitions.SingleLabRequest     - [TC:TC13] Test data loaded | Thread: main
+2026-05-05 19:16:32.955 [main] INFO  stepDefinitions.BatchProvision       - All Lab IDs: 31870 31871
+2026-05-05 19:16:42.129 [main] INFO  stepDefinitions.LazyLab              - Lab 31870 status: Pending
+2026-05-05 19:16:42.141 [main] INFO  stepDefinitions.LazyLab              - Lab 31871 status: Pending
+2026-05-05 19:16:42.141 [main] INFO  stepDefinitions.LazyLab              - All 2 labs are in pending status
+2026-05-05 19:16:50.480 [main] INFO  stepDefinitions.LazyLab              - Users to process: 2
+2026-05-05 19:16:50.480 [main] INFO  stepDefinitions.LazyLab              - Processing user: qalbteststudenton27 | Lab: 31870

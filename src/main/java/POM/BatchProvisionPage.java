@@ -148,6 +148,6 @@ public class BatchProvisionPage {
     }
 
     public Locator getLazyCreateOption() {
-        return page.locator("label:has-text('Create on First Start')");
+        return page.locator("#nl_trigger_lazy");
     }
 }

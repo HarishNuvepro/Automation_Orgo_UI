@@ -54,7 +54,7 @@ public class CreateUserPage {
 	
 	
 	public Locator getUserCreationSuccessMsgTxt() {
-		return page.locator("//span[@data-notify='message' and (text()='Success')]");
+		return page.locator("//span[@data-notify='message' and (text()='Success')]").first();
 	}
 
 	

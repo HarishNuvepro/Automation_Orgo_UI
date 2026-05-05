@@ -8,7 +8,12 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class SmartDriver {
+
+    private static final Logger log = LoggerFactory.getLogger(SmartDriver.class);
 
     private static final int MAX_RETRIES = 2;
     private static final int ELEMENT_TIMEOUT = 10000;
@@ -47,7 +52,7 @@ public class SmartDriver {
                 success = true;
                 break;
             } catch (Exception e) {
-                System.out.println("[SmartDriver] Attempt " + (attempt + 1) + " failed for '" + elementName + "': " + e.getMessage());
+                log.warn("Attempt {} failed for '{}': {}", attempt + 1, elementName, e.getMessage());
 
                 if (attempt < MAX_RETRIES) {
                     if (attempt == MAX_RETRIES - 1) {
@@ -55,7 +60,7 @@ public class SmartDriver {
                         if (aiLocator != null) {
                             locator = page.locator(aiLocator);
                             workingLocator = aiLocator;
-                            System.out.println("[SmartDriver] AI suggested new locator: " + aiLocator);
+                            log.info("AI suggested new locator: {}", aiLocator);
                         }
                     }
                 }
@@ -67,7 +72,7 @@ public class SmartDriver {
             throw new RuntimeException("[SmartDriver] Element '" + elementName + "' not found after " + (MAX_RETRIES + 1) + " attempts. Original: " + selector + ", Last tried: " + workingLocator);
         }
 
-        System.out.println("[SmartDriver] Element '" + elementName + "' found with locator: " + workingLocator);
+        log.debug("Element '{}' found with locator: {}", elementName, workingLocator);
         return locator;
     }
 
@@ -82,7 +87,7 @@ public class SmartDriver {
 
             return aiLocator;
         } catch (Exception e) {
-            System.err.println("[SmartDriver] AI call failed: " + e.getMessage());
+            log.error("AI call failed", e);
             return null;
         }
     }
@@ -143,9 +148,9 @@ public class SmartDriver {
         try {
             String screenshotPath = ".\\src\\Screenshot\\" + scenarioName + "_" + sysDate() + ".png";
             page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get(screenshotPath)));
-            System.out.println("[SmartDriver] Screenshot saved: " + screenshotPath);
+            log.info("Screenshot saved: {}", screenshotPath);
         } catch (Exception e) {
-            System.err.println("[SmartDriver] Failed to take screenshot: " + e.getMessage());
+            log.error("Failed to take screenshot", e);
         }
     }
 

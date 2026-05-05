@@ -7,13 +7,18 @@ import java.net.http.HttpResponse;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class GeminiLocatorFinder {
+
+    private static final Logger log = LoggerFactory.getLogger(GeminiLocatorFinder.class);
     
     private static final String GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-latest:generateContent";
     
     public static String findElementLocator(String pageHtml, String stepDescription, String apiKey) {
         if (apiKey == null || apiKey.isEmpty()) {
-            System.err.println("[Gemini] API key not provided. Set GEMINI_API_KEY environment variable.");
+            log.error("API key not provided. Set GEMINI_API_KEY environment variable.");
             return null;
         }
         
@@ -23,7 +28,7 @@ public class GeminiLocatorFinder {
             String response = sendRequest(prompt, apiKey);
             return parseLocatorFromResponse(response);
         } catch (Exception e) {
-            System.err.println("[Gemini] Failed to find locator: " + e.getMessage());
+            log.error("Failed to find locator", e);
             return null;
         }
     }
@@ -110,7 +115,7 @@ public class GeminiLocatorFinder {
             return null;
             
         } catch (Exception e) {
-            System.err.println("[Gemini] Failed to parse response: " + e.getMessage());
+            log.error("Failed to parse response", e);
             return null;
         }
     }
@@ -131,9 +136,9 @@ public class GeminiLocatorFinder {
         String apiKey = System.getenv("GEMINI_API_KEY");
         if (apiKey != null && !apiKey.isEmpty()) {
             String locator = findElementLocator(testHtml, step, apiKey);
-            System.out.println("Generated locator: " + locator);
+            log.info("Generated locator: {}", locator);
         } else {
-            System.out.println("Set GEMINI_API_KEY to test");
+            log.info("Set GEMINI_API_KEY to test");
         }
     }
 }

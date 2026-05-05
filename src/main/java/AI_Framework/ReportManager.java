@@ -13,7 +13,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class ReportManager {
+
+    private static final Logger log = LoggerFactory.getLogger(ReportManager.class);
 
     private static final String REPORT_PATH = "reports/healing_report.json";
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -29,7 +34,7 @@ public class ReportManager {
         try {
             Files.createDirectories(Paths.get("reports"));
         } catch (IOException e) {
-            System.err.println("[ReportManager] Failed to create reports directory: " + e.getMessage());
+            log.error("Failed to create reports directory", e);
         }
     }
 
@@ -44,7 +49,7 @@ public class ReportManager {
         suggestions.add(suggestion);
         appendToReport(suggestion);
 
-        System.out.println("[ReportManager] Logged suggestion for '" + element + "': " + suggestedLocator);
+        log.info("Logged suggestion for '{}': {}", element, suggestedLocator);
     }
 
     private void appendToReport(HealingSuggestion suggestion) {
@@ -62,7 +67,7 @@ public class ReportManager {
                 }
             }
         } catch (Exception e) {
-            System.out.println("[ReportManager] Reading existing report: " + e.getMessage());
+            log.warn("Reading existing report failed", e);
         }
 
         JsonObject obj = new JsonObject();
@@ -77,7 +82,7 @@ public class ReportManager {
         try (FileWriter writer = new FileWriter(REPORT_PATH)) {
             GSON.toJson(array, writer);
         } catch (IOException e) {
-            System.err.println("[ReportManager] Failed to write report: " + e.getMessage());
+            log.error("Failed to write report", e);
         }
     }
 
@@ -97,7 +102,7 @@ public class ReportManager {
         try (FileWriter writer = new FileWriter(REPORT_PATH)) {
             GSON.toJson(array, writer);
         } catch (IOException e) {
-            System.err.println("[ReportManager] Failed to save full report: " + e.getMessage());
+            log.error("Failed to save full report", e);
         }
     }
 

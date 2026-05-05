@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Login Module Suite" verbose="1" data-provider-thread-count="3">
+    <listeners>
+        <listener class-name="runner.ExecutionSetupListener"/>
+        <listener class-name="runner.RetryListener"/>
+    </listeners>
+    <test name="Login Tests">
+        <classes>
+            <class name="runner.LoginModuleRunner"/>
+        </classes>
+    </test>
+</suite>

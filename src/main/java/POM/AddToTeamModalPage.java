@@ -23,16 +23,22 @@ public class AddToTeamModalPage {
 		return page.locator("#teamId");
 	}
 
+	// Clicks this to open the Select2 dropdown and reveal the search field
+	public Locator getTeamSelect2Container() {
+		return page.locator("#select2-teamId-container");
+	}
+
 	public Locator getTeamSearchField() {
 		return page.locator(".select2-search__field");
 	}
 
+	// Exact-text match — selects only the option whose full text equals teamName
 	public Locator getTeamOption(String teamName) {
-		return page.locator(".select2-results__option").filter(new Locator.FilterOptions().setHasText(teamName));
+		return page.locator("//li[contains(@class,'select2-results__option') and normalize-space()='" + teamName + "']");
 	}
 
 	public Locator getTeamAdminRadioBtn() {
-		return page.locator("input[name='roleName'][value='9']");
+		return page.locator("input[name='roleName'][value='29']");
 	}
 
 	public Locator getTeamMemberRadioBtn() {

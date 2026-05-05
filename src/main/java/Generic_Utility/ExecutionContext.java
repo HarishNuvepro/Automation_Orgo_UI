@@ -12,7 +12,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.FileAppender;
+
 public class ExecutionContext {
+
+    private static final Logger log = LoggerFactory.getLogger(ExecutionContext.class);
 
     private static final String TEST_OUTPUT_BASE = "./test-output";
     private static final int MAX_FOLDERS_TO_KEEP = 7;
@@ -62,7 +70,7 @@ public class ExecutionContext {
                         sdf.parse(folderName);
                         folders.add(dir);
                     } catch (Exception e) {
-                        System.out.println("[ExecutionContext] Could not parse folder date: " + folderName);
+                        log.warn("Could not parse folder date: {}", folderName);
                     }
                 }
             }
@@ -82,10 +90,10 @@ public class ExecutionContext {
             int toDelete = folders.size() - MAX_FOLDERS_TO_KEEP;
             for (int i = 0; i < toDelete; i++) {
                 deleteDirectory(folders.get(i));
-                System.out.println("[ExecutionContext] Deleted old folder: " + folders.get(i).getFileName());
+                log.info("Deleted old run folder: {}", folders.get(i).getFileName());
             }
         } catch (Exception e) {
-            System.err.println("[ExecutionContext] Error cleaning old folders: " + e.getMessage());
+            log.error("Error cleaning old folders", e);
         }
     }
 
@@ -114,9 +122,52 @@ public class ExecutionContext {
             Files.createDirectories(Paths.get(screenshotFolder));
             Files.createDirectories(Paths.get(reportFolder));
             Files.createDirectories(Paths.get(logsFolder));
-            System.out.println("[ExecutionContext] Created execution folder: " + runFolder);
+            reconfigureLogFile(logsFolder + "/test.log");
+            log.info("Created execution folder: {}", runFolder);
+            updateLatestLink(runFolder);
         } catch (IOException e) {
-            System.err.println("[ExecutionContext] Failed to create execution folder: " + e.getMessage());
+            log.error("Failed to create execution folder", e);
+        }
+    }
+
+    // Creates/updates a _latest junction in test-output/ pointing to the current run.
+    // _latest sorts before timestamp folders (underscore < digits), so it appears at the top.
+    private static void updateLatestLink(String targetFolder) {
+        try {
+            Path latestLink  = Paths.get(TEST_OUTPUT_BASE, "_latest").toAbsolutePath();
+            Path targetPath  = Paths.get(targetFolder).toAbsolutePath();
+
+            // Remove existing junction with "rd" (safe — does NOT delete junction target contents)
+            if (Files.exists(latestLink) || Files.isSymbolicLink(latestLink)) {
+                new ProcessBuilder("cmd", "/c", "rd \"" + latestLink + "\"")
+                        .start().waitFor();
+            }
+
+            // Create a directory junction: mklink /J "_latest" "<runFolder>"
+            new ProcessBuilder("cmd", "/c",
+                    "mklink /J \"" + latestLink + "\" \"" + targetPath + "\"")
+                    .start().waitFor();
+
+            log.info("_latest → {}", targetPath.getFileName());
+        } catch (Exception e) {
+            log.debug("Could not update _latest junction: {}", e.getMessage());
+        }
+    }
+
+    private static void reconfigureLogFile(String newLogPath) {
+        try {
+            LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
+            ch.qos.logback.classic.Logger root =
+                    lc.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME);
+            FileAppender<ILoggingEvent> fa =
+                    (FileAppender<ILoggingEvent>) root.getAppender("FILE");
+            if (fa != null) {
+                fa.stop();
+                fa.setFile(newLogPath);
+                fa.start();
+            }
+        } catch (Exception e) {
+            log.warn("Could not reconfigure log file: {}", e.getMessage());
         }
     }
 

@@ -14,7 +14,7 @@ public class UserPage {
 	}
 
 	public Locator getCreateUserBtn() {
-		return page.locator("//button[@class='qqq']");
+		return page.locator("#addBtn");
 	}
 
 	public Locator getUserViewBtn() {
@@ -54,12 +54,12 @@ public class UserPage {
 	}
 
 	public Locator getSelectUserCheckBox() {
-		return page.locator("//td[text()='harish2912']/preceding-sibling::td[@class=' select-checkbox noVis']");
+		return page.locator("//td[contains(@class,'select-checkbox') and contains(@class,'noVis')]");
 	}
 
 	public Locator getSelectUserCheckBoxByLoginId(String loginId) {
-		return page.locator(
-				"//table[@id='usersListTable']//tr[td[text()='" + loginId + "']]//td[@class=' select-checkbox noVis']");
+		return page.locator("//table[@id='usersListTable']//tr[td[normalize-space()='" + loginId
+				+ "']]//td[contains(@class,'select-checkbox')]").first();
 	}
 
 	public Locator getUserDeleteBtn() {
@@ -147,11 +147,11 @@ public class UserPage {
 	}
 
 	public Locator getUseraddedIntoTeamsuccessMsg() {
-		return page.locator("//span[text()='Success']");
+		return page.locator("//span[text()='Success']").first();
 	}
 
 	public Locator getDeleteSuccessMsg() {
-		return page.locator("//span[@data-notify='message' and (text()='Success')]");
+		return page.locator("//span[@data-notify='message' and (text()='Success')]").first();
 	}
 
 	public Locator getSearchItemDisplay() {

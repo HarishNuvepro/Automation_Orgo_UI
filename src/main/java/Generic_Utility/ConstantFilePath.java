@@ -2,7 +2,7 @@ package Generic_Utility;
 
 public interface ConstantFilePath {
 
-	String excelfilepath = ".\\src\\main\\resources\\TestData_Trail.xlsx";
+	String excelfilepath = ".\\src\\main\\resources\\TestData_Improved.xlsx";
 
 	String geminiApiKeyBase64 = "QUl6YVN5RGgxTmU1S2JwUVlHQ3BtMU5hdm02WGdXemxYRWVlRTBZ";
 

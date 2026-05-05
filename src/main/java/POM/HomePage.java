@@ -102,7 +102,7 @@ public class HomePage {
 	}
 
 	public Locator getMyLabsTab() {
-		return page.locator("//a[@href='#MyServiceTab']");
+		return page.locator("a[href*='MyService'], a[href='#MyServiceTab']");
 	}
 
 	public Locator getPowerBIDashboardTab() {

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($excel = New-Object -ComObject Excel.Application; $excel.Visible = $false; $excel.DisplayAlerts = $false; $wb = $excel.Workbooks.Open\\(\"c:\\\\Users\\\\HarishKumar\\\\Downloads\\\\Automation_Orgo\\\\Automation_Orgo_UI_Test\\\\Automation_Orgo_UI_Test\\\\src\\\\main\\\\resources\\\\TestData_Trail.xlsx\"\\); $sheet = $wb.Sheets.Item\\(\"Lab\"\\); for \\($r = 64; $r -le 68; $r++\\) { $line = \"Row$\\($r-1\\)\\(0idx\\): \"; for \\($c = 1; $c -le 12; $c++\\) { $line += \"[$\\($c-1\\)]=$\\($sheet.Cells.Item\\($r,$c\\).Text\\)  \" }; Write-Host $line }; $h = \"HDR: \"; for \\($c = 1; $c -le 12; $c++\\) { $h += \"[$\\($c-1\\)]=$\\($sheet.Cells.Item\\(25,$c\\).Text\\)  \" }; Write-Host $h; $wb.Close\\($false\\); $excel.Quit\\(\\); [System.Runtime.InteropServices.Marshal]::ReleaseComObject\\($excel\\) | Out-Null)",
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\HarishKumar\\\\Downloads\\\\Automation_Orgo\\\\Automation_Orgo_UI_Test\\\\Automation_Orgo_UI_Test\" -Recurse -Include \"*.java\", \"*.xml\", \"*.feature\", \"pom.xml\")",
+      "Bash(Select-Object FullName)",
+      "Bash(Sort-Object FullName)"
+    ]
+  }
+}

@@ -188,6 +188,6 @@ public class LabsPage {
 	}
 
 	public Locator getLabTileById(String labId) {
-		return page.locator("//table[@id='mySubscriptionsTable']//td[text()='" + labId + "']").first();
+		return page.locator("//a[contains(@href,'subscriptions/launch?id=" + labId + "')]");
 	}
 }

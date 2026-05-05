@@ -15,7 +15,12 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.Position;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class SelfHealingLocator {
+
+    private static final Logger log = LoggerFactory.getLogger(SelfHealingLocator.class);
     
     private static final int MAX_RETRIES = 2;
     private static final int ELEMENT_TIMEOUT = 10000;
@@ -74,121 +79,148 @@ public class SelfHealingLocator {
     
     private Locator performActionWithHealing(Locator locator, String stepDescription, ActionType actionType, String value) {
         String originalLocator = getLocatorString(locator);
-        int retryCount = 0;
-        String healingMethod = "none";
+        int    retryCount      = 0;
+        String healingMethod   = "none";
         String healedLocatorStr = originalLocator;
-        Locator currentLocator = locator;
-        
+        Locator currentLocator  = locator;
+
+        HealingCache cache = HealingCache.getInstance();
+
+        // ── CACHE LOOK-UP: try the previously healed locator first ───────────
+        String cachedLocator = cache.getHealedLocator(originalLocator);
+        if (cachedLocator != null) {
+            log.info("Cache HIT for '{}' — trying cached: {}", stepDescription, cachedLocator);
+            try {
+                Locator cached = page.locator(cachedLocator);
+                cached.first().waitFor(new Locator.WaitForOptions().setTimeout(FALLBACK_TIMEOUT));
+                executeAction(cached, actionType, value);
+                // Cache still valid — record the reuse
+                addHealingRecord(originalLocator, cachedLocator, "cache", 0, "SUCCESS", stepDescription);
+                log.info("Cache HIT resolved '{}' instantly", stepDescription);
+                return cached;
+            } catch (Exception cacheEx) {
+                log.warn("Cached locator stale, invalidating: {}", cachedLocator);
+                cache.invalidate(originalLocator);
+                // Fall through to normal healing flow
+            }
+        }
+
+        // ── NORMAL HEALING LOOP ──────────────────────────────────────────────
         while (retryCount <= MAX_RETRIES) {
             try {
-                switch (actionType) {
-                    case CLICK:
-                        currentLocator.click(new Locator.ClickOptions().setTimeout(ELEMENT_TIMEOUT));
-                        break;
-                    case FILL:
-                        currentLocator.fill(value);
-                        break;
-                    case CLEAR:
-                        currentLocator.click();
-                        currentLocator.press("Control+a");
-                        currentLocator.press("Delete");
-                        break;
-                    case GET_TEXT:
-                        currentLocator.textContent();
-                        break;
-                    case IS_VISIBLE:
-                        currentLocator.isVisible();
-                        break;
-                    case HOVER:
-                        currentLocator.hover();
-                        break;
-                    case SELECT_OPTION:
-                        currentLocator.selectOption(value);
-                        break;
-                }
-                
+                executeAction(currentLocator, actionType, value);
+
                 if (retryCount > 0) {
-                    HealingRecord record = new HealingRecord();
-                    record.originalLocator = originalLocator;
-                    record.healedLocator = healedLocatorStr;
-                    record.healingMethod = healingMethod;
-                    record.retryCount = retryCount;
-                    record.finalStatus = "SUCCESS";
-                    record.stepDescription = stepDescription;
-                    record.timestamp = System.currentTimeMillis();
-                    healingRecords.add(record);
-                    System.out.println("[Self-Healing] SUCCESS - Locator healed after " + retryCount + " attempt(s)");
-                    System.out.println("[Self-Healing] Original: " + originalLocator + " -> Healed: " + healedLocatorStr + " (Method: " + healingMethod + ")");
+                    addHealingRecord(originalLocator, healedLocatorStr, healingMethod, retryCount, "SUCCESS", stepDescription);
+                    log.info("SUCCESS after {} attempt(s): {} -> {} ({})", retryCount, originalLocator, healedLocatorStr, healingMethod);
+                    // Persist the successful heal so future runs skip this loop
+                    cache.recordSuccess(originalLocator, healedLocatorStr, healingMethod, stepDescription);
                 }
-                
+
                 return currentLocator;
-                
+
             } catch (Exception e) {
                 retryCount++;
-                String errorType = e.getClass().getSimpleName();
-                System.out.println("[Self-Healing] Attempt " + retryCount + " FAILED (" + errorType + "): " + e.getMessage());
-                
+                log.warn("Attempt {} FAILED ({}): {}", retryCount, e.getClass().getSimpleName(), e.getMessage());
+
                 if (retryCount <= MAX_RETRIES) {
-                    if (retryCount == 1) {
-                        if (actionType != ActionType.CLEAR) {
-                            System.out.println("[Self-Healing] Trying fallback locators...");
-                            List<String> fallbackLocators = generateFallbackLocators(locator, stepDescription);
-                            for (String fallback : fallbackLocators) {
-                                try {
-                                    currentLocator = page.locator(fallback);
-                                    currentLocator.first().waitFor(new Locator.WaitForOptions().setTimeout(FALLBACK_TIMEOUT));
-                                    healedLocatorStr = fallback;
-                                    healingMethod = "fallback";
-                                    System.out.println("[Self-Healing] Fallback locator FOUND: " + fallback);
-                                    break;
-                                } catch (Exception ex) {
-                                    System.out.println("[Self-Healing] Fallback locator failed: " + fallback);
-                                }
+
+                    // ── Retry 1: fallback locator library ───────────────────
+                    if (retryCount == 1 && actionType != ActionType.CLEAR) {
+                        log.debug("Trying fallback locators...");
+                        for (String fallback : generateFallbackLocators(locator, stepDescription)) {
+                            try {
+                                currentLocator = page.locator(fallback);
+                                currentLocator.first().waitFor(new Locator.WaitForOptions().setTimeout(FALLBACK_TIMEOUT));
+                                healedLocatorStr = fallback;
+                                healingMethod    = "fallback";
+                                log.info("Fallback FOUND: {}", fallback);
+                                break;
+                            } catch (Exception ex) {
+                                // try next fallback
                             }
                         }
-                    } else if (retryCount == 2) {
-                        if (actionType != ActionType.CLEAR && geminiApiKey != null && !geminiApiKey.isEmpty()) {
-                            System.out.println("[Self-Healing] Trying AI-generated locator...");
+                    }
+
+                    // ── Retry 2: Gemini AI (skipped if known failure) ────────
+                    if (retryCount == 2 && actionType != ActionType.CLEAR
+                            && geminiApiKey != null && !geminiApiKey.isEmpty()) {
+
+                        if (cache.isKnownGeminiFailure(originalLocator)) {
+                            log.info("Skipping Gemini — known failure for: {}", stepDescription);
+                        } else {
+                            log.debug("Trying Gemini AI...");
                             try {
                                 String aiLocator = GeminiLocatorFinder.findElementLocator(
-                                    page.content(), 
-                                    stepDescription, 
-                                    geminiApiKey
-                                );
+                                        page.content(), stepDescription, geminiApiKey);
                                 if (aiLocator != null && !aiLocator.isEmpty()) {
                                     currentLocator = page.locator(aiLocator);
                                     currentLocator.first().waitFor(new Locator.WaitForOptions().setTimeout(FALLBACK_TIMEOUT));
                                     healedLocatorStr = aiLocator;
-                                    healingMethod = "AI";
-                                    System.out.println("[Self-Healing] AI-generated locator FOUND: " + aiLocator);
+                                    healingMethod    = "AI";
+                                    log.info("Gemini AI locator FOUND: {}", aiLocator);
+                                } else {
+                                    cache.recordGeminiFailure(originalLocator, stepDescription);
                                 }
                             } catch (Exception ex) {
-                                System.out.println("[Self-Healing] AI locator failed: " + ex.getMessage());
+                                log.warn("Gemini failed: {}", ex.getMessage());
+                                cache.recordGeminiFailure(originalLocator, stepDescription);
                             }
                         }
                     }
                 }
             }
         }
-        
-        HealingRecord record = new HealingRecord();
-        record.originalLocator = originalLocator;
-        record.healedLocator = healedLocatorStr;
-        record.healingMethod = healingMethod;
-        record.retryCount = retryCount;
-        record.finalStatus = "FAILED";
-        record.stepDescription = stepDescription;
-        record.timestamp = System.currentTimeMillis();
-        healingRecords.add(record);
-        
-        System.out.println("[Self-Healing] FAILED - All healing attempts exhausted for: " + stepDescription);
-        System.out.println("[Self-Healing] Original: " + originalLocator + ", Tried: " + healedLocatorStr + ", Method: " + healingMethod);
-        
+
+        // ── All retries exhausted ────────────────────────────────────────────
+        addHealingRecord(originalLocator, healedLocatorStr, healingMethod, retryCount, "FAILED", stepDescription);
+        log.error("FAILED — all attempts exhausted for: {}", stepDescription);
         reportLogger.saveHealingReport(healingRecords);
         takeFailureScreenshot(stepDescription);
-        
-        throw new RuntimeException("Self-healing failed after " + MAX_RETRIES + " retries. Original: " + 
-            originalLocator + ", Healed: " + healedLocatorStr + ", Method: " + healingMethod);
+
+        throw new RuntimeException("Self-healing failed after " + MAX_RETRIES + " retries. Original: "
+                + originalLocator + ", Tried: " + healedLocatorStr + ", Method: " + healingMethod);
+    }
+
+    private void executeAction(Locator locator, ActionType actionType, String value) {
+        switch (actionType) {
+            case CLICK:
+                locator.click(new Locator.ClickOptions().setTimeout(ELEMENT_TIMEOUT));
+                break;
+            case FILL:
+                locator.fill(value);
+                break;
+            case CLEAR:
+                locator.click();
+                locator.press("Control+a");
+                locator.press("Delete");
+                break;
+            case GET_TEXT:
+                locator.textContent();
+                break;
+            case IS_VISIBLE:
+                locator.isVisible();
+                break;
+            case HOVER:
+                locator.hover();
+                break;
+            case SELECT_OPTION:
+                locator.selectOption(value);
+                break;
+        }
+    }
+
+    private void addHealingRecord(String original, String healed, String method,
+                                  int retries, String status, String step) {
+        HealingRecord r = new HealingRecord();
+        r.originalLocator = original;
+        r.healedLocator   = healed;
+        r.healingMethod   = method;
+        r.retryCount      = retries;
+        r.finalStatus     = status;
+        r.stepDescription = step;
+        r.timestamp       = System.currentTimeMillis();
+        healingRecords.add(r);
     }
     
     private List<String> generateFallbackLocators(Locator locator, String stepDescription) {
@@ -350,10 +382,10 @@ public class SelfHealingLocator {
     
     private void takeFailureScreenshot(String scenarioName) {
         try {
-            WebDriverUtility util = new WebDriverUtility();
-            util.takeScreenshot(page, "healing_failed_" + scenarioName);
+            String path = ExecutionContext.getScreenshotFolder() + "/healing_failed_" + scenarioName;
+            new WebDriverUtility().takeScreenshot(page, path);
         } catch (Exception e) {
-            System.out.println("[Self-Healing] Failed to take screenshot: " + e.getMessage());
+            log.warn("Failed to take healing screenshot: {}", e.getMessage());
         }
     }
     

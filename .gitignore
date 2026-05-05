@@ -1,1 +1,4 @@
 /target/
+.env
+.env.*
+src/test/resources/testdata/

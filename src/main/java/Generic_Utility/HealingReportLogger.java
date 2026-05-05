@@ -12,7 +12,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class HealingReportLogger {
+
+    private static final Logger log = LoggerFactory.getLogger(HealingReportLogger.class);
     
     private String customReportFolder;
     
@@ -45,10 +50,10 @@ public class HealingReportLogger {
                 writer.write(json);
             }
             
-            System.out.println("[HealingReport] Saved " + records.size() + " healing records to " + reportPath);
+            log.info("Saved {} healing records to {}", records.size(), reportPath);
             
         } catch (IOException e) {
-            System.err.println("[HealingReport] Failed to save healing report: " + e.getMessage());
+            log.error("Failed to save healing report", e);
         }
     }
     

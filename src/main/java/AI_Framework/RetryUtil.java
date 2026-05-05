@@ -2,7 +2,12 @@ package AI_Framework;
 
 import java.util.function.Supplier;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class RetryUtil {
+
+    private static final Logger log = LoggerFactory.getLogger(RetryUtil.class);
 
     private static final int DEFAULT_MAX_RETRIES = 2;
     private static final long DEFAULT_DELAY_MS = 1000;
@@ -29,7 +34,7 @@ public class RetryUtil {
             } catch (Exception e) {
                 attempts++;
                 lastException = e;
-                System.out.println("[RetryUtil] Attempt " + attempts + " failed for '" + operationName + "': " + e.getMessage());
+                log.warn("Attempt {} failed for '{}': {}", attempts, operationName, e.getMessage());
 
                 if (attempts <= maxRetries) {
                     sleep(delayMs);
@@ -58,7 +63,7 @@ public class RetryUtil {
             } catch (Exception e) {
                 attempts++;
                 lastException = e;
-                System.out.println("[RetryUtil] Attempt " + attempts + "/" + fixedRetries + " failed for '" + operationName + "'");
+                log.warn("Attempt {}/{} failed for '{}'", attempts, fixedRetries, operationName);
 
                 if (attempts < fixedRetries) {
                     sleep(delayMs);

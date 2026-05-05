@@ -2,108 +2,107 @@ package stepDefinitions;
 
 import com.microsoft.playwright.Locator;
 import org.testng.Assert;
+import Generic_Utility.CredentialManager;
 import Util.Pages;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import Generic_Utility.ExcelUtility;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Login {
 
-	ExcelUtility eLib = new ExcelUtility();
+    private static final Logger log = LoggerFactory.getLogger(Login.class);
 
-	@Given("Open browser and enter the url")
-	public void open_browser_and_enter_the_url() throws Throwable {
-		System.out.println("Browser setup handled in Hook class");
-	}
+    @Given("Open browser and enter the url")
+    public void open_browser_and_enter_the_url() {
+        log.debug("Browser setup handled in Hook");
+    }
 
-	@Given("Login page should display")
-	public void login_page_should_display() {
-		try {
-			if (Hook.base != null && Hook.base.shDriver != null) {
-				Hook.base.shDriver.isVisible(Pages.LoginPage.getUsernameTxt(), "username field");
-				Hook.base.shDriver.isVisible(Pages.LoginPage.getPasswordTxt(), "password field");
-				System.out.println("Login page displayed");
-			} else {
-				System.out.println("ShDriver not initialized");
-			}
-		} catch (Exception e) {
-			System.out.println("Login page validation: " + e.getMessage());
-		} finally {
-			if (Hook.base != null && Hook.base.shDriver != null) {
-				Hook.base.shDriver.saveHealingReport();
-			}
-		}
-	}
+    @Given("Login page should display")
+    public void login_page_should_display() {
+        try {
+            Hook.base().shDriver.isVisible(Pages.getLoginPage().getUsernameTxt(), "username field");
+            Hook.base().shDriver.isVisible(Pages.getLoginPage().getPasswordTxt(), "password field");
+        } catch (Exception e) {
+            log.warn("Login page validation: {}", e.getMessage());
+        } finally {
+            if (Hook.base() != null && Hook.base().shDriver != null) {
+                Hook.base().shDriver.saveHealingReport();
+            }
+        }
+    }
 
-	@When("Enter valid username and invalid password")
-	public void enter_valid_username_and_invalid_password() throws Throwable {
-		String username = eLib.getDataFromExcel("Credentials", 15, 1);
-		String password = eLib.getDataFromExcel("Credentials", 17, 1);
-		Hook.base.shDriver.fill(Pages.LoginPage.getUsernameTxt(), username, "username");
-		Hook.base.shDriver.fill(Pages.LoginPage.getPasswordTxt(), password, "password");
-		System.out.println("Entered valid username and invalid password");
-	}
+    @When("Enter valid username and invalid password")
+    public void enter_valid_username_and_invalid_password() throws Throwable {
+        Hook.base().shDriver.fill(Pages.getLoginPage().getUsernameTxt(), CredentialManager.getTenantAdminUsername(), "username");
+        Hook.base().shDriver.fill(Pages.getLoginPage().getPasswordTxt(), CredentialManager.getInvalidPassword(), "password");
+    }
 
-	@When("Enter invalid username and valid password")
-	public void enter_invalid_username_and_valid_password() throws Throwable {
-		String username = eLib.getDataFromExcel("Credentials", 18, 1);
-		String password = eLib.getDataFromExcel("Credentials", 16, 1);
-		Hook.base.shDriver.fill(Pages.LoginPage.getUsernameTxt(), username, "username");
-		Hook.base.shDriver.fill(Pages.LoginPage.getPasswordTxt(), password, "password");
-		System.out.println("Entered invalid username and valid password");
-	}
+    @When("Enter invalid username and valid password")
+    public void enter_invalid_username_and_valid_password() throws Throwable {
+        Hook.base().shDriver.fill(Pages.getLoginPage().getUsernameTxt(), CredentialManager.getInvalidUsername(), "username");
+        Hook.base().shDriver.fill(Pages.getLoginPage().getPasswordTxt(), CredentialManager.getTenantAdminPassword(), "password");
+    }
 
-	@When("Enter invalid username and invalid password")
-	public void enter_invalid_username_and_invalid_password() throws Throwable {
-		String username = eLib.getDataFromExcel("Credentials", 18, 1);
-		String password = eLib.getDataFromExcel("Credentials", 17, 1);
-		Hook.base.shDriver.fill(Pages.LoginPage.getUsernameTxt(), username, "username");
-		Hook.base.shDriver.fill(Pages.LoginPage.getPasswordTxt(), password, "password");
-		System.out.println("Entered invalid username and invalid password");
-	}
+    @When("Enter invalid username and invalid password")
+    public void enter_invalid_username_and_invalid_password() throws Throwable {
+        Hook.base().shDriver.fill(Pages.getLoginPage().getUsernameTxt(), CredentialManager.getInvalidUsername(), "username");
+        Hook.base().shDriver.fill(Pages.getLoginPage().getPasswordTxt(), CredentialManager.getInvalidPassword(), "password");
+    }
 
-	@When("Enter empty username and password")
-	public void enter_empty_username_and_password() throws Throwable {
-		Hook.base.shDriver.fill(Pages.LoginPage.getUsernameTxt(), "", "username");
-		Hook.base.shDriver.fill(Pages.LoginPage.getPasswordTxt(), "", "password");
-		System.out.println("Entered empty username and password");
-	}
+    @When("Enter empty username and password")
+    public void enter_empty_username_and_password() {
+        Hook.base().shDriver.fill(Pages.getLoginPage().getUsernameTxt(), "", "username");
+        Hook.base().shDriver.fill(Pages.getLoginPage().getPasswordTxt(), "", "password");
+    }
 
-	@When("click on Login")
-	public void click_on_login() throws Throwable {
-		Hook.base.shDriver.click(Pages.LoginPage.getSignInBtn(), "sign in button");
-	}
+    @When("Enter empty username and valid password")
+    public void enter_empty_username_and_valid_password() {
+        Hook.base().shDriver.fill(Pages.getLoginPage().getUsernameTxt(), "", "username");
+        Hook.base().shDriver.fill(Pages.getLoginPage().getPasswordTxt(), CredentialManager.getTenantAdminPassword(), "password");
+    }
 
-	@Then("validate proper Home page is displayed")
-	public void validate_proper_home_page_is_displayed() throws InterruptedException {
-		try {
-			Locator homeElement = Pages.HomePage.getOrganizationDropdown();
-			boolean isDisplayed = Hook.base.shDriver.isVisible(homeElement, "organization dropdown");
-			Assert.assertTrue(isDisplayed, "Home page should be displayed");
-			System.out.println("Home page is displayed successfully with all key elements");
-		} catch (Exception e) {
-			System.out.println("Home page validation: " + e.getMessage());
-		} finally {
-			if (Hook.base != null && Hook.base.shDriver != null) {
-				Hook.base.shDriver.saveHealingReport();
-			}
-		}
-	}
+    @When("Enter valid username and empty password")
+    public void enter_valid_username_and_empty_password() {
+        Hook.base().shDriver.fill(Pages.getLoginPage().getUsernameTxt(), CredentialManager.getTenantAdminUsername(), "username");
+        Hook.base().shDriver.fill(Pages.getLoginPage().getPasswordTxt(), "", "password");
+    }
 
-	@Then("validate error message is displayed")
-	public void validate_error_message_is_displayed() {
-		try {
-			Locator errorMsg = Pages.LoginPage.getLoginErrorMsg();
-			boolean isDisplayed = Hook.base.shDriver.isVisible(errorMsg, "login error message");
-			Assert.assertTrue(isDisplayed, "Error message should be displayed");
-			System.out.println("Error message displayed: " + errorMsg.textContent());
-		} catch (Exception e) {
-			System.out.println("Error message validation: " + e.getMessage());
-		} finally {
-			if (Hook.base != null && Hook.base.shDriver != null) {
-				Hook.base.shDriver.saveHealingReport();
-			}
-		}
-	}
+    @When("click on Login")
+    public void click_on_login() {
+        Hook.base().shDriver.click(Pages.getLoginPage().getSignInBtn(), "sign in button");
+    }
+
+    @Then("validate proper Home page is displayed")
+    public void validate_proper_home_page_is_displayed() {
+        try {
+            Locator homeElement = Pages.getHomePage().getOrganizationDropdown();
+            boolean isDisplayed = Hook.base().shDriver.isVisible(homeElement, "organization dropdown");
+            Assert.assertTrue(isDisplayed, "Home page should be displayed");
+        } catch (Exception e) {
+            log.warn("Home page validation: {}", e.getMessage());
+        } finally {
+            if (Hook.base() != null && Hook.base().shDriver != null) {
+                Hook.base().shDriver.saveHealingReport();
+            }
+        }
+    }
+
+    @Then("validate error message is displayed")
+    public void validate_error_message_is_displayed() {
+        try {
+            Locator errorMsg = Pages.getLoginPage().getLoginErrorMsg();
+            boolean isDisplayed = Hook.base().shDriver.isVisible(errorMsg, "login error message");
+            Assert.assertTrue(isDisplayed, "Error message should be displayed");
+            log.info("Error message displayed: {}", errorMsg.textContent());
+        } catch (Exception e) {
+            log.warn("Error message validation: {}", e.getMessage());
+        } finally {
+            if (Hook.base() != null && Hook.base().shDriver != null) {
+                Hook.base().shDriver.saveHealingReport();
+            }
+        }
+    }
 }
