@@ -1,134 +1,831 @@
 {
   "healed": {
-    "Locator@//label[contains(text(),\u0027Karthik\u0027)]": {
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732847\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32847",
+      "healCount": 1,
+      "lastHealedAt": 1779460492363
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732673\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32673",
+      "healCount": 1,
+      "lastHealedAt": 1779433579040
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732841\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32841",
+      "healCount": 1,
+      "lastHealedAt": 1779460224209
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732667\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32667",
+      "healCount": 1,
+      "lastHealedAt": 1779433377849
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732836\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32836",
+      "healCount": 1,
+      "lastHealedAt": 1779459889035
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732680\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32680",
+      "healCount": 1,
+      "lastHealedAt": 1779434048709
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732674\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32674",
+      "healCount": 1,
+      "lastHealedAt": 1779433646101
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732842\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32842",
+      "healCount": 1,
+      "lastHealedAt": 1779460291250
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732835\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32835",
+      "healCount": 1,
+      "lastHealedAt": 1779459821996
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732876\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32876",
+      "healCount": 1,
+      "lastHealedAt": 1779460829228
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732651\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32651",
+      "healCount": 1,
+      "lastHealedAt": 1779432908371
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732679\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32679",
+      "healCount": 1,
+      "lastHealedAt": 1779433981657
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732882\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32882",
+      "healCount": 1,
+      "lastHealedAt": 1779461164394
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732883\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32883",
+      "healCount": 1,
+      "lastHealedAt": 1779461231424
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732681\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32681",
+      "healCount": 1,
+      "lastHealedAt": 1779434115763
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732677\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32677",
+      "healCount": 1,
+      "lastHealedAt": 1779433847380
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732672\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32672",
+      "healCount": 1,
+      "lastHealedAt": 1779433511988
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732839\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32839",
+      "healCount": 1,
+      "lastHealedAt": 1779460090119
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732879\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32879",
+      "healCount": 1,
+      "lastHealedAt": 1779460963299
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732678\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32678",
+      "healCount": 1,
+      "lastHealedAt": 1779433914613
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732834\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32834",
+      "healCount": 1,
+      "lastHealedAt": 1779459754959
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732843\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32843",
+      "healCount": 1,
+      "lastHealedAt": 1779460358279
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732848\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32848",
+      "healCount": 1,
+      "lastHealedAt": 1779460559399
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732650\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32650",
+      "healCount": 1,
+      "lastHealedAt": 1779432841306
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732676\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32676",
+      "healCount": 1,
+      "lastHealedAt": 1779433780346
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732659\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32659",
+      "healCount": 1,
+      "lastHealedAt": 1779433042473
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732671\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32671",
+      "healCount": 1,
+      "lastHealedAt": 1779433444924
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732850\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32850",
+      "healCount": 1,
+      "lastHealedAt": 1779460693484
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732884\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32884",
+      "healCount": 1,
+      "lastHealedAt": 1779461298461
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732648\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32648",
+      "healCount": 1,
+      "lastHealedAt": 1779432707208
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732660\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32660",
+      "healCount": 1,
+      "lastHealedAt": 1779433109675
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732849\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32849",
+      "healCount": 1,
+      "lastHealedAt": 1779460626444
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732851\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32851",
+      "healCount": 1,
+      "lastHealedAt": 1779460760526
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732838\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32838",
+      "healCount": 1,
+      "lastHealedAt": 1779460023087
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732665\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32665",
+      "healCount": 1,
+      "lastHealedAt": 1779433243742
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732880\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32880",
+      "healCount": 1,
+      "lastHealedAt": 1779461030332
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732649\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32649",
+      "healCount": 1,
+      "lastHealedAt": 1779432774256
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732666\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32666",
+      "healCount": 1,
+      "lastHealedAt": 1779433310799
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732837\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32837",
+      "healCount": 1,
+      "lastHealedAt": 1779459956066
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732661\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32661",
+      "healCount": 1,
+      "lastHealedAt": 1779433176690
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732840\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32840",
+      "healCount": 1,
+      "lastHealedAt": 1779460157162
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732885\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32885",
+      "healCount": 1,
+      "lastHealedAt": 1779461365485
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732658\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32658",
+      "healCount": 1,
+      "lastHealedAt": 1779432975426
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732845\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32845",
+      "healCount": 1,
+      "lastHealedAt": 1779460425335
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732886\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32886",
+      "healCount": 1,
+      "lastHealedAt": 1779461432512
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732881\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32881",
+      "healCount": 1,
+      "lastHealedAt": 1779461097369
+    },
+    "Locator@//a[contains(@href,\u0027logout\u0027)]": {
+      "healedLocator": "//a[contains(text(),\u0027Sign out\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "logout button",
+      "healCount": 1,
+      "lastHealedAt": 1782826045717
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732675\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32675",
+      "healCount": 1,
+      "lastHealedAt": 1779433713145
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732877\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32877",
+      "healCount": 1,
+      "lastHealedAt": 1779460896266
+    },
+    "Locator@//label[contains(text(),\u0027Import users with invalid CSV format\u0027)]": {
       "healedLocator": "//*[contains(@id,\u0027submit\u0027)]",
       "healingMethod": "fallback",
       "elementName": "role",
       "healCount": 1,
-      "lastHealedAt": 1777719094920
-    },
-    "Locator@//label[contains(text(),\u0027jack@gmail.com\u0027)]": {
-      "healedLocator": "//*[contains(@id,\u0027submit\u0027)]",
-      "healingMethod": "fallback",
-      "elementName": "role",
-      "healCount": 1,
-      "lastHealedAt": 1777978773303
-    },
-    "Locator@//label[contains(text(),\u0027Member\u0027)]": {
-      "healedLocator": "//*[contains(@id,\u0027submit\u0027)]",
-      "healingMethod": "fallback",
-      "elementName": "role",
-      "healCount": 1,
-      "lastHealedAt": 1777655426950
-    },
-    "Locator@//label[contains(text(),\u0027\u0027)]": {
-      "healedLocator": "//*[contains(@id,\u0027submit\u0027)]",
-      "healingMethod": "fallback",
-      "elementName": "new role checkbox",
-      "healCount": 1,
-      "lastHealedAt": 1777972321802
+      "lastHealedAt": 1779114182161
     }
   },
   "failed": {
-    "Locator@#addBtn": {
-      "elementName": "create user button",
+    "Locator@#batchSummaryTable tbody tr:has(td:text(\u0027s26@nuvelabs.com\u0027)) td:nth-child(1)": {
+      "elementName": "status",
       "failCount": 1,
-      "lastFailedAt": 1777978697033
+      "lastFailedAt": 1779165872759
     },
-    "Locator@//td[text()\u003d\u0027harish143954\u0027]/preceding-sibling::td[@class\u003d\u0027 select-checkbox noVis\u0027]": {
-      "elementName": "user checkbox",
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732292\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32292",
       "failCount": 1,
-      "lastFailedAt": 1777375196852
+      "lastFailedAt": 1779168664567
     },
-    "Locator@#select2-teamId-container": {
-      "elementName": "team dropdown",
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732297\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32297",
       "failCount": 1,
-      "lastFailedAt": 1777726168071
+      "lastFailedAt": 1779171593018
     },
-    "Locator@#usersListTable tbody tr:first-child td.select-checkbox": {
-      "elementName": "user checkbox",
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732263\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32263",
       "failCount": 1,
-      "lastFailedAt": 1777984588940
+      "lastFailedAt": 1779168523114
     },
-    "Locator@#importBtn": {
-      "elementName": "import button",
+    "Locator@//label[text()\u003d\u0027Expiry Date\u0027]/following-sibling::span": {
+      "elementName": "expiry date",
       "failCount": 1,
-      "lastFailedAt": 1777629219970
+      "lastFailedAt": 1779248854703
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732304\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32304",
+      "failCount": 1,
+      "lastFailedAt": 1779171592798
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732431\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32431",
+      "failCount": 1,
+      "lastFailedAt": 1779206730249
     },
     "Locator@//span[@id\u003d\u0027deploymentStatus\u0027]": {
       "elementName": "deployment status",
       "failCount": 1,
-      "lastFailedAt": 1777983400812
+      "lastFailedAt": 1779165923061
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732459\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32459",
+      "failCount": 1,
+      "lastFailedAt": 1779252442446
     },
     "Locator@button.btn-success.wizardButton[data-target\u003d\u0027#confirmProvision\u0027]": {
       "elementName": "finish button",
       "failCount": 1,
-      "lastFailedAt": 1777631540561
+      "lastFailedAt": 1779191129697
     },
-    "Locator@#sl_password": {
-      "elementName": "password field",
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732310\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32310",
       "failCount": 1,
-      "lastFailedAt": 1777640838439
+      "lastFailedAt": 1779171592983
     },
-    "Locator@//li[@class\u003d\u0027dropdown\u0027]//a[@class\u003d\u0027dropdown-toggle\u0027]": {
-      "elementName": "user profile dropdown",
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732281\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32281",
       "failCount": 1,
-      "lastFailedAt": 1777640838327
+      "lastFailedAt": 1779167958833
     },
-    "Locator@#addUserIntoTeamBtn": {
-      "elementName": "add to teams button",
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732305\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32305",
       "failCount": 1,
-      "lastFailedAt": 1777978017931
+      "lastFailedAt": 1779171592821
     },
-    "Locator@input[name\u003d\u0027roleName\u0027][value\u003d\u00279\u0027]": {
-      "elementName": "team admin radio",
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732432\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32432",
       "failCount": 1,
-      "lastFailedAt": 1777977747411
+      "lastFailedAt": 1779206800529
     },
-    "Locator@#searchTypes a[data-value\u003d\u0027email\u0027]": {
-      "elementName": "search by email",
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732466\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32466",
       "failCount": 1,
-      "lastFailedAt": 1777978308706
+      "lastFailedAt": 1779252582212
     },
-    "Locator@#sl_userName": {
-      "elementName": "username field",
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732309\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32309",
       "failCount": 1,
-      "lastFailedAt": 1777640838395
+      "lastFailedAt": 1779171419673
     },
-    "Locator@a[href\u003d\u0027/user/logout\u0027]": {
-      "elementName": "sysadmin logout link",
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732311\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32311",
       "failCount": 1,
-      "lastFailedAt": 1777963709814
+      "lastFailedAt": 1779171592921
     },
-    "Locator@#searchTypes a[data-value\u003d\u0027name\u0027]": {
-      "elementName": "search by name",
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732298\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32298",
       "failCount": 1,
-      "lastFailedAt": 1777971052756
+      "lastFailedAt": 1779171592955
     },
-    "Locator@#searchItemDisplay": {
-      "elementName": "search item display",
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732513\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32513",
       "failCount": 1,
-      "lastFailedAt": 1777973644227
+      "lastFailedAt": 1779259272093
     },
-    "Locator@//button[@class\u003d\u0027qqq\u0027]": {
-      "elementName": "create user button",
-      "failCount": 2,
-      "lastFailedAt": 1777375182504
-    },
-    "Locator@#user_sign_in_button": {
-      "elementName": "sign in button",
+    "Locator@button.buttons-collection[aria-controls\u003d\u0027usersListTable\u0027]": {
+      "elementName": "export button",
       "failCount": 1,
-      "lastFailedAt": 1777974435145
+      "lastFailedAt": 1779113633491
     },
-    "Locator@//a[@href\u003d\u0027/users\u0027 and @class\u003d\u0027dropdown-header\u0027]": {
-      "elementName": "user tab",
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732270\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32270",
       "failCount": 1,
-      "lastFailedAt": 1777375346967
+      "lastFailedAt": 1779168664553
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732275\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32275",
+      "failCount": 1,
+      "lastFailedAt": 1779168664703
+    },
+    "Locator@//span[contains(text(),\u0027#1359\u0027)]": {
+      "elementName": "plan tile 1359",
+      "failCount": 1,
+      "lastFailedAt": 1779170062247
+    },
+    "Locator@//button[@id\u003d\u0027launchLabControlPanelBtn\u0027]": {
+      "elementName": "access lab",
+      "failCount": 1,
+      "lastFailedAt": 1779166734550
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732316\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32316",
+      "failCount": 1,
+      "lastFailedAt": 1779171593067
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732437\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32437",
+      "failCount": 1,
+      "lastFailedAt": 1779207893521
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732269\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32269",
+      "failCount": 1,
+      "lastFailedAt": 1779168099986
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732322\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32322",
+      "failCount": 1,
+      "lastFailedAt": 1779171156253
+    },
+    "Locator@//a[@href\u003d\u0027/batch/provisioning\u0027]": {
+      "elementName": "batch provisioning link",
+      "failCount": 1,
+      "lastFailedAt": 1779191071850
+    },
+    "Locator@#teamdropdownsearch": {
+      "elementName": "team search input",
+      "failCount": 1,
+      "lastFailedAt": 1779176103243
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732293\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32293",
+      "failCount": 1,
+      "lastFailedAt": 1779171592879
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732264\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32264",
+      "failCount": 1,
+      "lastFailedAt": 1779168594685
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732430\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32430",
+      "failCount": 1,
+      "lastFailedAt": 1779206660228
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732273\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32273",
+      "failCount": 1,
+      "lastFailedAt": 1779168664536
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732306\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32306",
+      "failCount": 1,
+      "lastFailedAt": 1779171489964
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732314\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32314",
+      "failCount": 1,
+      "lastFailedAt": 1779171592908
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732435\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32435",
+      "failCount": 1,
+      "lastFailedAt": 1779207754058
+    },
+    "Locator@//a[@class\u003d\u0027 teamlistlink\u0027 and text()\u003d\u0027Karthik\u0027]": {
+      "elementName": "team link",
+      "failCount": 1,
+      "lastFailedAt": 1779176049507
+    },
+    "Locator@#batchSummaryTable tbody tr:has(td:text(\u0027s27@nuvelabs.com\u0027)) td:nth-child(1)": {
+      "elementName": "status",
+      "failCount": 1,
+      "lastFailedAt": 1779167283456
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732291\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32291",
+      "failCount": 1,
+      "lastFailedAt": 1779168664598
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732296\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32296",
+      "failCount": 1,
+      "lastFailedAt": 1779171592999
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732315\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32315",
+      "failCount": 1,
+      "lastFailedAt": 1779171593049
+    },
+    "Locator@//span[contains(text(),\u0027#849\u0027)]": {
+      "elementName": "plan tile 849",
+      "failCount": 1,
+      "lastFailedAt": 1779266179303
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732436\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32436",
+      "failCount": 1,
+      "lastFailedAt": 1779207823462
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732507\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32507",
+      "failCount": 1,
+      "lastFailedAt": 1779259202553
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732260\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32260",
+      "failCount": 1,
+      "lastFailedAt": 1779168029527
+    },
+    "Locator@ul#select2-username-results li.select2-results__option \u003e\u003e internal:has-text\u003d\"min1778673327\"i": {
+      "elementName": "user option for min1778673327",
+      "failCount": 1,
+      "lastFailedAt": 1779273673432
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732265\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32265",
+      "failCount": 1,
+      "lastFailedAt": 1779168381690
+    },
+    "Locator@ul#select2-username-results li.select2-results__option \u003e\u003e internal:has-text\u003d\"min1778673325\"i": {
+      "elementName": "user option for min1778673325",
+      "failCount": 1,
+      "lastFailedAt": 1779273562884
+    },
+    "Locator@ul#select2-username-results li.select2-results__option \u003e\u003e internal:has-text\u003d\"min1778673323\"i": {
+      "elementName": "user option for min1778673323",
+      "failCount": 1,
+      "lastFailedAt": 1779273947271
+    },
+    "Locator@ul#select2-username-results li.select2-results__option \u003e\u003e internal:has-text\u003d\"min1778673321\"i": {
+      "elementName": "user option for min1778673321",
+      "failCount": 1,
+      "lastFailedAt": 1779273800476
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732279\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32279",
+      "failCount": 1,
+      "lastFailedAt": 1779168664638
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732274\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32274",
+      "failCount": 1,
+      "lastFailedAt": 1779168664690
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732462\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32462",
+      "failCount": 1,
+      "lastFailedAt": 1779252512710
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732434\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32434",
+      "failCount": 1,
+      "lastFailedAt": 1779207682809
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732474\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32474",
+      "failCount": 1,
+      "lastFailedAt": 1779252652045
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732313\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32313",
+      "failCount": 1,
+      "lastFailedAt": 1779171592894
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732307\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32307",
+      "failCount": 1,
+      "lastFailedAt": 1779171560240
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732266\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32266",
+      "failCount": 1,
+      "lastFailedAt": 1779168453171
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732272\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32272",
+      "failCount": 1,
+      "lastFailedAt": 1779168664518
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732277\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32277",
+      "failCount": 1,
+      "lastFailedAt": 1779168664676
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732261\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32261",
+      "failCount": 1,
+      "lastFailedAt": 1779167748933
+    },
+    "Locator@//span[contains(text(),\u0027#1360\u0027)]": {
+      "elementName": "plan tile 1360",
+      "failCount": 1,
+      "lastFailedAt": 1779165846290
+    },
+    "Locator@#compPlansListTable_filter input": {
+      "elementName": "plan id search",
+      "failCount": 1,
+      "lastFailedAt": 1779165982454
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732290\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32290",
+      "failCount": 1,
+      "lastFailedAt": 1779168664582
+    },
+    "Locator@//span[contains(text(),\u0027#1496\u0027)]": {
+      "elementName": "plan tile 1496",
+      "failCount": 1,
+      "lastFailedAt": 1779273527458
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732295\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32295",
+      "failCount": 1,
+      "lastFailedAt": 1779171592863
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732278\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32278",
+      "failCount": 1,
+      "lastFailedAt": 1779168664620
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732439\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32439",
+      "failCount": 1,
+      "lastFailedAt": 1779208034070
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732302\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32302",
+      "failCount": 1,
+      "lastFailedAt": 1779171016640
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732318\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32318",
+      "failCount": 1,
+      "lastFailedAt": 1779171593032
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732284\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32284",
+      "failCount": 1,
+      "lastFailedAt": 1779167888117
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732289\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32289",
+      "failCount": 1,
+      "lastFailedAt": 1779168240029
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732303\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32303",
+      "failCount": 1,
+      "lastFailedAt": 1779171086676
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732276\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32276",
+      "failCount": 1,
+      "lastFailedAt": 1779168664655
+    },
+    "Locator@//span[contains(text(),\u0027#1355\u0027)]": {
+      "elementName": "plan tile 1355",
+      "failCount": 1,
+      "lastFailedAt": 1779159446638
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732455\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32455",
+      "failCount": 1,
+      "lastFailedAt": 1779252301947
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732320\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32320",
+      "failCount": 1,
+      "lastFailedAt": 1779171225752
+    },
+    "Locator@a[href\u003d\u0027/subscriptions?type\u003dself\u0027]": {
+      "elementName": "my labs nav link",
+      "failCount": 1,
+      "lastFailedAt": 1779360357396
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732262\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32262",
+      "failCount": 1,
+      "lastFailedAt": 1779167818270
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732267\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32267",
+      "failCount": 1,
+      "lastFailedAt": 1779168169917
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732456\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32456",
+      "failCount": 1,
+      "lastFailedAt": 1779252372314
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732294\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32294",
+      "failCount": 1,
+      "lastFailedAt": 1779171592845
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732321\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32321",
+      "failCount": 1,
+      "lastFailedAt": 1779171683057
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732268\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32268",
+      "failCount": 1,
+      "lastFailedAt": 1779168311343
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732433\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32433",
+      "failCount": 1,
+      "lastFailedAt": 1779206870856
+    },
+    "Locator@ul#select2-username-results li.select2-results__option \u003e\u003e internal:has-text\u003d\"min1778673326\"i": {
+      "elementName": "user option for min1778673326",
+      "failCount": 1,
+      "lastFailedAt": 1779273535631
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732299\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32299",
+      "failCount": 1,
+      "lastFailedAt": 1779171592970
+    },
+    "Locator@#password": {
+      "elementName": "new password",
+      "failCount": 1,
+      "lastFailedAt": 1779107073894
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732308\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32308",
+      "failCount": 1,
+      "lastFailedAt": 1779171349497
+    },
+    "Locator@ul#select2-username-results li.select2-results__option \u003e\u003e internal:has-text\u003d\"min1778673324\"i": {
+      "elementName": "user option for min1778673324",
+      "failCount": 1,
+      "lastFailedAt": 1779273600160
     },
     "Locator@//button[@id\u003d\u0027marketplace\u0027]": {
       "elementName": "request lab button",
       "failCount": 1,
-      "lastFailedAt": 1777631780322
+      "lastFailedAt": 1779165920612
+    },
+    "Locator@ul#select2-username-results li.select2-results__option \u003e\u003e internal:has-text\u003d\"min1778673322\"i": {
+      "elementName": "user option for min1778673322",
+      "failCount": 1,
+      "lastFailedAt": 1779273852097
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732312\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32312",
+      "failCount": 1,
+      "lastFailedAt": 1779171592938
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732438\u0027]/following-sibling::td[8]//label": {
+      "elementName": "status 32438",
+      "failCount": 1,
+      "lastFailedAt": 1779207963978
     }
   }
 }

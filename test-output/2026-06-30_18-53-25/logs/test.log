@@ -1,0 +1,20 @@
+2026-06-30 18:53:25.108 [main] INFO  Generic_Utility.ExecutionContext     - Created execution folder: ./test-output/2026-06-30_18-53-25
+2026-06-30 18:53:25.460 [main] INFO  Generic_Utility.ExecutionContext     - _latest → 2026-06-30_18-53-25
+2026-06-30 18:53:26.423 [main] INFO  Generic_Utility.DotEnvLoader         - Environment 'elb' loaded from C:\Users\HarishKumar\Downloads\Automation_Orgo\Automation_Orgo_UI_Test\Automation_Orgo_UI_Test\.env.elb — 12 key(s)
+2026-06-30 18:53:54.055 [main] INFO  G.ExcelToJsonConverter               - Aws_Lab sheet → 73 test cases loaded
+2026-06-30 18:54:00.311 [main] INFO  G.ExcelToJsonConverter               - Gcp_Lab sheet → 17 test cases loaded
+2026-06-30 18:54:00.333 [main] INFO  G.ExcelToJsonConverter               - Lab sheets → lab_data.json (90 test cases)
+2026-06-30 18:54:00.905 [main] INFO  G.ExcelToJsonConverter               - User sheet → user_data.json (28 fields)
+2026-06-30 18:54:00.975 [main] INFO  G.ExcelToJsonConverter               - Credentials sheet → credentials.json (browser + negative-test values)
+2026-06-30 18:54:00.979 [main] INFO  G.ExcelToJsonConverter               - Excel → JSON complete. Output: C:\Users\HarishKumar\Downloads\Automation_Orgo\Automation_Orgo_UI_Test\Automation_Orgo_UI_Test\src\test\resources\testdata
+2026-06-30 18:54:01.013 [main] INFO  Generic_Utility.TestDataManager      - TestDataManager ready — 90 lab test cases, 28 user fields
+2026-06-30 18:54:01.014 [main] INFO  stepDefinitions.Hook                 - Run folder: ./test-output/2026-06-30_18-53-25 | Thread: main
+2026-06-30 18:54:08.883 [main] WARN  Generic_Utility.CredentialManager    - GEMINI_API_KEY not found in env or .env — using fallback from ConstantFilePath
+2026-06-30 18:54:08.892 [main] INFO  stepDefinitions.Hook                 - Browser ready | Thread: main
+2026-06-30 18:54:09.536 [main] INFO  Generic_Utility.HealingCache         - Loaded — healed: 49, known failures: 96
+2026-06-30 18:54:21.211 [main] INFO  stepDefinitions.User                 - Creating user for cancel-edit test — loginId: 'harish144168237'
+2026-06-30 18:54:42.733 [main] INFO  stepDefinitions.User                 - Editing user — loginId: harish144168237
+2026-06-30 18:54:56.108 [main] INFO  stepDefinitions.User                 - TC44: edit form filled with cancel-marker values
+2026-06-30 18:55:06.825 [main] INFO  stepDefinitions.User                 - TC44: cancel button clicked — dialog should be dismissed without persisting
+2026-06-30 18:55:15.199 [main] INFO  stepDefinitions.User                 - Viewing details — loginId: harish144168237
+2026-06-30 18:55:23.855 [main] INFO  stepDefinitions.User                 - TC44: cancel edit preserved all fields — firstName='harish144168237', lastName='kumar144168237', email='4168237ha14rishkumar@nuvelabs.com', loginId='harish144168237'

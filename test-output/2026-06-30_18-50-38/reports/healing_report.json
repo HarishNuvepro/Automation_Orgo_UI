@@ -1,0 +1,29 @@
+[
+  {
+    "originalLocator": "Locator@//li[@class\u003d\u0027dropdown\u0027]//a[@class\u003d\u0027dropdown-toggle\u0027]",
+    "healedLocator": "text\u003dQalb user",
+    "healingMethod": "fallback",
+    "retryCount": 3,
+    "finalStatus": "FAILED",
+    "stepDescription": "user profile dropdown",
+    "timestamp": 1782825779313
+  },
+  {
+    "originalLocator": "Locator@//li[@class\u003d\u0027dropdown\u0027]//a[@class\u003d\u0027dropdown-toggle\u0027]",
+    "healedLocator": "text\u003dQalb user",
+    "healingMethod": "fallback",
+    "retryCount": 3,
+    "finalStatus": "FAILED",
+    "stepDescription": "user profile dropdown",
+    "timestamp": 1782825779313
+  },
+  {
+    "originalLocator": "Locator@//li[@class\u003d\u0027dropdown\u0027]//a[@class\u003d\u0027dropdown-toggle\u0027]",
+    "healedLocator": "text\u003dQalb user",
+    "healingMethod": "fallback",
+    "retryCount": 3,
+    "finalStatus": "FAILED",
+    "stepDescription": "user profile dropdown",
+    "timestamp": 1782825779313
+  }
+]

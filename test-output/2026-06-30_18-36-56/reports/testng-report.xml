@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testng-results failed="1" passed="0" skipped="0" total="1">
+    <suite duration-ms="122013" name="io.cucumber.core.plugin.TestNGFormatter">
+        <test duration-ms="122013" name="io.cucumber.core.plugin.TestNGFormatter">
+            <class name="User Actions">
+                <test-method duration-ms="121345" finished-at="2026-06-30T13:08:59.686028400Z" name="TC42 - Verify weak passwords are not accepted during password change" started-at="2026-06-30T13:06:58.308717900Z" status="FAIL">
+                    <exception class="com.microsoft.playwright.TimeoutError">
+                        <message><![CDATA[Given open the browser and enter the Url....................................passed
+And login as tenant admin...................................................passed
+When navigate to organization and click on users tab........................passed
+And click on create a user button...........................................passed
+Given enter all the required user creation details..........................passed
+When click on create button.................................................passed
+Then validate user created successfully.....................................passed
+When navigate to organization and click on users tab........................passed
+And select the user and click on change password button.....................passed
+And change password to weak password for negative test......................passed
+Then validate weak password error is displayed..............................passed
+And close the change password modal popup...................................failed
+And click on logout.........................................................skipped
+Then validate login page is displayed.......................................skipped
+]]></message>
+                        <full-stacktrace><![CDATA[com.microsoft.playwright.TimeoutError: Error {
+  message='Timeout 10000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 10000ms exceeded.
+    at ProgressController.run (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-1405442689181523277\package\lib\server\progress.js:87:26)
+    at Frame.waitForSelector (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-1405442689181523277\package\lib\server\frames.js:619:23)
+    at FrameDispatcher.waitForSelector (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-1405442689181523277\package\lib\server\dispatchers\frameDispatcher.js:100:103)
+    at FrameDispatcher._handleCommand (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-1405442689181523277\package\lib\server\dispatchers\dispatcher.js:84:40)
+    at DispatcherConnection.dispatch (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-1405442689181523277\package\lib\server\dispatchers\dispatcher.js:351:39)
+}
+Call log:
+- waiting for locator("button.btn.btn-default[data-dismiss='modal']:has-text('Cancel')").first() to be visible
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:52)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:120)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:129)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:106)
+	at com.microsoft.playwright.impl.FrameImpl.waitForSelectorImpl(FrameImpl.java:1060)
+	at com.microsoft.playwright.impl.LocatorImpl.lambda$waitForImpl$7(LocatorImpl.java:594)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:89)
+	at com.microsoft.playwright.impl.LocatorImpl.waitForImpl(LocatorImpl.java:594)
+	at com.microsoft.playwright.impl.LocatorImpl.waitFor(LocatorImpl.java:590)
+	at stepDefinitions.User.close_the_change_password_modal_popup(User.java:2139)
+	at ✽.close the change password modal popup(file:///C:/Users/HarishKumar/Downloads/Automation_Orgo/Automation_Orgo_UI_Test/Automation_Orgo_UI_Test/./src/test/java/FeatureFiles/users/user_management.feature:599)
+Caused by: com.microsoft.playwright.TimeoutError: Error {
+  message='Timeout 10000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 10000ms exceeded.
+    at ProgressController.run (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-1405442689181523277\package\lib\server\progress.js:87:26)
+    at Frame.waitForSelector (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-1405442689181523277\package\lib\server\frames.js:619:23)
+    at FrameDispatcher.waitForSelector (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-1405442689181523277\package\lib\server\dispatchers\frameDispatcher.js:100:103)
+    at FrameDispatcher._handleCommand (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-1405442689181523277\package\lib\server\dispatchers\dispatcher.js:84:40)
+    at DispatcherConnection.dispatch (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-1405442689181523277\package\lib\server\dispatchers\dispatcher.js:351:39)
+}
+Call log:
+- waiting for locator("button.btn.btn-default[data-dismiss='modal']:has-text('Cancel')").first() to be visible
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+-   locator resolved to hidden <button type="button" data-dismiss="modal" class="btn bt…>Cancel</button>
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:252)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:209)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:118)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:129)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:106)
+	at com.microsoft.playwright.impl.FrameImpl.waitForSelectorImpl(FrameImpl.java:1060)
+	at com.microsoft.playwright.impl.LocatorImpl.lambda$waitForImpl$7(LocatorImpl.java:594)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:89)
+	at com.microsoft.playwright.impl.LocatorImpl.waitForImpl(LocatorImpl.java:594)
+	at com.microsoft.playwright.impl.LocatorImpl.waitFor(LocatorImpl.java:590)
+	at stepDefinitions.User.close_the_change_password_modal_popup(User.java:2139)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at io.cucumber.java.Invoker.doInvoke(Invoker.java:66)
+	at io.cucumber.java.Invoker.invoke(Invoker.java:24)
+	at io.cucumber.java.AbstractGlueDefinition.invokeMethod(AbstractGlueDefinition.java:47)
+	at io.cucumber.java.JavaStepDefinition.execute(JavaStepDefinition.java:29)
+	at io.cucumber.core.runner.CoreStepDefinition.execute(CoreStepDefinition.java:66)
+	at io.cucumber.core.runner.PickleStepDefinitionMatch.runStep(PickleStepDefinitionMatch.java:63)
+	at io.cucumber.core.runner.ExecutionMode$1.execute(ExecutionMode.java:10)
+	at io.cucumber.core.runner.TestStep.executeStep(TestStep.java:92)
+	at io.cucumber.core.runner.TestStep.run(TestStep.java:64)
+	at io.cucumber.core.runner.PickleStepTestStep.run(PickleStepTestStep.java:51)
+	at io.cucumber.core.runner.TestCase.run(TestCase.java:104)
+	at io.cucumber.core.runner.Runner.runPickle(Runner.java:73)
+	at io.cucumber.testng.TestNGCucumberRunner.lambda$runScenario$1(TestNGCucumberRunner.java:134)
+	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:117)
+	at io.cucumber.testng.TestNGCucumberRunner.runScenario(TestNGCucumberRunner.java:131)
+	at io.cucumber.testng.AbstractTestNGCucumberTests.runScenario(AbstractTestNGCucumberTests.java:31)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testng.TestRunner.privateRun(TestRunner.java:794)
+	at org.testng.TestRunner.run(TestRunner.java:596)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134)
+	at org.testng.TestNG.runSuites(TestNG.java:1063)
+	at org.testng.TestNG.run(TestNG.java:1031)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:155)
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.executeSingleClass(TestNGDirectoryTestSuite.java:102)
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.execute(TestNGDirectoryTestSuite.java:91)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:137)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+]]></full-stacktrace>
+                    </exception>
+                </test-method>
+            </class>
+        </test>
+    </suite>
+</testng-results>

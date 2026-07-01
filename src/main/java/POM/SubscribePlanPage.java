@@ -78,4 +78,19 @@ public class SubscribePlanPage {
 	public Locator getNoInputRequiredMessage() {
 		return page.locator("//h6[@id='noUIInput']");
 	}
+
+	// ── GCP — Select2 user picker (Lab for Others flow) ──────────────────────
+
+	public Locator getUserSelect2Container() {
+		return page.locator("span#select2-username-container");
+	}
+
+	public Locator getUserSelect2SearchInput() {
+		return page.locator("input.select2-search__field[type='search']");
+	}
+
+	public Locator getUserSelect2OptionByLoginId(String loginId) {
+		return page.locator("ul#select2-username-results li.select2-results__option")
+				.filter(new Locator.FilterOptions().setHasText(loginId));
+	}
 }

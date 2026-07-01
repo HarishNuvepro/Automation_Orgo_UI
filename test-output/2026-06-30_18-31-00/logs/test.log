@@ -1,0 +1,17 @@
+2026-06-30 18:31:00.291 [main] INFO  Generic_Utility.ExecutionContext     - Created execution folder: ./test-output/2026-06-30_18-31-00
+2026-06-30 18:31:00.612 [main] INFO  Generic_Utility.ExecutionContext     - _latest → 2026-06-30_18-31-00
+2026-06-30 18:31:02.651 [main] INFO  Generic_Utility.DotEnvLoader         - Environment 'elb' loaded from C:\Users\HarishKumar\Downloads\Automation_Orgo\Automation_Orgo_UI_Test\Automation_Orgo_UI_Test\.env.elb — 12 key(s)
+2026-06-30 18:31:27.277 [main] INFO  G.ExcelToJsonConverter               - Aws_Lab sheet → 73 test cases loaded
+2026-06-30 18:31:32.630 [main] INFO  G.ExcelToJsonConverter               - Gcp_Lab sheet → 17 test cases loaded
+2026-06-30 18:31:32.662 [main] INFO  G.ExcelToJsonConverter               - Lab sheets → lab_data.json (90 test cases)
+2026-06-30 18:31:33.141 [main] INFO  G.ExcelToJsonConverter               - User sheet → user_data.json (28 fields)
+2026-06-30 18:31:33.210 [main] INFO  G.ExcelToJsonConverter               - Credentials sheet → credentials.json (browser + negative-test values)
+2026-06-30 18:31:33.213 [main] INFO  G.ExcelToJsonConverter               - Excel → JSON complete. Output: C:\Users\HarishKumar\Downloads\Automation_Orgo\Automation_Orgo_UI_Test\Automation_Orgo_UI_Test\src\test\resources\testdata
+2026-06-30 18:31:33.243 [main] INFO  Generic_Utility.TestDataManager      - TestDataManager ready — 90 lab test cases, 28 user fields
+2026-06-30 18:31:33.244 [main] INFO  stepDefinitions.Hook                 - Run folder: ./test-output/2026-06-30_18-31-00 | Thread: main
+2026-06-30 18:31:45.442 [main] WARN  Generic_Utility.CredentialManager    - GEMINI_API_KEY not found in env or .env — using fallback from ConstantFilePath
+2026-06-30 18:31:45.450 [main] INFO  stepDefinitions.Hook                 - Browser ready | Thread: main
+2026-06-30 18:31:46.077 [main] INFO  Generic_Utility.HealingCache         - Loaded — healed: 49, known failures: 96
+2026-06-30 18:31:55.669 [main] INFO  stepDefinitions.User                 - Creating user — loginId: harish145117605
+2026-06-30 18:32:21.754 [main] INFO  stepDefinitions.User                 - Changing password — loginId: harish145117605
+2026-06-30 18:32:26.348 [main] INFO  stepDefinitions.User                 - TC42: weak password rejected — error text 'Password policy not met. Provide valid password.'

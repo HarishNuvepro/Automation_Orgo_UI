@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testng-results failed="0" passed="1" skipped="0" total="1">
+    <suite duration-ms="104702" name="io.cucumber.core.plugin.TestNGFormatter">
+        <test duration-ms="104702" name="io.cucumber.core.plugin.TestNGFormatter">
+            <class name="User Actions">
+                <test-method duration-ms="103831" finished-at="2026-06-30T13:27:48.963746100Z" name="TC45 - Verify deleted users cannot login using previously valid credentials" started-at="2026-06-30T13:26:05.080526600Z" status="PASS"/>
+            </class>
+        </test>
+    </suite>
+</testng-results>

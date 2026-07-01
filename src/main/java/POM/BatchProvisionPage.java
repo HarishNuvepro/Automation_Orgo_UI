@@ -150,4 +150,20 @@ public class BatchProvisionPage {
     public Locator getLazyCreateOption() {
         return page.locator("#nl_trigger_lazy");
     }
+
+    // ── Batch list page ───────────────────────────────────────────────────────
+
+    public Locator getBatchListRowCheckboxByName(String batchName) {
+        return page.locator("//tr[.//td[normalize-space(text())='" + batchName + "']]//td[contains(@class,'select-checkbox')]");
+    }
+
+    public Locator getBatchViewBtn() {
+        return page.locator("#viewBpBtn");
+    }
+
+    // ── Batch details page ────────────────────────────────────────────────────
+
+    public Locator getBatchDetailsSelectAllCheckbox() {
+        return page.locator("th.select-checkbox.noVis").first();
+    }
 }

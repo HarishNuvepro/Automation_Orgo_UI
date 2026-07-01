@@ -14,7 +14,7 @@ public class GeminiLocatorFinder {
 
     private static final Logger log = LoggerFactory.getLogger(GeminiLocatorFinder.class);
     
-    private static final String GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-latest:generateContent";
+    private static final String GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
     
     public static String findElementLocator(String pageHtml, String stepDescription, String apiKey) {
         if (apiKey == null || apiKey.isEmpty()) {

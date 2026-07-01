@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!--
+    Combined AWS + GCP Labs Suite
+
+    Execution order:
+      Phase 1 — AWS  TC1–TC12      (single lab, cohort, batch provision) — parallel (3 threads)
+      Phase 2 — GCP  TC1–TC12      (single lab, cohort, batch provision) — parallel (3 threads)
+      Phase 3 — AWS  TC13–TC16     (lazy lab)                            — sequential
+      Phase 4 — GCP  TC13–TC16     (lazy lab)                            — sequential
+      Phase 5 — AWS  Cleanup       (delete all AWS labs)                 — sequential
+      Phase 6 — GCP  Cleanup       (delete all GCP labs)                 — sequential
+
+    Run command:
+      mvn test "-Dsurefire.suiteXmlFiles=testng-suites/combined-labs-suite.xml"
+-->
+<suite name="Combined AWS + GCP Labs Suite" verbose="1" data-provider-thread-count="2">
+
+    <listeners>
+        <listener class-name="runner.ExecutionSetupListener"/>
+        <listener class-name="runner.RetryListener"/>
+    </listeners>
+
+    <!-- Phase 1: AWS TC1–TC12 — parallel (3 threads) -->
+    <test name="AWS Labs Provision Tests">
+        <classes>
+            <class name="runner.LabsProvisionRunner"/>
+        </classes>
+    </test>
+
+    <!-- Phase 2: GCP TC1–TC12 — parallel (3 threads) -->
+    <test name="GCP Labs Provision Tests">
+        <classes>
+            <class name="runner.GcpLabsRunner"/>
+        </classes>
+    </test>
+
+    <!-- Phase 3: AWS TC13–TC16 — sequential -->
+    <test name="AWS Lazy Lab Tests">
+        <classes>
+            <class name="runner.LabsLazyLabRunner"/>
+        </classes>
+    </test>
+
+    <!-- Phase 4: GCP TC13–TC16 — sequential -->
+    <test name="GCP Lazy Lab Tests">
+        <classes>
+            <class name="runner.GcpLabsLazyLabRunner"/>
+        </classes>
+    </test>
+
+    <!-- Phase 5: AWS Cleanup — sequential, after all AWS + GCP TCs finish -->
+    <test name="AWS Labs Provision Cleanup">
+        <classes>
+            <class name="runner.LabsProvisionCleanupRunner"/>
+        </classes>
+    </test>
+
+    <!-- Phase 6: GCP Cleanup — sequential, after AWS Cleanup finishes -->
+    <test name="GCP Labs Provision Cleanup">
+        <classes>
+            <class name="runner.GcpLabsProvisionCleanupRunner"/>
+        </classes>
+    </test>
+
+</suite>

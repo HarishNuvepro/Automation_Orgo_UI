@@ -1,16 +1,15 @@
 package Generic_Utility;
 
-import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class JavaUtility {
-	
-	
-	public int getRandomNumber()
-	{
-	Random ran = new Random();
-    int randomNumber=ran.nextInt(10000);
-    return randomNumber;
-	}
-	
-	
+
+    // Thread-safe counter with a random seed — unique across parallel threads and across JVM runs
+    private static final AtomicInteger COUNTER =
+            new AtomicInteger(new java.util.Random().nextInt(8900000) + 100000);
+
+    public int getRandomNumber() {
+        return COUNTER.getAndIncrement();
+    }
+
 }

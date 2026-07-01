@@ -13,7 +13,7 @@ public class GeminiClient {
 
     private static final Logger log = LoggerFactory.getLogger(GeminiClient.class);
 
-    private static final String GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+    private static final String GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
     private static final int TIMEOUT_SECONDS = 30;
     private static final int MAX_TOKENS = 200;
     private static final double TEMPERATURE = 0.2;

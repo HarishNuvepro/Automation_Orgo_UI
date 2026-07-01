@@ -38,9 +38,11 @@ public final class WaitUtils {
     /** Heavy operations / file upload confirmation */
     public static final int FIVE_SECONDS =  5000;
     /** Sync / batch-refresh polling interval */
-    public static final int TEN_SECONDS  = 10000;
+    public static final int TEN_SECONDS   = 10000;
+    /** Post-policy success message settle */
+    public static final int TWENTY_SECONDS = 20000;
     /** Lab launch / sequential login redirect */
-    public static final int THIRTY_SEC   = 30000;
+    public static final int THIRTY_SEC    = 30000;
 
     // ── Element / page timeout budgets (ms) ──────────────────────────────────
 
@@ -140,6 +142,43 @@ public final class WaitUtils {
             pause(intervalMs);
         }
         log.warn("Condition '{}' not met within {} ms", description, timeoutMs);
+        return false;
+    }
+
+    /**
+     * Detects a gateway-timeout page (502/504) and reloads if found.
+     * Call at the top of polling loops or before element reads that follow
+     * a heavy server navigation.
+     *
+     * @return true if a gateway timeout was detected and the page was refreshed
+     */
+    public static boolean handleGatewayTimeout(Page page) {
+        try {
+            String title = page.title().toLowerCase();
+            boolean isTimeout = title.contains("gateway") || title.contains("502")
+                    || title.contains("504") || title.contains("bad gateway")
+                    || title.contains("time-out") || title.contains("timeout");
+            if (!isTimeout) {
+                String bodyText = (String) page.evaluate(
+                        "() => document.body ? document.body.innerText.substring(0, 300) : ''");
+                if (bodyText != null) {
+                    String body = bodyText.toLowerCase();
+                    isTimeout = body.contains("gateway time-out")
+                            || body.contains("502 bad gateway")
+                            || body.contains("504 gateway")
+                            || body.contains("bad gateway");
+                }
+            }
+            if (isTimeout) {
+                log.warn("Gateway timeout page detected — reloading");
+                page.reload();
+                page.waitForLoadState();
+                pause(LONG);
+                return true;
+            }
+        } catch (Exception e) {
+            log.debug("handleGatewayTimeout check failed: {}", e.getMessage());
+        }
         return false;
     }
 }

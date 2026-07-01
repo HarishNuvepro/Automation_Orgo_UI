@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testng-results failed="0" passed="1" skipped="0" total="1">
+    <suite duration-ms="121141" name="io.cucumber.core.plugin.TestNGFormatter">
+        <test duration-ms="121141" name="io.cucumber.core.plugin.TestNGFormatter">
+            <class name="User Actions">
+                <test-method duration-ms="120656" finished-at="2026-06-30T13:25:27.084131600Z" name="TC44 - Verify user details remain unchanged when edit operation is cancelled" started-at="2026-06-30T13:23:26.361492400Z" status="PASS"/>
+            </class>
+        </test>
+    </suite>
+</testng-results>

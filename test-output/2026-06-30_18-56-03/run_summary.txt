@@ -1,0 +1,4 @@
+Run folder : ./test-output/2026-06-30_18-56-03
+Started    : 2026-06-30 18:57:48
+------------------------------------------------------------------
+PASSED  [  1m 43s]  TC45 - Verify deleted users cannot login using previously valid credentials

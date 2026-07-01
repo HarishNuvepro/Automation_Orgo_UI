@@ -6,12 +6,12 @@ import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.BeforeClass;
 
 @CucumberOptions(
-    features  = { ".\\src\\test\\java\\FeatureFiles\\labs\\" },
+    features  = { ".\\src\\test\\java\\FeatureFiles\\labs\\aws\\" },
     glue      = { "stepDefinitions" },
     dryRun    = false,
     plugin    = { "pretty" },
     monochrome = true,
-    tags       = "@labs"
+    tags       = "@aws and not @lazy-lab-aws and not @aws-lab-provision-cleanup"
 )
 public class LabsModuleRunner extends AbstractTestNGCucumberTests {
 

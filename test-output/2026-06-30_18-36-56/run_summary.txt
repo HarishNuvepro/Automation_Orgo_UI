@@ -1,0 +1,4 @@
+Run folder : ./test-output/2026-06-30_18-36-56
+Started    : 2026-06-30 18:38:59
+------------------------------------------------------------------
+FAILED  [  2m 01s]  TC42 - Verify weak passwords are not accepted during password change

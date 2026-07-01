@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<!--
+  Parallel All Suite
+  ==================
+  Phase 1 — All test cases run in parallel (5 concurrent browsers), TC58 excluded.
+  Phase 2 — TC59 bulk-delete runs sequentially after Phase 1 is fully complete.
+
+  Run command:
+      mvn test -DsuiteXmlFile=testng-suites/parallel-all-suite.xml
+
+  Increase thread count for more parallelism (adjust based on machine capacity):
+      mvn test -DsuiteXmlFile=testng-suites/parallel-all-suite.xml -Dthreads=8
+-->
+<suite name="Parallel All Suite" verbose="1" data-provider-thread-count="5">
+
+    <listeners>
+        <listener class-name="runner.ExecutionSetupListener"/>
+        <listener class-name="runner.RetryListener"/>
+    </listeners>
+
+    <!-- Phase 1: All suites in parallel — TC58 excluded -->
+    <test name="All Tests - Parallel">
+        <classes>
+            <class name="runner.ParallelAllRunner"/>
+        </classes>
+    </test>
+
+    <!-- Phase 2: Bulk delete all labs created in TC46-TC54 — runs after Phase 1 completes -->
+    <test name="Final Bulk Delete - TC59">
+        <classes>
+            <class name="runner.CleanupRunner"/>
+        </classes>
+    </test>
+
+</suite>

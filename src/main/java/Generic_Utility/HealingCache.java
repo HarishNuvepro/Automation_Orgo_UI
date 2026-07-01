@@ -11,7 +11,9 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -41,6 +43,11 @@ public class HealingCache {
     private static volatile HealingCache instance;
     private static final Object LOCK = new Object();
 
+    // Tracks originals healed during the current scenario per thread.
+    // If the scenario fails, those entries are cleared to prevent ghost failures next run.
+    private static final ThreadLocal<List<String>> TL_SCENARIO_HEALS =
+            ThreadLocal.withInitial(ArrayList::new);
+
     private final ConcurrentHashMap<String, CacheEntry>   healed = new ConcurrentHashMap<>();
     private final ConcurrentHashMap<String, FailureEntry> failed = new ConcurrentHashMap<>();
 
@@ -57,6 +64,29 @@ public class HealingCache {
             }
         }
         return instance;
+    }
+
+    // ── scenario-scoped heal tracking ───────────────────────────────────────
+
+    /** Called in @Before — resets the heal-tracking list for this thread. */
+    public static void startScenario() {
+        TL_SCENARIO_HEALS.get().clear();
+    }
+
+    /**
+     * Called in @After when the scenario FAILED.
+     * Invalidates every cache entry that was written during this scenario so
+     * the next run re-discovers the correct locator rather than reusing a
+     * wrong one that caused the failure.
+     */
+    public void clearScenarioHeals() {
+        List<String> heals = TL_SCENARIO_HEALS.get();
+        if (heals.isEmpty()) return;
+        log.info("Scenario failed — clearing {} healed locator(s) from cache", heals.size());
+        for (String key : heals) {
+            invalidate(key);
+        }
+        heals.clear();
     }
 
     // ── public API ──────────────────────────────────────────────────────────
@@ -91,6 +121,7 @@ public class HealingCache {
         e.healCount++;
         e.lastHealedAt  = System.currentTimeMillis();
         failed.remove(key);
+        TL_SCENARIO_HEALS.get().add(key);
         save();
         log.info("CACHED {} heal: {} -> {}", method, shorten(originalLocator), healedLocator);
     }

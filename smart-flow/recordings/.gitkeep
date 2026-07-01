@@ -1,0 +1,2 @@
+# Raw browser-action JSON recordings are saved here by ActionRecorder.saveToFile()
+# These can be re-converted any time: SmartFlowEngine convert <file> <module>

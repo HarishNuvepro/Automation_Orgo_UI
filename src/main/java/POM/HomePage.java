@@ -377,4 +377,16 @@ public class HomePage {
 		return page.locator("//a[@class=' teamlistlink' and text()='" + teamName + "']");
 	}
 
+	public Locator getHomeNavDropdown() {
+		return page.locator("//a[@class='dropdown-toggle' and contains(text(),'Home')]");
+	}
+
+	public Locator getMyLabsNavLink() {
+		return page.locator("a.dropdown-header[href='/subscriptions?type=self']");
+	}
+
+	public Locator getRolesNavLink() {
+		return page.locator("a.dropdown-header[href='/roles']");
+	}
+
 }

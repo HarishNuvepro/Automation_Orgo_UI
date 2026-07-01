@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testng-results failed="0" passed="1" skipped="0" total="1">
+    <suite duration-ms="102716" name="io.cucumber.core.plugin.TestNGFormatter">
+        <test duration-ms="102716" name="io.cucumber.core.plugin.TestNGFormatter">
+            <class name="User Actions">
+                <test-method duration-ms="102370" finished-at="2026-06-30T13:13:43.640124700Z" name="TC42 - Verify weak passwords are not accepted during password change" started-at="2026-06-30T13:12:01.237410400Z" status="PASS"/>
+            </class>
+        </test>
+    </suite>
+</testng-results>

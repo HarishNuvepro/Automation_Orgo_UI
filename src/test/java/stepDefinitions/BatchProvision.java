@@ -17,21 +17,29 @@ public class BatchProvision {
 
     private static final Logger log = LoggerFactory.getLogger(BatchProvision.class);
 
-    // ThreadLocal — parallel scenarios each carry their own lab IDs
-    private static final ThreadLocal<String> tlCreatedLabIds = new ThreadLocal<>();
+    // ThreadLocal — parallel scenarios each carry their own data
+    private static final ThreadLocal<String> tlCreatedLabIds  = new ThreadLocal<>();
+    private static final ThreadLocal<String> tlCreatedBatchName = new ThreadLocal<>();
 
     public static String getCreatedLabIds() {
         return tlCreatedLabIds.get();
     }
 
+    public static String getCreatedBatchName() {
+        return tlCreatedBatchName.get();
+    }
+
     @And("navigate to Batch Provisioning of Labs page")
     public void navigate_to_batch_provisioning_of_labs_page() throws Throwable {
+        SingleLabRequest.dismissBlockingModal();
         Hook.base().shDriver.click(Pages.getOrganizationDropdownPage().getLabsTab(), "labs tab");
-        WaitUtils.pause(WaitUtils.SHORT);
-        Hook.base().page.waitForLoadState();
-        WaitUtils.pause(WaitUtils.SHORT);
+        Pages.getLabsDropdownPage().getBatchProvisioningLink().waitFor(
+                new com.microsoft.playwright.Locator.WaitForOptions()
+                        .setState(com.microsoft.playwright.options.WaitForSelectorState.VISIBLE)
+                        .setTimeout(10_000));
         Hook.base().shDriver.click(Pages.getLabsDropdownPage().getBatchProvisioningLink(), "batch provisioning link");
         WaitUtils.pause(WaitUtils.MEDIUM);
+        Hook.base().page.waitForLoadState();
     }
 
     @And("click on batch create button")
@@ -42,8 +50,11 @@ public class BatchProvision {
 
     @And("in batch provision details page enter name and description")
     public void in_batch_provision_details_page_enter_name_and_description() throws Throwable {
-        String batchName        = SingleLabRequest.testData().get("BatchName");
-        String batchDescription = SingleLabRequest.testData().get("BatchDescription");
+        String randomSuffix     = String.valueOf(System.currentTimeMillis() % 100000);
+        String batchName        = SingleLabRequest.testData().get("BatchName") + randomSuffix;
+        String batchDescription = SingleLabRequest.testData().get("BatchDescription") + randomSuffix;
+        tlCreatedBatchName.set(batchName);
+        log.info("Batch name: {}", batchName);
         Hook.base().shDriver.fill(Pages.getBatchProvisionPage().getBatchNameInput(), batchName, "batch name");
         Hook.base().shDriver.fill(Pages.getBatchProvisionPage().getBatchDescriptionInput(), batchDescription, "batch description");
         WaitUtils.pause(WaitUtils.SHORT);
@@ -53,6 +64,7 @@ public class BatchProvision {
     public void click_on_next_button() throws Throwable {
         Hook.base().shDriver.click(Pages.getBatchProvisionPage().getNextBtn(), "next button");
         WaitUtils.pause(WaitUtils.MEDIUM);
+        Hook.base().page.waitForLoadState();
     }
 
     @And("in choose user page enter the user email address in the search box and click on search")
@@ -62,6 +74,7 @@ public class BatchProvision {
         if (userEmails != null && userEmails.contains(",")) {
             for (String email : userEmails.split(",")) {
                 Hook.base().shDriver.fill(Pages.getBatchProvisionPage().getUserSearchInput(), email.trim(), "user email search");
+                SingleLabRequest.dismissDtButtonBackground();
                 Hook.base().shDriver.click(Pages.getBatchProvisionPage().getUserSearchBtn(), "search button");
                 WaitUtils.pause(WaitUtils.MEDIUM);
                 Hook.base().shDriver.click(Pages.getBatchProvisionPage().getUserCheckbox(), "user checkbox");
@@ -69,6 +82,7 @@ public class BatchProvision {
             }
         } else {
             Hook.base().shDriver.fill(Pages.getBatchProvisionPage().getUserSearchInput(), userEmails, "user email search");
+            SingleLabRequest.dismissDtButtonBackground();
             Hook.base().shDriver.click(Pages.getBatchProvisionPage().getUserSearchBtn(), "search button");
             WaitUtils.pause(WaitUtils.MEDIUM);
         }
@@ -83,14 +97,27 @@ public class BatchProvision {
     @And("in the choose plan page provide plan id input in search box and select the listed plan")
     public void in_the_choose_plan_page_provide_plan_id_input_in_search_box_and_select_the_listed_plan() throws Throwable {
         String planId = SingleLabRequest.testData().get("PlanID");
+        // Under parallel load the plan list table renders slowly — wait before filling
+        try {
+            Pages.getBatchProvisionPage().getPlanSearchInput().waitFor(
+                    new com.microsoft.playwright.Locator.WaitForOptions()
+                            .setState(com.microsoft.playwright.options.WaitForSelectorState.VISIBLE)
+                            .setTimeout(30_000));
+        } catch (Exception e) {
+            log.warn("Plan search input not visible after 30s: {}", e.getMessage());
+        }
         Hook.base().shDriver.fill(Pages.getBatchProvisionPage().getPlanSearchInput(), planId, "plan id search");
-        WaitUtils.pause(WaitUtils.MEDIUM);
+        WaitUtils.pause(WaitUtils.LONG);
+        WaitUtils.waitForVisible(Pages.getBatchProvisionPage().getPlanRowClick(planId), WaitUtils.TEN_SECONDS);
         Hook.base().shDriver.click(Pages.getBatchProvisionPage().getPlanRowClick(planId), "plan row");
-        WaitUtils.pause(WaitUtils.SHORT);
+        WaitUtils.pause(WaitUtils.MEDIUM);
     }
 
     @And("click on finish button")
     public void click_on_finish_button() throws Throwable {
+        // Wait for the finish button to become visible — under parallel load the wizard
+        // final step CSS can take longer to render, causing intermittent not-visible failures
+        WaitUtils.waitForVisible(Pages.getBatchProvisionPage().getFinishBtn(), WaitUtils.THIRTY_SEC);
         Hook.base().shDriver.click(Pages.getBatchProvisionPage().getFinishBtn(), "finish button");
         WaitUtils.pause(WaitUtils.MEDIUM);
     }
@@ -105,7 +132,16 @@ public class BatchProvision {
     public void in_the_batch_provisioning_summary_table_check_user_listed_and_status_and_lab_id_and_details_is_getting_generated() throws Throwable {
         String userEmails = SingleLabRequest.testData().get("UserEmail");
         Hook.base().page.waitForLoadState();
-        WaitUtils.pause(WaitUtils.LONG);
+        WaitUtils.pause(WaitUtils.EXTRA_LONG);
+        // Batch summary table is populated asynchronously — wait for the first row before reading
+        try {
+            Pages.getBatchProvisionPage().getAllBatchSummaryRows().first().waitFor(
+                    new com.microsoft.playwright.Locator.WaitForOptions()
+                            .setState(com.microsoft.playwright.options.WaitForSelectorState.VISIBLE)
+                            .setTimeout(60_000));
+        } catch (Exception e) {
+            log.warn("Batch summary rows not visible after 60s: {}", e.getMessage());
+        }
 
         String[] emailArray = (userEmails != null && userEmails.contains(","))
                 ? userEmails.split(",")
@@ -142,12 +178,15 @@ public class BatchProvision {
 
     @And("copy those lab id's and navigate to all labs page")
     public void copy_those_lab_ids_and_navigate_to_all_labs_page() throws Throwable {
+        SingleLabRequest.dismissBlockingModal();
         Hook.base().shDriver.click(Pages.getOrganizationDropdownPage().getLabsTab(), "labs tab");
-        WaitUtils.pause(WaitUtils.SHORT);
-        Hook.base().page.waitForLoadState();
-        WaitUtils.pause(WaitUtils.SHORT);
+        Pages.getLabsDropdownPage().getLabsLink().waitFor(
+                new com.microsoft.playwright.Locator.WaitForOptions()
+                        .setState(com.microsoft.playwright.options.WaitForSelectorState.VISIBLE)
+                        .setTimeout(10_000));
         Hook.base().shDriver.click(Pages.getLabsDropdownPage().getLabsLink(), "labs link");
         WaitUtils.pause(WaitUtils.MEDIUM);
+        Hook.base().page.waitForLoadState();
     }
 
     @Then("validate all lab is completion status in the latest action in all labs table")
@@ -246,6 +285,34 @@ public class BatchProvision {
             log.info("Policy '{}' attached to Lab {}", policyName, labId);
             returnToLabsList();
         }
+    }
+
+    @Then("search created batch and select checkbox")
+    public void search_created_batch_and_select_checkbox() throws Throwable {
+        String batchName = getCreatedBatchName();
+        log.info("Searching for batch: {}", batchName);
+        Hook.base().page.waitForLoadState();
+        Hook.base().shDriver.fill(Pages.getBatchProvisionPage().getAllLabsSearchInput(), batchName, "batch search input");
+        WaitUtils.pause(WaitUtils.SHORT);
+        Hook.base().shDriver.click(Pages.getBatchProvisionPage().getAllLabsSearchBtn(), "batch search button");
+        WaitUtils.pause(WaitUtils.MEDIUM);
+        Hook.base().shDriver.click(Pages.getBatchProvisionPage().getBatchListRowCheckboxByName(batchName), "batch row checkbox");
+        WaitUtils.pause(WaitUtils.SHORT);
+    }
+
+    @And("click on batch view button")
+    public void click_on_batch_view_button() throws Throwable {
+        Hook.base().shDriver.click(Pages.getBatchProvisionPage().getBatchViewBtn(), "batch view button");
+        WaitUtils.pause(WaitUtils.LONG);
+        Hook.base().page.waitForLoadState();
+    }
+
+    @And("select all labs in batch details")
+    public void select_all_labs_in_batch_details() throws Throwable {
+        Hook.base().page.waitForLoadState();
+        Hook.base().shDriver.click(Pages.getBatchProvisionPage().getBatchDetailsSelectAllCheckbox(), "select all labs");
+        WaitUtils.pause(WaitUtils.SHORT);
+        log.info("All labs selected in batch details page");
     }
 
     // ── helpers ──────────────────────────────────────────────────────────────

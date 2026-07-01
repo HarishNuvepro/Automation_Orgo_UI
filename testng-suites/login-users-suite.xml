@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!--
+    Combined Login + Users suite.
+
+    Login runs first in PARALLEL (3 threads).
+    Users runs second in SEQUENTIAL (1 thread).
+
+    Each module's execution mode is controlled in its own runner class:
+      LoginModuleRunner.java  →  @DataProvider(parallel = true)
+      UserModuleRunner.java   →  @DataProvider(parallel = false)
+
+    Run command:
+      mvn test -Dsurefire.suiteXmlFiles=testng-suites/login-users-suite.xml
+-->
+<suite name="Login + Users Suite" verbose="1">
+
+    <listeners>
+        <listener class-name="runner.ExecutionSetupListener"/>
+        <listener class-name="runner.RetryListener"/>
+    </listeners>
+
+    <!-- Login module — parallel (3 threads) -->
+    <test name="Login Tests" data-provider-thread-count="3">
+        <classes>
+            <class name="runner.LoginModuleRunner"/>
+        </classes>
+    </test>
+
+    <!-- Users module — sequential (1 thread) -->
+    <test name="User Management Tests" data-provider-thread-count="1">
+        <classes>
+            <class name="runner.UserModuleRunner"/>
+        </classes>
+    </test>
+
+</suite>

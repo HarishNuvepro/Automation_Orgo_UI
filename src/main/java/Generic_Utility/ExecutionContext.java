@@ -123,6 +123,7 @@ public class ExecutionContext {
             Files.createDirectories(Paths.get(reportFolder));
             Files.createDirectories(Paths.get(logsFolder));
             reconfigureLogFile(logsFolder + "/test.log");
+            ScenarioBufferAppender.setLogsDir(logsFolder);
             log.info("Created execution folder: {}", runFolder);
             updateLatestLink(runFolder);
         } catch (IOException e) {

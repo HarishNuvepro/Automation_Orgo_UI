@@ -42,37 +42,57 @@ public class ExcelToJsonConverter {
         }
     }
 
-    // ── Lab sheet — tabular: row 0 = optional header, remaining rows = test cases ──
+    // ── Lab sheets — tabular: row 0 = optional header, remaining rows = test cases ──
+    // Each platform sheet is loaded into the same map. TC_IDs must be unique across sheets
+    // (AWS uses TC1–TC16; GCP uses GCP_TC1, GCP_TC2 …; CSP will use CSP_TC1 etc.)
 
     private void convertLabSheet() throws Throwable {
-        // Column index → JSON key mapping (null = skip that column)
-        String[] headers = {
+        String[] awsHeaders = {
             "TC_ID", "PlanType", "LabRequestType", "LabType", "TeamID",
             "PlanID", null, "PolicyName", "BatchName", "BatchDescription",
             "UserEmail", "UserName"
         };
+        // GCP has one extra column: ForUserId (login ID of user to provision lab for)
+        String[] gcpHeaders = {
+            "TC_ID", "PlanType", "LabRequestType", "LabType", "TeamID",
+            "PlanID", null, "PolicyName", "BatchName", "BatchDescription",
+            "UserEmail", "UserName", "ForUserId"
+        };
 
         Map<String, Map<String, String>> labData = new LinkedHashMap<>();
-        int rowCount = excel.getRowCount("Lab");
-
-        for (int i = 0; i <= rowCount; i++) {
-            String tcId = excel.getDataFromExcel("Lab", i, 0);
-            if (tcId == null || tcId.isBlank() || tcId.equalsIgnoreCase("TC_ID")) {
-                continue; // skip header row and empty rows
-            }
-
-            Map<String, String> row = new LinkedHashMap<>();
-            for (int col = 0; col < headers.length; col++) {
-                if (headers[col] != null) {
-                    String value = excel.getDataFromExcel("Lab", i, col);
-                    row.put(headers[col], value != null ? value : "");
-                }
-            }
-            labData.put(tcId, row);
-        }
+        loadLabSheetInto(labData, "Aws_Lab", awsHeaders);
+        loadLabSheetInto(labData, "Gcp_Lab", gcpHeaders);
 
         writeJson("lab_data.json", labData);
-        log.info("Lab sheet → lab_data.json ({} test cases)", labData.size());
+        log.info("Lab sheets → lab_data.json ({} test cases)", labData.size());
+    }
+
+    private void loadLabSheetInto(Map<String, Map<String, String>> labData,
+                                   String sheetName, String[] headers) throws Throwable {
+        try {
+            int rowCount = excel.getRowCount(sheetName);
+            int loaded = 0;
+            for (int i = 0; i <= rowCount; i++) {
+                String tcId = excel.getDataFromExcel(sheetName, i, 0);
+                if (tcId == null || tcId.isBlank() || tcId.equalsIgnoreCase("TC_ID")) continue;
+                // AWS sheet: Excel still has TC1–TC16; prefix to AWS_TC1–AWS_TC16 to match feature tags
+                if ("Aws_Lab".equals(sheetName) && !tcId.startsWith("AWS_")) {
+                    tcId = "AWS_" + tcId;
+                }
+                Map<String, String> row = new LinkedHashMap<>();
+                for (int col = 0; col < headers.length; col++) {
+                    if (headers[col] != null) {
+                        String value = excel.getDataFromExcel(sheetName, i, col);
+                        row.put(headers[col], value != null ? value : "");
+                    }
+                }
+                labData.put(tcId, row);
+                loaded++;
+            }
+            log.info("{} sheet → {} test cases loaded", sheetName, loaded);
+        } catch (Exception e) {
+            log.warn("{} sheet not found or unreadable — skipping: {}", sheetName, e.getMessage());
+        }
     }
 
     // ── User sheet — tabular TC rows + shared section below ──────────────────────
@@ -91,8 +111,8 @@ public class ExcelToJsonConverter {
     //   Row 8      : TC07 — Add to Team     (col7 = loginId)
     //   Row 9      : TC08 — View Details    (col7 = loginId)
     //   Row 10     : TC09 — New Login       (col7 = loginId)
-    //   Row 27     : TeamName (col1=value)
-    //   Row 28     : UserRole (col1=value)
+    //   Row 31     : TeamName (col1=value)
+    //   Row 32     : UserRole (col1=value)
 
     private void convertUserSheet() throws Throwable {
         Map<String, String> userData = new LinkedHashMap<>();
@@ -131,7 +151,10 @@ public class ExcelToJsonConverter {
         userData.put("UpdateEmployeeId", excel.getDataFromExcel("User", 4, 6));
         userData.put("UpdateLoginId",    excel.getDataFromExcel("User", 4, 8));
         userData.put("TeamName",         excel.getDataFromExcel("User", 9, 2));  // TC08 row, col 2
-        userData.put("UserRole",         excel.getDataFromExcel("User", 28, 1));
+        userData.put("UserRole",         excel.getDataFromExcel("User", 32, 1));
+
+        // ── TC30 old-password negative test (row 31) — new password in col O(14) ──
+        userData.put("Tc30NewPassword", excel.getDataFromExcel("User", 31, 14));
 
         // ── Fields not yet in Excel — empty until added ──────────────────────
         userData.put("BillingAdminRole", "");

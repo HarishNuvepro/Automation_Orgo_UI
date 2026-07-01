@@ -1,0 +1,50 @@
+2026-06-30 18:56:03.117 [main] INFO  Generic_Utility.ExecutionContext     - Created execution folder: ./test-output/2026-06-30_18-56-03
+2026-06-30 18:56:03.402 [main] INFO  Generic_Utility.ExecutionContext     - _latest → 2026-06-30_18-56-03
+2026-06-30 18:56:05.190 [main] INFO  Generic_Utility.DotEnvLoader         - Environment 'elb' loaded from C:\Users\HarishKumar\Downloads\Automation_Orgo\Automation_Orgo_UI_Test\Automation_Orgo_UI_Test\.env.elb — 12 key(s)
+2026-06-30 18:56:24.901 [main] INFO  G.ExcelToJsonConverter               - Aws_Lab sheet → 73 test cases loaded
+2026-06-30 18:56:30.031 [main] INFO  G.ExcelToJsonConverter               - Gcp_Lab sheet → 17 test cases loaded
+2026-06-30 18:56:30.062 [main] INFO  G.ExcelToJsonConverter               - Lab sheets → lab_data.json (90 test cases)
+2026-06-30 18:56:30.469 [main] INFO  G.ExcelToJsonConverter               - User sheet → user_data.json (28 fields)
+2026-06-30 18:56:30.516 [main] INFO  G.ExcelToJsonConverter               - Credentials sheet → credentials.json (browser + negative-test values)
+2026-06-30 18:56:30.518 [main] INFO  G.ExcelToJsonConverter               - Excel → JSON complete. Output: C:\Users\HarishKumar\Downloads\Automation_Orgo\Automation_Orgo_UI_Test\Automation_Orgo_UI_Test\src\test\resources\testdata
+2026-06-30 18:56:30.536 [main] INFO  Generic_Utility.TestDataManager      - TestDataManager ready — 90 lab test cases, 28 user fields
+2026-06-30 18:56:30.537 [main] INFO  stepDefinitions.Hook                 - Run folder: ./test-output/2026-06-30_18-56-03 | Thread: main
+2026-06-30 18:56:41.875 [main] WARN  Generic_Utility.CredentialManager    - GEMINI_API_KEY not found in env or .env — using fallback from ConstantFilePath
+2026-06-30 18:56:41.882 [main] INFO  stepDefinitions.Hook                 - Browser ready | Thread: main
+2026-06-30 18:56:42.490 [main] INFO  Generic_Utility.HealingCache         - Loaded — healed: 49, known failures: 96
+2026-06-30 18:56:51.966 [main] INFO  stepDefinitions.User                 - Creating user — loginId: harish146702813
+2026-06-30 18:57:10.152 [main] WARN  Generic_Utility.SelfHealingLocator   - Attempt 1 FAILED (TimeoutError): Error {
+  message='Timeout 10000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 10000ms exceeded.
+    at ProgressController.run (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-10528163837675484894\package\lib\server\progress.js:87:26)
+    at Frame.click (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-10528163837675484894\package\lib\server\frames.js:995:23)
+    at FrameDispatcher.click (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-10528163837675484894\package\lib\server\dispatchers\frameDispatcher.js:152:30)
+    at FrameDispatcher._handleCommand (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-10528163837675484894\package\lib\server\dispatchers\dispatcher.js:84:40)
+    at DispatcherConnection.dispatch (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-10528163837675484894\package\lib\server\dispatchers\dispatcher.js:351:39)
+}
+Call log:
+- waiting for locator("//a[contains(@href,'logout')]")
+-   locator resolved to <a href="https://qalb.cloudloka.com/user/custom/log…>…</a>
+- attempting click action
+-   waiting for element to be visible, enabled and stable
+-   element is visible, enabled and stable
+-   scrolling into view if needed
+-   locator resolved to <a href="https://qalb.cloudloka.com/user/custom/log…>…</a>
+- attempting click action
+-   waiting for element to be visible, enabled and stable
+-     element is not visible - waiting...
+
+2026-06-30 18:57:25.196 [main] INFO  Generic_Utility.SelfHealingLocator   - Fallback FOUND: //a[contains(text(),'Sign out')]
+2026-06-30 18:57:25.717 [main] INFO  Generic_Utility.SelfHealingLocator   - SUCCESS after 1 attempt(s): Locator@//a[contains(@href,'logout')] -> //a[contains(text(),'Sign out')] (fallback)
+2026-06-30 18:57:25.737 [main] INFO  Generic_Utility.HealingCache         - CACHED fallback heal: Locator@//a[contains(@href,'logout')] -> //a[contains(text(),'Sign out')]
+2026-06-30 18:57:28.808 [main] INFO  Generic_Utility.HealingReportLogger  - Saved 1 healing records to ./test-output/2026-06-30_18-56-03/reports/healing_report.json
+2026-06-30 18:57:36.015 [main] INFO  stepDefinitions.User                 - Removing user — loginId: harish146702813
+2026-06-30 18:57:39.688 [main] INFO  Generic_Utility.HealingReportLogger  - Saved 1 healing records to ./test-output/2026-06-30_18-56-03/reports/healing_report.json
+2026-06-30 18:57:40.269 [main] INFO  Generic_Utility.SelfHealingLocator   - Cache HIT for 'logout button' — trying cached: //a[contains(text(),'Sign out')]
+2026-06-30 18:57:41.322 [main] INFO  Generic_Utility.SelfHealingLocator   - Cache HIT resolved 'logout button' instantly
+2026-06-30 18:57:45.065 [main] INFO  Generic_Utility.HealingReportLogger  - Saved 2 healing records to ./test-output/2026-06-30_18-56-03/reports/healing_report.json
+2026-06-30 18:57:45.068 [main] INFO  stepDefinitions.User                 - Attempting login with deleted user — loginId: harish146702813
+2026-06-30 18:57:48.459 [main] INFO  stepDefinitions.User                 - Login failure validated — 'Invalid username or password.'
+2026-06-30 18:57:48.468 [main] INFO  Generic_Utility.HealingReportLogger  - Saved 2 healing records to ./test-output/2026-06-30_18-56-03/reports/healing_report.json
+2026-06-30 18:57:48.472 [main] INFO  Generic_Utility.HealingReportLogger  - Saved 2 healing records to ./test-output/2026-06-30_18-56-03/reports/healing_report.json

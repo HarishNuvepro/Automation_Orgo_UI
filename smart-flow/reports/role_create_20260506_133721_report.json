@@ -1,0 +1,16 @@
+{
+  "module": "role_create",
+  "featureFile": "src\\test\\java\\FeatureFiles\\generated\\role_create_20260506_133721.feature",
+  "generatedAt": "2026-05-06T13:37:21.363701200",
+  "totalSteps": 4,
+  "reusedSteps": 4,
+  "newSteps": 0,
+  "reuseRatePercent": 100.0,
+  "reusedStepsList": [
+    "Given open the browser and enter the Url",
+    "And login as tenant admin",
+    "And click on logout",
+    "Then validate login page is displayed"
+  ],
+  "newStepsList": []
+}

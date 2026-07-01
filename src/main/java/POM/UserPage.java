@@ -231,4 +231,24 @@ public class UserPage {
 		return page.locator("//span[text()='Success']");
 	}
 
+	public Locator getExportBtn() {
+		return page.locator("button.buttons-collection:has-text('Export')");
+	}
+
+	public Locator getExportCsvOption() {
+		return page.locator("li.buttons-csv");
+	}
+
+	public Locator getExportExcelOption() {
+		return page.locator("li.buttons-excel");
+	}
+
+	public Locator getExportPdfOption() {
+		return page.locator("li.buttons-pdf");
+	}
+
+	public Locator getExportCopyOption() {
+		return page.locator("li.buttons-copy");
+	}
+
 }

@@ -38,6 +38,9 @@ public class Hook extends WebDriverUtility {
 
     @Before
     public void beforeScenario(Scenario scenario) throws Throwable {
+        Generic_Utility.ScenarioBufferAppender.startScenario();
+        Generic_Utility.RunSummaryWriter.startScenario();
+        Generic_Utility.HealingCache.startScenario();
         ExecutionContext.initialize();
         String reportFolder = ExecutionContext.getReportFolder();
 
@@ -49,24 +52,32 @@ public class Hook extends WebDriverUtility {
         Base b = new Base();
 
         String browser = CredentialManager.getBrowser();
+        boolean headless = Boolean.parseBoolean(System.getProperty("test.headless", "true"));
 
         b.playwright = Playwright.create();
 
         if (browser.equalsIgnoreCase("chrome")) {
+            java.util.List<String> args = headless
+                    ? java.util.Arrays.asList("--window-size=1920,1080")
+                    : java.util.Arrays.asList("--start-maximized");
             b.browser = b.playwright.chromium().launch(
                     new BrowserType.LaunchOptions()
-                            .setHeadless(false)
-                            .setArgs(java.util.Arrays.asList("--start-maximized")));
+                            .setHeadless(headless)
+                            .setArgs(args));
         } else if (browser.equalsIgnoreCase("firefox")) {
             b.browser = b.playwright.firefox().launch(
                     new BrowserType.LaunchOptions()
-                            .setHeadless(false)
-                            .setArgs(java.util.Arrays.asList("--start-maximized")));
+                            .setHeadless(headless));
         } else {
             log.warn("Unknown browser type: {}", browser);
         }
 
-        b.context = b.browser.newContext(new Browser.NewContextOptions().setViewportSize(null));
+        // Headed: null viewport — Playwright follows the maximized window size
+        // Headless: fixed 1920x1080 — consistent CI rendering
+        Browser.NewContextOptions ctxOptions = new Browser.NewContextOptions();
+        if (headless) ctxOptions.setViewportSize(1920, 1080);
+        else          ctxOptions.setViewportSize((com.microsoft.playwright.options.ViewportSize) null);
+        b.context = b.browser.newContext(ctxOptions);
         b.page    = b.context.newPage();
         b.page.setDefaultTimeout(60000);
 
@@ -94,6 +105,11 @@ public class Hook extends WebDriverUtility {
         performLogin(CredentialManager.getTenantAdminUsername(), CredentialManager.getTenantAdminPassword());
     }
 
+    @Given("login as GCP tenant admin")
+    public void login_as_gcp_tenant_admin() throws Throwable {
+        performLogin(CredentialManager.getGcpTenantAdminUsername(), CredentialManager.getGcpTenantAdminPassword());
+    }
+
     @Given("login as mspadmin")
     public void login_as_mspadmin() throws Throwable {
         performLogin(CredentialManager.getMspAdminUsername(), CredentialManager.getMspAdminPassword());
@@ -119,7 +135,16 @@ public class Hook extends WebDriverUtility {
             // Direct sign-in page
             base().shDriver.fill(Pages.getLoginPage().getUsernameTxt(), username, "username");
             base().shDriver.fill(Pages.getLoginPage().getPasswordTxt(), password, "password");
-            base().shDriver.click(Pages.getLoginPage().getSignInBtn(), "sign in button");
+            // Wait for the button to be clickable before proceeding — under parallel load
+            // the page may still be initialising when fill completes
+            Pages.getLoginPage().getSignInBtn().waitFor(
+                    new com.microsoft.playwright.Locator.WaitForOptions()
+                            .setState(com.microsoft.playwright.options.WaitForSelectorState.VISIBLE)
+                            .setTimeout(15_000));
+            // Direct click — bypasses self-healing's 10s navigation-wait timeout.
+            // waitForLoadState() below handles post-login navigation.
+            Pages.getLoginPage().getSignInBtn().click(
+                    new com.microsoft.playwright.Locator.ClickOptions().setNoWaitAfter(true));
         } else {
             // Home page — close current browser and launch a fresh one
             log.info("Home page detected — relaunching browser for clean login");
@@ -130,18 +155,24 @@ public class Hook extends WebDriverUtility {
             Playwright pw = Playwright.create();
             base().playwright = pw;
             String browserName = CredentialManager.getBrowser();
+            boolean headless = Boolean.parseBoolean(System.getProperty("test.headless", "true"));
             if (browserName.equalsIgnoreCase("firefox")) {
                 base().browser = pw.firefox().launch(
                         new BrowserType.LaunchOptions()
-                                .setHeadless(false)
-                                .setArgs(java.util.Arrays.asList("--start-maximized")));
+                                .setHeadless(headless));
             } else {
+                java.util.List<String> relaunchArgs = headless
+                        ? java.util.Arrays.asList("--window-size=1920,1080")
+                        : java.util.Arrays.asList("--start-maximized");
                 base().browser = pw.chromium().launch(
                         new BrowserType.LaunchOptions()
-                                .setHeadless(false)
-                                .setArgs(java.util.Arrays.asList("--start-maximized")));
+                                .setHeadless(headless)
+                                .setArgs(relaunchArgs));
             }
-            base().context = base().browser.newContext(new Browser.NewContextOptions().setViewportSize(null));
+            Browser.NewContextOptions relaunchCtx = new Browser.NewContextOptions();
+            if (headless) relaunchCtx.setViewportSize(1920, 1080);
+            else          relaunchCtx.setViewportSize((com.microsoft.playwright.options.ViewportSize) null);
+            base().context = base().browser.newContext(relaunchCtx);
             Page newPage = base().context.newPage();
             newPage.setDefaultTimeout(60000);
             String url = CredentialManager.getBaseUrl();
@@ -159,7 +190,8 @@ public class Hook extends WebDriverUtility {
             Generic_Utility.WaitUtils.pause(Generic_Utility.WaitUtils.SHORT);
             base().shDriver.fill(Pages.getLoginPage().getUsernameTxt(), username, "username");
             base().shDriver.fill(Pages.getLoginPage().getPasswordTxt(), password, "password");
-            base().shDriver.click(Pages.getLoginPage().getSignInBtn(), "sign in button");
+            Pages.getLoginPage().getSignInBtn().click(
+                    new com.microsoft.playwright.Locator.ClickOptions().setNoWaitAfter(true));
         }
         base().page.waitForLoadState();
     }
@@ -173,7 +205,13 @@ public class Hook extends WebDriverUtility {
     @And("click on logout")
     public void click_on_logout() {
         try {
+            base().page.waitForLoadState();
             base().shDriver.click(Pages.getHomePage().getUserProfileDropdown(), "user profile dropdown");
+            Generic_Utility.WaitUtils.pause(Generic_Utility.WaitUtils.SHORT);
+            Pages.getHomePage().getLogoutBtn().waitFor(
+                    new com.microsoft.playwright.Locator.WaitForOptions()
+                            .setState(com.microsoft.playwright.options.WaitForSelectorState.VISIBLE)
+                            .setTimeout(8_000));
             base().shDriver.click(Pages.getHomePage().getLogoutBtn(), "logout button");
         } catch (Exception e) {
             log.warn("Logout failed: {}", e.getMessage());
@@ -215,9 +253,12 @@ public class Hook extends WebDriverUtility {
             b.shDriver.saveHealingReport();
         }
 
+        if (scenario.isFailed()) {
+            Generic_Utility.HealingCache.getInstance().clearScenarioHeals();
+        }
+
         if (b != null && scenario.isFailed()) {
-            String screenshotName = scenario.getName().replace(" ", "_")
-                    + "_" + Thread.currentThread().getName();
+            String screenshotName = "FAILED_" + scenario.getName().replace(" ", "_");
             takeScreenshot(b.page, ExecutionContext.getScreenshotFolder() + "/" + screenshotName);
             byte[] imageBytes = b.page.screenshot();
             scenario.attach(imageBytes, "img/png", scenario.getName());
@@ -228,6 +269,10 @@ public class Hook extends WebDriverUtility {
             if (b.browser    != null) b.browser.close();
             if (b.playwright != null) b.playwright.close();
         }
+
+        Generic_Utility.RunSummaryWriter.recordScenario(scenario);
+        Generic_Utility.ScenarioBufferAppender.flushScenario(
+                scenario.getName(), !scenario.isFailed());
 
         Pages.remove();
         TL_BASE.remove();

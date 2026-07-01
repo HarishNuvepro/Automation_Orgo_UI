@@ -1,8 +1,10 @@
 package stepDefinitions;
 
 import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
 import org.testng.Assert;
 import Generic_Utility.CredentialManager;
+import Generic_Utility.WaitUtils;
 import Util.Pages;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -104,5 +106,60 @@ public class Login {
                 Hook.base().shDriver.saveHealingReport();
             }
         }
+    }
+
+    // ── L1 ────────────────────────────────────────────────────────────────────
+
+    @When("enter credentials with special characters")
+    public void enter_credentials_with_special_characters() throws Throwable {
+        Hook.base().shDriver.fill(Pages.getLoginPage().getUsernameTxt(), "test@user! name#123", "username with special chars");
+        Hook.base().shDriver.fill(Pages.getLoginPage().getPasswordTxt(), "pass@word! #$%^&*()", "password with special chars");
+    }
+
+    // ── L4 ────────────────────────────────────────────────────────────────────
+
+    @Then("validate forgot password link is visible on login page")
+    public void validate_forgot_password_link_is_visible_on_login_page() {
+        boolean isVisible = Hook.base().shDriver.isVisible(
+                Pages.getLoginPage().getForgotPasswordLink(), "forgot password link");
+        Assert.assertTrue(isVisible, "Forgot password link should be visible on the login page");
+    }
+
+    @When("click on forgot password link")
+    public void click_on_forgot_password_link() {
+        Hook.base().shDriver.click(Pages.getLoginPage().getForgotPasswordLink(), "forgot password link");
+        WaitUtils.pause(WaitUtils.LONG);
+    }
+
+    @Then("validate forgot password form is displayed")
+    public void validate_forgot_password_form_is_displayed() {
+        try {
+            boolean formVisible = Hook.base().shDriver.isVisible(
+                    Pages.getLoginPage().getResetLoginIdTxt(), "reset login ID field");
+            Assert.assertTrue(formVisible, "Forgot password form should be displayed with login ID field");
+            log.info("Forgot password form displayed successfully");
+        } catch (Exception e) {
+            log.warn("Forgot password form validation: {}", e.getMessage());
+        } finally {
+            if (Hook.base() != null && Hook.base().shDriver != null) {
+                Hook.base().shDriver.saveHealingReport();
+            }
+        }
+    }
+
+    // ── L8 ────────────────────────────────────────────────────────────────────
+
+    @Given("open browser and navigate to login page with redirect url param")
+    public void open_browser_and_navigate_to_login_page_with_redirect_url_param() {
+        String baseUrl = CredentialManager.getBaseUrl();
+        String redirectUrl = baseUrl + (baseUrl.contains("?") ? "&" : "?") + "redirect=/home";
+        try {
+            Hook.base().page.navigate(redirectUrl, new Page.NavigateOptions().setTimeout(60000));
+        } catch (Exception e) {
+            log.warn("Redirect URL navigation retry: {}", e.getMessage());
+            Hook.base().page.navigate(redirectUrl, new Page.NavigateOptions().setTimeout(60000));
+        }
+        Hook.base().page.waitForLoadState();
+        WaitUtils.pause(WaitUtils.SHORT);
     }
 }

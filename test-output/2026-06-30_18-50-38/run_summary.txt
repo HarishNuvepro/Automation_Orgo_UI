@@ -1,0 +1,4 @@
+Run folder : ./test-output/2026-06-30_18-50-38
+Started    : 2026-06-30 18:53:00
+------------------------------------------------------------------
+PASSED  [  2m 19s]  TC43 - Verify password policy validation is enforced during password change

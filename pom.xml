@@ -97,6 +97,8 @@
     ║  mvn test -Plabs       → labs module only                   ║
     ║  mvn test -Pregression → all @regression scenarios          ║
     ║  mvn test -Pfull       → login + users + labs (sequential)  ║
+    ║  mvn test -Pparallel   → all TCs parallel (TC58 excluded),  ║
+    ║                          then TC59 bulk-delete sequential   ║
     ╚══════════════════════════════════════════════════════════════╝
   -->
   <profiles>
@@ -211,6 +213,25 @@
             <configuration>
               <suiteXmlFiles>
                 <suiteXmlFile>testng-suites/full-suite.xml</suiteXmlFile>
+              </suiteXmlFiles>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- ── parallel (all TCs except TC58, then TC59 cleanup) ─── -->
+    <profile>
+      <id>parallel</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.1.2</version>
+            <configuration>
+              <suiteXmlFiles>
+                <suiteXmlFile>testng-suites/parallel-all-suite.xml</suiteXmlFile>
               </suiteXmlFiles>
             </configuration>
           </plugin>

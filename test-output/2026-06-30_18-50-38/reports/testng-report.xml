@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testng-results failed="0" passed="1" skipped="0" total="1">
+    <suite duration-ms="140667" name="io.cucumber.core.plugin.TestNGFormatter">
+        <test duration-ms="140667" name="io.cucumber.core.plugin.TestNGFormatter">
+            <class name="User Actions">
+                <test-method duration-ms="139415" finished-at="2026-06-30T13:23:00.423609100Z" name="TC43 - Verify password policy validation is enforced during password change" started-at="2026-06-30T13:20:40.960362800Z" status="PASS"/>
+            </class>
+        </test>
+    </suite>
+</testng-results>

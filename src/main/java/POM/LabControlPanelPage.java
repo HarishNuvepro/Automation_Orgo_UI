@@ -151,7 +151,55 @@ public Locator getPolicyRowByName(String policyName) {
         return page.locator("//table[@id='policyTable']//tr[contains(@class,'odd') or contains(@class,'even')]//td[2][text()='" + policyName + "']");
     }
 
+    public Locator getPolicySearchInput() {
+        return page.locator("input[type='search'][aria-controls='policyTable']");
+    }
+
+    public Locator getPolicyTableRowByName(String policyName) {
+        return page.locator("//table[@id='policyTable']//tr[.//td[contains(text(),'" + policyName + "')]]").first();
+    }
+
+    public Locator getRemovePolicyBtn() {
+        return page.locator("#removePolicyModelBtn");
+    }
+
+    public Locator getConfirmRemovePolicyBtn() {
+        return page.locator("#removePolicyBtn");
+    }
+
     public Locator getLaunchLabButton() {
         return page.locator("#launchBtn");
+    }
+
+    public Locator getActionsAccordionLink() {
+        return page.locator("//a[@data-toggle='collapse' and contains(@href,'#lab-operations')]");
+    }
+
+    public Locator getSubmitChallengeBtn() {
+        return page.locator("button.actionButton:has-text('Submit Challenge')");
+    }
+
+    public Locator getSetIamPasswordBtn() {
+        return page.locator("button.actionButton:has-text('Set IAM password')");
+    }
+
+    public Locator getJumpToConsoleBtn() {
+        return page.locator("button.actionButton:has-text('Jump to Console')");
+    }
+
+    public Locator getActionSubmitBtn() {
+        return page.locator("#catInputSubmitBtn");
+    }
+
+    public Locator getIamPasswordInput() {
+        return page.locator("input[id='#UID_AWS_LOGIN_PASSWORD']");
+    }
+
+    public Locator getOpenConsoleLink() {
+        return page.locator("#ssologinurla");
+    }
+
+    public Locator getConnectionDetailsPopup() {
+        return page.locator(".popup-inner:has(#ssologinurla)");
     }
 }

@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Labs Module Suite" verbose="1" data-provider-thread-count="4">
+<!--
+    Labs module suite.
+
+    Phase 1 — TC1-TC12  (single lab, cohort lab, batch provision) run in PARALLEL  — 2 threads.
+    Phase 2 — TC13-TC16 (lazy lab)                                run SEQUENTIAL   — 1 thread.
+    Phase 3 — TC_CLEANUP_LABS                                     runs SEQUENTIAL after both phases.
+
+    Run command:
+      mvn test -Dsurefire.suiteXmlFiles=testng-suites/labs-suite.xml
+-->
+<suite name="Labs Module Suite" verbose="1" data-provider-thread-count="2">
+
     <listeners>
         <listener class-name="runner.ExecutionSetupListener"/>
         <listener class-name="runner.RetryListener"/>
     </listeners>
-    <test name="Labs Tests">
+
+    <!-- Phase 1: Single Lab + Cohort + Batch Provision — parallel (3 threads) -->
+    <test name="Labs Provision Tests">
         <classes>
-            <class name="runner.LabsModuleRunner"/>
+            <class name="runner.LabsProvisionRunner"/>
         </classes>
     </test>
+
+    <!-- Phase 2: Lazy Lab — sequential (1 thread, parallel=false in runner) -->
+    <test name="Lazy Lab Tests">
+        <classes>
+            <class name="runner.LabsLazyLabRunner"/>
+        </classes>
+    </test>
+
+    <!-- Phase 3: Cleanup — sequential, after all provision tests finish -->
+    <test name="Labs Provision Cleanup">
+        <classes>
+            <class name="runner.LabsProvisionCleanupRunner"/>
+        </classes>
+    </test>
+
 </suite>

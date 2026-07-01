@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!--
+    Fast Smoke Suite — validates core lab flow for both platforms quickly.
+
+    Runs @smoke scenarios only:
+      AWS  TC1  (single lab - account)
+      AWS  TC9  (batch provision - account)
+      GCP  TC1  (single lab - GCP account)
+      GCP  TC9  (batch provision - GCP account)
+
+    Total: 4 TCs in parallel (2 threads) + both cleanups.
+    Expected duration: ~25-30 min.
+
+    USE THIS during active development / after each fix to get fast feedback.
+    Use combined-labs-suite.xml only for final full validation.
+
+    Run command:
+      mvn test "-Dsurefire.suiteXmlFiles=testng-suites/fast-smoke-suite.xml"
+-->
+<suite name="Fast Smoke Labs Suite" verbose="1" data-provider-thread-count="2">
+
+    <listeners>
+        <listener class-name="runner.ExecutionSetupListener"/>
+        <listener class-name="runner.RetryListener"/>
+    </listeners>
+
+    <!-- Phase 1: AWS TC1 + TC9 + GCP TC1 + TC9 — parallel (2 threads) -->
+    <test name="Fast Smoke - AWS and GCP">
+        <classes>
+            <class name="runner.FastSmokeLabsRunner"/>
+        </classes>
+    </test>
+
+    <!-- Phase 2: AWS Cleanup -->
+    <test name="Fast Smoke - AWS Cleanup">
+        <classes>
+            <class name="runner.LabsProvisionCleanupRunner"/>
+        </classes>
+    </test>
+
+    <!-- Phase 3: GCP Cleanup -->
+    <test name="Fast Smoke - GCP Cleanup">
+        <classes>
+            <class name="runner.GcpLabsProvisionCleanupRunner"/>
+        </classes>
+    </test>
+
+</suite>

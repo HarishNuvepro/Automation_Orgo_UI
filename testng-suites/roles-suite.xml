@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!--
+    Roles module suite — runs all @roles scenarios sequentially.
+
+    Run command:
+      mvn test -Dsurefire.suiteXmlFiles=testng-suites/roles-suite.xml
+
+    To run via class filter:
+      mvn test -Dtest=RolesModuleRunner
+-->
+<suite name="Roles Suite" verbose="1">
+
+    <listeners>
+        <listener class-name="runner.ExecutionSetupListener"/>
+        <listener class-name="runner.RetryListener"/>
+    </listeners>
+
+    <test name="Role Management Tests" data-provider-thread-count="1">
+        <classes>
+            <class name="runner.RolesModuleRunner"/>
+        </classes>
+    </test>
+
+</suite>

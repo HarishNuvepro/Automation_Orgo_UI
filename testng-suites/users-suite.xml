@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="User Management Module Suite" verbose="1" data-provider-thread-count="4">
+<!--
+    Users module suite.
+
+    Phase 1 — User Creation runs in PARALLEL (3 threads): TC1, TC2, TC11, TC12.
+    Phase 2 — User Actions runs SEQUENTIAL (1 thread):   TC3-TC20 + TC_CLEANUP.
+
+    TC_CLEANUP (last scenario) removes all users created across both phases
+    because UserCleanupRegistry is a static singleton shared within the JVM run.
+
+    Run command:
+      mvn test -Dsurefire.suiteXmlFiles=testng-suites/users-suite.xml
+
+    To run phases individually:
+      mvn test -Dtest=UserCreateRunner      (create only — parallel)
+      mvn test -Dtest=UserActionsRunner     (actions + cleanup only — sequential)
+      mvn test -Dtest=UserModuleRunner      (all users — fully sequential fallback)
+-->
+<suite name="Users Suite" verbose="1">
+
     <listeners>
         <listener class-name="runner.ExecutionSetupListener"/>
         <listener class-name="runner.RetryListener"/>
     </listeners>
-    <test name="User Management Tests">
+
+    <!-- Phase 1: User Creation — parallel (3 threads) -->
+    <test name="User Creation Tests" data-provider-thread-count="3">
         <classes>
-            <class name="runner.UserModuleRunner"/>
+            <class name="runner.UserCreateRunner"/>
         </classes>
     </test>
+
+    <!-- Phase 2: User Actions + Cleanup — sequential (1 thread) -->
+    <test name="User Actions Tests" data-provider-thread-count="1">
+        <classes>
+            <class name="runner.UserActionsRunner"/>
+        </classes>
+    </test>
+
 </suite>

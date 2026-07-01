@@ -60,7 +60,7 @@ public class WebDriverUtility {
 	 * this method wait for the element to be visible
 	 */
 	public void waitForElementVisibility(Page page, Locator element) {
-		element.waitFor(new Locator.WaitForOptions().setTimeout(300000));
+		element.waitFor(new Locator.WaitForOptions().setTimeout(30000));
 	}
 
 	public void mouserHover(Page page, Locator element) {

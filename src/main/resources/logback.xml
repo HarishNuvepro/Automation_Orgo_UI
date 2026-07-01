@@ -15,9 +15,12 @@
         </encoder>
     </appender>
 
+    <appender name="SCENARIO_BUFFER" class="Generic_Utility.ScenarioBufferAppender"/>
+
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
+        <appender-ref ref="SCENARIO_BUFFER"/>
     </root>
 
 </configuration>

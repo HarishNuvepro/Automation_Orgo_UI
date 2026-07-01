@@ -1,0 +1,4 @@
+Run folder : ./test-output/2026-07-01_10-39-10
+Started    : 2026-07-01 10:40:32
+------------------------------------------------------------------
+FAILED  [  1m 20s]  TC46 - Verify user search works correctly with partial match values

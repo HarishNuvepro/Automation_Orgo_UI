@@ -1,0 +1,24 @@
+{
+  "module": "edit role",
+  "featureFile": "src\\test\\java\\FeatureFiles\\generated\\edit_role_20260506_134418.feature",
+  "generatedAt": "2026-05-06T13:44:18.689006",
+  "totalSteps": 11,
+  "reusedSteps": 5,
+  "newSteps": 6,
+  "reuseRatePercent": 45.45454545454545,
+  "reusedStepsList": [
+    "Given open the browser and enter the Url",
+    "And login as tenant admin",
+    "When click on save button",
+    "And click on logout",
+    "Then validate login page is displayed"
+  ],
+  "newStepsList": [
+    "When navigate to \"Administration\" tab",
+    "And click on \"Roles\" link",
+    "And click on \"Edit\" link",
+    "And enter role name as \"Updated Support Agent\"",
+    "And enter role description as \"This role handles customer support queries and escalations.\"",
+    "Then validate \"Role updated successfully\" message is displayed"
+  ]
+}

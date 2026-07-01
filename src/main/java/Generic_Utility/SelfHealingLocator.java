@@ -130,8 +130,10 @@ public class SelfHealingLocator {
                         log.debug("Trying fallback locators...");
                         for (String fallback : generateFallbackLocators(locator, stepDescription)) {
                             try {
-                                currentLocator = page.locator(fallback);
-                                currentLocator.first().waitFor(new Locator.WaitForOptions().setTimeout(FALLBACK_TIMEOUT));
+                                Locator candidate = page.locator(fallback);
+                                candidate.first().waitFor(new Locator.WaitForOptions().setTimeout(FALLBACK_TIMEOUT));
+                                // Use .first() so multi-match locators never cause strict-mode violations
+                                currentLocator = candidate.first();
                                 healedLocatorStr = fallback;
                                 healingMethod    = "fallback";
                                 log.info("Fallback FOUND: {}", fallback);

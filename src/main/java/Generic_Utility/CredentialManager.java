@@ -72,6 +72,16 @@ public final class CredentialManager {
         return resolve("TENANT_ADMIN_PASSWORD", "Credentials", 11, 1);
     }
 
+    // ── GCP Tenant Admin ─────────────────────────────────────────────────────
+
+    public static String getGcpTenantAdminUsername() {
+        return resolve("GCP_TENANT_ADMIN_USERNAME", "Credentials", 14, 1);
+    }
+
+    public static String getGcpTenantAdminPassword() {
+        return resolve("GCP_TENANT_ADMIN_PASSWORD", "Credentials", 15, 1);
+    }
+
     // ── Regular User ─────────────────────────────────────────────────────────
 
     public static String getUserUsername() {

@@ -1,0 +1,20 @@
+====================================================================================================
+SCENARIO : TC42 - Verify weak passwords are not accepted during password change
+STATUS   : FAILED
+====================================================================================================
+18:36:58.380 [main] INFO  DotEnvLoader                   - Environment 'elb' loaded from C:\Users\HarishKumar\Downloads\Automation_Orgo\Automation_Orgo_UI_Test\Automation_Orgo_UI_Test\.env.elb — 12 key(s)
+18:37:40.704 [main] INFO  ExcelToJsonConverter           - Aws_Lab sheet → 73 test cases loaded
+18:37:48.678 [main] INFO  ExcelToJsonConverter           - Gcp_Lab sheet → 17 test cases loaded
+18:37:48.706 [main] INFO  ExcelToJsonConverter           - Lab sheets → lab_data.json (90 test cases)
+18:37:49.372 [main] INFO  ExcelToJsonConverter           - User sheet → user_data.json (28 fields)
+18:37:49.453 [main] INFO  ExcelToJsonConverter           - Credentials sheet → credentials.json (browser + negative-test values)
+18:37:49.455 [main] INFO  ExcelToJsonConverter           - Excel → JSON complete. Output: C:\Users\HarishKumar\Downloads\Automation_Orgo\Automation_Orgo_UI_Test\Automation_Orgo_UI_Test\src\test\resources\testdata
+18:37:49.478 [main] INFO  TestDataManager                - TestDataManager ready — 90 lab test cases, 28 user fields
+18:37:49.479 [main] INFO  Hook                           - Run folder: ./test-output/2026-06-30_18-36-56 | Thread: main
+18:37:59.749 [main] WARN  CredentialManager              - GEMINI_API_KEY not found in env or .env — using fallback from ConstantFilePath
+18:37:59.760 [main] INFO  Hook                           - Browser ready | Thread: main
+18:38:00.387 [main] INFO  HealingCache                   - Loaded — healed: 49, known failures: 96
+18:38:12.266 [main] INFO  User                           - Creating user — loginId: harish14181833
+18:38:44.178 [main] INFO  User                           - Changing password — loginId: harish14181833
+18:38:48.945 [main] INFO  User                           - TC42: weak password rejected — error text 'Password policy not met. Provide valid password.'
+

@@ -1,0 +1,74 @@
+[
+  {
+    "originalLocator": "Locator@//a[contains(@href,\u0027logout\u0027)]",
+    "healedLocator": "//a[contains(text(),\u0027Sign out\u0027)]",
+    "healingMethod": "fallback",
+    "retryCount": 1,
+    "finalStatus": "SUCCESS",
+    "stepDescription": "logout button",
+    "timestamp": 1782826045717
+  },
+  {
+    "originalLocator": "Locator@//a[contains(@href,\u0027logout\u0027)]",
+    "healedLocator": "//a[contains(text(),\u0027Sign out\u0027)]",
+    "healingMethod": "fallback",
+    "retryCount": 1,
+    "finalStatus": "SUCCESS",
+    "stepDescription": "logout button",
+    "timestamp": 1782826045717
+  },
+  {
+    "originalLocator": "Locator@//a[contains(@href,\u0027logout\u0027)]",
+    "healedLocator": "//a[contains(text(),\u0027Sign out\u0027)]",
+    "healingMethod": "fallback",
+    "retryCount": 1,
+    "finalStatus": "SUCCESS",
+    "stepDescription": "logout button",
+    "timestamp": 1782826045717
+  },
+  {
+    "originalLocator": "Locator@//a[contains(@href,\u0027logout\u0027)]",
+    "healedLocator": "//a[contains(text(),\u0027Sign out\u0027)]",
+    "healingMethod": "cache",
+    "retryCount": 0,
+    "finalStatus": "SUCCESS",
+    "stepDescription": "logout button",
+    "timestamp": 1782826061322
+  },
+  {
+    "originalLocator": "Locator@//a[contains(@href,\u0027logout\u0027)]",
+    "healedLocator": "//a[contains(text(),\u0027Sign out\u0027)]",
+    "healingMethod": "fallback",
+    "retryCount": 1,
+    "finalStatus": "SUCCESS",
+    "stepDescription": "logout button",
+    "timestamp": 1782826045717
+  },
+  {
+    "originalLocator": "Locator@//a[contains(@href,\u0027logout\u0027)]",
+    "healedLocator": "//a[contains(text(),\u0027Sign out\u0027)]",
+    "healingMethod": "cache",
+    "retryCount": 0,
+    "finalStatus": "SUCCESS",
+    "stepDescription": "logout button",
+    "timestamp": 1782826061322
+  },
+  {
+    "originalLocator": "Locator@//a[contains(@href,\u0027logout\u0027)]",
+    "healedLocator": "//a[contains(text(),\u0027Sign out\u0027)]",
+    "healingMethod": "fallback",
+    "retryCount": 1,
+    "finalStatus": "SUCCESS",
+    "stepDescription": "logout button",
+    "timestamp": 1782826045717
+  },
+  {
+    "originalLocator": "Locator@//a[contains(@href,\u0027logout\u0027)]",
+    "healedLocator": "//a[contains(text(),\u0027Sign out\u0027)]",
+    "healingMethod": "cache",
+    "retryCount": 0,
+    "finalStatus": "SUCCESS",
+    "stepDescription": "logout button",
+    "timestamp": 1782826061322
+  }
+]

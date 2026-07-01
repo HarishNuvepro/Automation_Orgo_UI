@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!--
+    GCP Labs module suite.
+
+    Phase 1 — GCP_TC1–GCP_TC12 (single lab, cohort lab, batch provision) run in PARALLEL  — 2 threads.
+    Phase 2 — GCP_TC13–GCP_TC16 (lazy lab)                               run SEQUENTIAL   — 1 thread.
+    Phase 3 — TC_CLEANUP_GCP_LABS                                         runs SEQUENTIAL after both phases.
+
+    Run command:
+      mvn test "-Dsurefire.suiteXmlFiles=testng-suites/gcp-labs-suite.xml"
+-->
+<suite name="GCP Labs Suite" verbose="1" data-provider-thread-count="2">
+
+    <listeners>
+        <listener class-name="runner.ExecutionSetupListener"/>
+        <listener class-name="runner.RetryListener"/>
+    </listeners>
+
+    <!-- Phase 1: GCP Single Lab + Cohort + Batch Provision — parallel (3 threads) -->
+    <test name="GCP Labs Provision Tests">
+        <classes>
+            <class name="runner.GcpLabsRunner"/>
+        </classes>
+    </test>
+
+    <!-- Phase 2: GCP Lazy Lab — sequential (1 thread, parallel=false in runner) -->
+    <test name="GCP Lazy Lab Tests">
+        <classes>
+            <class name="runner.GcpLabsLazyLabRunner"/>
+        </classes>
+    </test>
+
+    <!-- Phase 3: GCP Cleanup — sequential, after all provision tests finish -->
+    <test name="GCP Labs Provision Cleanup">
+        <classes>
+            <class name="runner.GcpLabsProvisionCleanupRunner"/>
+        </classes>
+    </test>
+
+</suite>

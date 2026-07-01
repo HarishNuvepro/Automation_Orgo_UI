@@ -124,7 +124,7 @@ public class LabsPage {
 	}
 
 	public Locator getLabLatestActionById(String labId) {
-		return page.locator("//table[@id='mySubscriptionsTable']//td[text()='" + labId + "']/following-sibling::td[6]");
+		return page.locator("//table[@id='mySubscriptionsTable']//td[text()='" + labId + "']/following-sibling::td[7]");
 	}
 
 	public Locator getLabLatestActionStatusById(String labId) {
@@ -189,5 +189,13 @@ public class LabsPage {
 
 	public Locator getLabTileById(String labId) {
 		return page.locator("//a[contains(@href,'subscriptions/launch?id=" + labId + "')]");
+	}
+
+	public Locator getPageSizeSelect() {
+		return page.locator("select[name='mySubscriptionsTable_length']");
+	}
+
+	public Locator getFirstRowSelectCheckbox() {
+		return page.locator("//table[@id='mySubscriptionsTable']//tbody//tr[1]//td[contains(@class,'select-checkbox')]");
 	}
 }

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!--
+    All Modules Suite (Login + Users + AWS Labs + GCP Labs)
+    Roles module excluded.
+
+    Execution order:
+      Phase 1 — Login Tests            (parallel 3 threads)     ~5-10  min
+      Phase 2 — User Management Tests  (sequential 1 thread)    ~15-20 min
+      Phase 3 — AWS  TC1–TC12          (parallel  2 threads)    ~25-30 min
+      Phase 4 — GCP  TC1–TC12          (parallel  2 threads)    ~25-30 min
+      Phase 5 — AWS  TC13–TC16         (sequential)             ~20-25 min
+      Phase 6 — GCP  TC13–TC16         (sequential)             ~20-25 min
+      Phase 7 — AWS  Cleanup           (sequential)             ~5-10  min
+      Phase 8 — GCP  Cleanup           (sequential)             ~5-10  min
+
+    Estimated total: ~2 hr 20 min – 2 hr 45 min
+
+    Run command:
+      mvn test "-Dsurefire.suiteXmlFiles=testng-suites/all-except-roles-suite.xml"
+-->
+<suite name="All Modules Suite (Except Roles)" verbose="1" data-provider-thread-count="2">
+
+    <listeners>
+        <listener class-name="runner.ExecutionSetupListener"/>
+        <listener class-name="runner.RetryListener"/>
+    </listeners>
+
+    <!-- Phase 1: Login — parallel (3 threads) -->
+    <test name="Login Tests" data-provider-thread-count="3">
+        <classes>
+            <class name="runner.LoginModuleRunner"/>
+        </classes>
+    </test>
+
+    <!-- Phase 2: Users — sequential (1 thread) -->
+    <test name="User Management Tests" data-provider-thread-count="1">
+        <classes>
+            <class name="runner.UserModuleRunner"/>
+        </classes>
+    </test>
+
+    <!-- Phase 3: AWS TC1–TC12 — parallel (2 threads) -->
+    <test name="AWS Labs Provision Tests">
+        <classes>
+            <class name="runner.LabsProvisionRunner"/>
+        </classes>
+    </test>
+
+    <!-- Phase 4: GCP TC1–TC12 — parallel (2 threads) -->
+    <test name="GCP Labs Provision Tests">
+        <classes>
+            <class name="runner.GcpLabsRunner"/>
+        </classes>
+    </test>
+
+    <!-- Phase 5: AWS TC13–TC16 — sequential -->
+    <test name="AWS Lazy Lab Tests">
+        <classes>
+            <class name="runner.LabsLazyLabRunner"/>
+        </classes>
+    </test>
+
+    <!-- Phase 6: GCP TC13–TC16 — sequential -->
+    <test name="GCP Lazy Lab Tests">
+        <classes>
+            <class name="runner.GcpLabsLazyLabRunner"/>
+        </classes>
+    </test>
+
+    <!-- Phase 7: AWS Cleanup — sequential -->
+    <test name="AWS Labs Provision Cleanup">
+        <classes>
+            <class name="runner.LabsProvisionCleanupRunner"/>
+        </classes>
+    </test>
+
+    <!-- Phase 8: GCP Cleanup — sequential -->
+    <test name="GCP Labs Provision Cleanup">
+        <classes>
+            <class name="runner.GcpLabsProvisionCleanupRunner"/>
+        </classes>
+    </test>
+
+</suite>

@@ -1,8 +1,8 @@
 @login
 Feature: Login to the Orgo portal
 
-  @smoke @positive
-  Scenario: Login orgo portal with valid credentials
+  @TC1 @smoke @positive
+  Scenario: TC1 - Login orgo portal with valid credentials
     Given Open browser and enter the url
     And Login page should display
     When login as tenant admin
@@ -10,40 +10,40 @@ Feature: Login to the Orgo portal
     And click on logout
     Then validate login page is displayed
 
-  @regression @negative
-  Scenario: Login orgo portal with valid username and invalid password
+  @TC2 @regression @negative
+  Scenario: TC2 - Login orgo portal with valid username and invalid password
     Given Open browser and enter the url
     And Login page should display
     When Enter valid username and invalid password
     And click on Login
     Then validate error message is displayed
 
-  @regression @negative
-  Scenario: Login orgo portal with invalid username and valid password
+  @TC3 @regression @negative
+  Scenario: TC3 - Login orgo portal with invalid username and valid password
     Given Open browser and enter the url
     And Login page should display
     When Enter invalid username and valid password
     And click on Login
     Then validate error message is displayed
 
-  @regression @negative
-  Scenario: Login orgo portal with invalid username and invalid password
+  @TC4 @regression @negative
+  Scenario: TC4 - Login orgo portal with invalid username and invalid password
     Given Open browser and enter the url
     And Login page should display
     When Enter invalid username and invalid password
     And click on Login
     Then validate error message is displayed
 
-  @regression @negative
-  Scenario: Login orgo portal with empty values click on login button
+  @TC5 @regression @negative
+  Scenario: TC5 - Login orgo portal with empty values click on login button
     Given Open browser and enter the url
     And Login page should display
     When Enter empty username and password
     And click on Login
     Then validate error message is displayed
 
-  @smoke @positive
-  Scenario: Login orgo portal with user details
+  @TC6 @smoke @positive
+  Scenario: TC6 - Login orgo portal with user details
     Given Open browser and enter the url
     And Login page should display
     When login as user
@@ -51,8 +51,8 @@ Feature: Login to the Orgo portal
     And click on logout
     Then validate login page is displayed
 
-  @smoke @positive
-  Scenario: Login orgo portal with mspadmin details
+  @TC7 @smoke @positive
+  Scenario: TC7 - Login orgo portal with mspadmin details
     Given Open browser and enter the url
     And Login page should display
     When login as mspadmin
@@ -60,8 +60,8 @@ Feature: Login to the Orgo portal
     And click on logout
     Then validate login page is displayed
 
-  @regression @positive
-  Scenario: Login orgo portal with sysadmin details
+  @TC8 @regression @positive
+  Scenario: TC8 - Login orgo portal with sysadmin details
     Given Open browser and enter the url
     And Login page should display
     When login as sysadmin
@@ -69,18 +69,43 @@ Feature: Login to the Orgo portal
     And click on sysadmin logout
     Then validate login page is displayed
 
-  @regression @negative
-  Scenario: Login orgo portal with empty username and valid password
+  @TC9 @regression @negative
+  Scenario: TC9 - Login orgo portal with empty username and valid password
     Given Open browser and enter the url
     And Login page should display
     When Enter empty username and valid password
     And click on Login
     Then validate error message is displayed
 
-  @regression @negative
-  Scenario: Login orgo portal with valid username and empty password
+  @TC10 @regression @negative
+  Scenario: TC10 - Login orgo portal with valid username and empty password
     Given Open browser and enter the url
     And Login page should display
     When Enter valid username and empty password
     And click on Login
     Then validate error message is displayed
+
+  @TC11 @L1 @regression @negative @specialCharLogin
+  Scenario: TC11 - Login with special characters in username and password
+    Given Open browser and enter the url
+    And Login page should display
+    When enter credentials with special characters
+    And click on Login
+    Then validate error message is displayed
+
+  @TC12 @L4 @regression @positive @forgotPasswordLink
+  Scenario: TC12 - Forgot password link visible on login page and navigates correctly
+    Given Open browser and enter the url
+    And Login page should display
+    Then validate forgot password link is visible on login page
+    When click on forgot password link
+    Then validate forgot password form is displayed
+
+  @TC13 @L8 @regression @positive @redirectAfterLogin
+  Scenario: TC13 - Redirect after login with valid credentials and redirect URL param
+    Given open browser and navigate to login page with redirect url param
+    And Login page should display
+    When login as tenant admin
+    Then validate proper Home page is displayed
+    And click on logout
+    Then validate login page is displayed

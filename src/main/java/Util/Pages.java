@@ -15,6 +15,7 @@ import POM.LabsDropdownPage;
 import POM.LabsPage;
 import POM.LoginPage;
 import POM.OrganizationDropdownPage;
+import POM.RolesPage;
 import POM.SubscribePlanPage;
 import POM.UserPage;
 
@@ -41,6 +42,7 @@ public class Pages {
     private SubscribePlanPage       subscribePlanPage;
     private LabControlPanelPage     labControlPanelPage;
     private BatchProvisionPage      batchProvisionPage;
+    private RolesPage               rolesPage;
 
     private Pages(Page page) {
         this.page = page;
@@ -146,5 +148,11 @@ public class Pages {
         Pages p = TL.get();
         if (p.batchProvisionPage == null) p.batchProvisionPage = new BatchProvisionPage(p.page);
         return p.batchProvisionPage;
+    }
+
+    public static RolesPage getRolesPage() {
+        Pages p = TL.get();
+        if (p.rolesPage == null) p.rolesPage = new RolesPage(p.page);
+        return p.rolesPage;
     }
 }

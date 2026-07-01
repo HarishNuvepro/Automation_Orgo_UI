@@ -1,0 +1,4 @@
+Run folder : ./test-output/2026-06-30_18-53-25
+Started    : 2026-06-30 18:55:27
+------------------------------------------------------------------
+PASSED  [  2m 00s]  TC44 - Verify user details remain unchanged when edit operation is cancelled
