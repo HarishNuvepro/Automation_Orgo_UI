@@ -57,6 +57,32 @@ public class UserPage {
 		return page.locator("//td[contains(@class,'select-checkbox') and contains(@class,'noVis')]");
 	}
 
+	/**
+	 * "Select all" header cell in the users table. The th with class
+	 * {@code select-checkbox} is the DataTables Select extension's header
+	 * for bulk-row selection. The cell is initially empty in the HTML and
+	 * the input checkbox is added at runtime by the Select extension.
+	 *
+	 * <p>HTML:
+	 * <pre>
+	 * &lt;th class="sorting_disabled select-checkbox noVis" rowspan="1" colspan="1" style="width: 16px;"&gt;
+	 *   &lt;input type="checkbox"&gt;  &lt;-- added by DataTables Select at runtime
+	 * &lt;/th&gt;
+	 * </pre>
+	 *
+	 * <p>Locator points at the th itself (not the input inside) because:
+	 * <ol>
+	 *   <li>The input is not guaranteed to exist in the DOM when the test runs</li>
+	 *   <li>The th is the element the DataTables Select extension actually
+	 *       listens to for click events (via event delegation)</li>
+	 *   <li>Force-clicking the th works whether or not the inner input has
+	 *       been injected yet</li>
+	 * </ol>
+	 */
+	public Locator getSelectAllCheckbox() {
+		return page.locator("th.select-checkbox");
+	}
+
 	public Locator getSelectUserCheckBoxByLoginId(String loginId) {
 		return page.locator("//table[@id='usersListTable']//tr[td[normalize-space()='" + loginId
 				+ "']]//td[contains(@class,'select-checkbox')]").first();
@@ -80,6 +106,19 @@ public class UserPage {
 
 	public Locator getUserDeactiveConfirmBtn() {
 		return page.locator("#deActivateUser button:has-text('Deactivate')");
+	}
+
+	public Locator getUserDeactiveCancelBtn() {
+		return page.locator("#deActivateUser button:has-text('Cancel')");
+	}
+
+	public Locator getUserDeleteCancelBtn() {
+		// Matches: <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		// This is the same generic Cancel pattern used by every Bootstrap modal in this app
+		// (change-password, edit-user, etc.). The remove-user dialog does NOT have a unique
+		// parent ID, so we rely on .first() in the step def to pick the only Cancel button
+		// visible when the remove dialog is open.
+		return page.locator("button.btn.btn-default[data-dismiss='modal']:has-text('Cancel')");
 	}
 
 	public Locator getUserActiveBtn() {
@@ -201,6 +240,10 @@ public class UserPage {
 
 	public Locator getAdvancedSearchBtn() {
 		return page.locator("#advancedSearchLaunchBtn");
+	}
+
+	public Locator getExactSearchCheckbox() {
+		return page.locator("#exactSearch");
 	}
 
 	public Locator getAdvanceSearchAllOption() {

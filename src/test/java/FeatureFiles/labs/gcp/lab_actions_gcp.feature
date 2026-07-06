@@ -1,16 +1,18 @@
 @gcp @lab-actions-gcp
 Feature: Lab Actions GCP functionality
 
-  @smoke @GCP_TC45
-  Scenario: GCP_TC45 - Lab Actions - Create, Stop, Start and Delete Lab - Account
+  @smoke @GCP_TC31
+  Scenario: GCP_TC31 - Lab Actions - Create, Stop, Start and Delete Lab - Account
     Given open the browser and enter the Url
     And login as GCP tenant admin
     When click on select team option
-    And get test data from excel GCP_TC45
+    And get test data from excel GCP_TC31
     And search and select team
     And navigate to labs page
     And click on request lab button
     And select plan using test data
+    And select provision for others option
+    And search and select user for lab
     And click on subscribe button
     Then verify lab is created successfully
     And navigate to labs page
@@ -24,16 +26,18 @@ Feature: Lab Actions GCP functionality
     And click on logout
     Then validate login page is displayed
 
-  @regression @GCP_TC46
-  Scenario: GCP_TC46 - Lab Actions - Create, Cleanup, Suspend and Resume via Policy Assignment - Account
+  @regression @GCP_TC32
+  Scenario: GCP_TC32 - Lab Actions - Create, Cleanup, Suspend and Resume via Policy Assignment - Account
     Given open the browser and enter the Url
     And login as GCP tenant admin
     When click on select team option
-    And get test data from excel GCP_TC46
+    And get test data from excel GCP_TC32
     And search and select team
     And navigate to labs page
     And click on request lab button
     And select plan using test data
+    And select provision for others option
+    And search and select user for lab
     And click on subscribe button
     Then verify lab is created successfully
     And navigate to labs page
@@ -45,16 +49,18 @@ Feature: Lab Actions GCP functionality
     And click on logout
     Then validate login page is displayed
 
-  @regression @GCP_TC47
-  Scenario: GCP_TC47 - Lab Actions - Assign Budget, Remove All Budget and Set Budget via Policy Assignment - Account
+  @regression @GCP_TC33
+  Scenario: GCP_TC33 - Lab Actions - Assign Budget, Remove All Budget and Set Budget via Policy Assignment - Account
     Given open the browser and enter the Url
     And login as GCP tenant admin
     When click on select team option
-    And get test data from excel GCP_TC47
+    And get test data from excel GCP_TC33
     And search and select team
     And navigate to labs page
     And click on request lab button
     And select plan using test data
+    And select provision for others option
+    And search and select user for lab
     And click on subscribe button
     Then verify lab is created successfully
     And navigate to labs page
@@ -66,16 +72,18 @@ Feature: Lab Actions GCP functionality
     And click on logout
     Then validate login page is displayed
 
-  @regression @GCP_TC48
-  Scenario: GCP_TC48 - Lab Actions - Quota Duration, Quota Budget, Manually Remove Budget and Quota Top-Up Budget - Account
+  @regression @GCP_TC34
+  Scenario: GCP_TC34 - Lab Actions - Quota Duration, Quota Budget, Manually Remove Budget and Quota Top-Up Budget - Account
     Given open the browser and enter the Url
     And login as GCP tenant admin
     When click on select team option
-    And get test data from excel GCP_TC48
+    And get test data from excel GCP_TC34
     And search and select team
     And navigate to labs page
     And click on request lab button
     And select plan using test data
+    And select provision for others option
+    And search and select user for lab
     And click on subscribe button
     Then verify lab is created successfully
     And navigate to labs page
@@ -90,16 +98,18 @@ Feature: Lab Actions GCP functionality
     And click on logout
     Then validate login page is displayed
 
-  @regression @GCP_TC49
-  Scenario: GCP_TC49 - Lab Actions - Submit Challenge, Set IAM Password and Jump to Console - Account
+  @regression @GCP_TC35
+  Scenario: GCP_TC35 - Lab Actions - Submit Challenge, Set IAM Password and Jump to Console - Account
     Given open the browser and enter the Url
     And login as GCP tenant admin
     When click on select team option
-    And get test data from excel GCP_TC49
+    And get test data from excel GCP_TC35
     And search and select team
     And navigate to labs page
     And click on request lab button
     And select plan using test data
+    And select provision for others option
+    And search and select user for lab
     And click on subscribe button
     Then verify lab is created successfully
     And navigate to labs page
@@ -112,16 +122,18 @@ Feature: Lab Actions GCP functionality
     And click on logout
     Then validate login page is displayed
 
-  @regression @GCP_TC50
-  Scenario: GCP_TC50 - Lab Actions - Create, Stop, Start and Delete Lab - Cohort Account
+  @regression @GCP_TC36
+  Scenario: GCP_TC36 - Lab Actions - Create, Stop, Start and Delete Lab - Cohort Account
     Given open the browser and enter the Url
     And login as GCP tenant admin
     When click on select team option
-    And get test data from excel GCP_TC50
+    And get test data from excel GCP_TC36
     And search and select team
     And navigate to labs page
     And click on request lab button
     And select plan using test data
+    And select provision for others option
+    And search and select user for lab
     And click on subscribe button
     Then verify lab is created successfully
     And navigate to labs page
@@ -134,16 +146,18 @@ Feature: Lab Actions GCP functionality
     And click on logout
     Then validate login page is displayed
 
-  @regression @GCP_TC51
-  Scenario: GCP_TC51 - Lab Actions - Create, Cleanup, Suspend and Resume via Policy Assignment - Cohort Account
+  @regression @GCP_TC37
+  Scenario: GCP_TC37 - Lab Actions - Create, Cleanup, Suspend and Resume via Policy Assignment - Cohort Account
     Given open the browser and enter the Url
     And login as GCP tenant admin
     When click on select team option
-    And get test data from excel GCP_TC51
+    And get test data from excel GCP_TC37
     And search and select team
     And navigate to labs page
     And click on request lab button
     And select plan using test data
+    And select provision for others option
+    And search and select user for lab
     And click on subscribe button
     Then verify lab is created successfully
     And navigate to labs page
@@ -155,16 +169,18 @@ Feature: Lab Actions GCP functionality
     And click on logout
     Then validate login page is displayed
 
-  @regression @GCP_TC52
-  Scenario: GCP_TC52 - Lab Actions - Assign Budget, Remove All Budget and Set Budget via Policy Assignment - Cohort Account
+  @regression @GCP_TC38
+  Scenario: GCP_TC38 - Lab Actions - Assign Budget, Remove All Budget and Set Budget via Policy Assignment - Cohort Account
     Given open the browser and enter the Url
     And login as GCP tenant admin
     When click on select team option
-    And get test data from excel GCP_TC52
+    And get test data from excel GCP_TC38
     And search and select team
     And navigate to labs page
     And click on request lab button
     And select plan using test data
+    And select provision for others option
+    And search and select user for lab
     And click on subscribe button
     Then verify lab is created successfully
     And navigate to labs page
@@ -176,16 +192,18 @@ Feature: Lab Actions GCP functionality
     And click on logout
     Then validate login page is displayed
 
-  @regression @GCP_TC53
-  Scenario: GCP_TC53 - Lab Actions - Quota Duration, Quota Budget, Manually Remove Budget and Quota Top-Up Budget - Cohort Account
+  @regression @GCP_TC39
+  Scenario: GCP_TC39 - Lab Actions - Quota Duration, Quota Budget, Manually Remove Budget and Quota Top-Up Budget - Cohort Account
     Given open the browser and enter the Url
     And login as GCP tenant admin
     When click on select team option
-    And get test data from excel GCP_TC53
+    And get test data from excel GCP_TC39
     And search and select team
     And navigate to labs page
     And click on request lab button
     And select plan using test data
+    And select provision for others option
+    And search and select user for lab
     And click on subscribe button
     Then verify lab is created successfully
     And navigate to labs page
@@ -200,16 +218,18 @@ Feature: Lab Actions GCP functionality
     And click on logout
     Then validate login page is displayed
 
-  @regression @GCP_TC54
-  Scenario: GCP_TC54 - Lab Actions - Submit Challenge, Set IAM Password and Jump to Console - Cohort Account
+  @regression @GCP_TC40
+  Scenario: GCP_TC40 - Lab Actions - Submit Challenge, Set IAM Password and Jump to Console - Cohort Account
     Given open the browser and enter the Url
     And login as GCP tenant admin
     When click on select team option
-    And get test data from excel GCP_TC54
+    And get test data from excel GCP_TC40
     And search and select team
     And navigate to labs page
     And click on request lab button
     And select plan using test data
+    And select provision for others option
+    And search and select user for lab
     And click on subscribe button
     Then verify lab is created successfully
     And navigate to labs page
@@ -222,12 +242,12 @@ Feature: Lab Actions GCP functionality
     And click on logout
     Then validate login page is displayed
 
-  @regression @GCP_TC55
-  Scenario: GCP_TC55 - Lab Actions - Create, Stop, Start and Delete Lab - Batch Provision Account
+  @regression @GCP_TC41
+  Scenario: GCP_TC41 - Lab Actions - Create, Stop, Start and Delete Lab - Batch Provision Account
     Given open the browser and enter the Url
     And login as GCP tenant admin
     When click on select team option
-    And get test data from excel GCP_TC55
+    And get test data from excel GCP_TC41
     And search and select team
     And navigate to Batch Provisioning of Labs page
     And click on batch create button
@@ -260,12 +280,12 @@ Feature: Lab Actions GCP functionality
     And click on logout
     Then validate login page is displayed
 
-  @regression @GCP_TC56
-  Scenario: GCP_TC56 - Lab Actions - Cleanup, Suspend and Resume via Policy Assignment - Batch Provision Account
+  @regression @GCP_TC42
+  Scenario: GCP_TC42 - Lab Actions - Cleanup, Suspend and Resume via Policy Assignment - Batch Provision Account
     Given open the browser and enter the Url
     And login as GCP tenant admin
     When click on select team option
-    And get test data from excel GCP_TC56
+    And get test data from excel GCP_TC42
     And search and select team
     And navigate to Batch Provisioning of Labs page
     And click on batch create button
@@ -290,15 +310,16 @@ Feature: Lab Actions GCP functionality
     Then assign cleanup policy to batch labs and validate action is complete
     Then assign suspend policy to batch labs and validate action is complete
     Then assign resume policy to batch labs and validate action is complete
+    And register batch provision labs for cleanup
     And click on logout
     Then validate login page is displayed
 
-  @regression @GCP_TC57
-  Scenario: GCP_TC57 - Lab Actions - Assign Budget, Remove All Budget and Set Budget via Policy Assignment - Batch Provision Account
+  @regression @GCP_TC43
+  Scenario: GCP_TC43 - Lab Actions - Assign Budget, Remove All Budget and Set Budget via Policy Assignment - Batch Provision Account
     Given open the browser and enter the Url
     And login as GCP tenant admin
     When click on select team option
-    And get test data from excel GCP_TC57
+    And get test data from excel GCP_TC43
     And search and select team
     And navigate to Batch Provisioning of Labs page
     And click on batch create button
@@ -323,15 +344,16 @@ Feature: Lab Actions GCP functionality
     Then assign budget policy 1 to batch labs and validate latest action "CreateAccountBudget" is complete
     Then assign budget policy 2 to batch labs and validate latest action "RemoveAllAccountBudgets" is complete
     Then assign budget policy 3 to batch labs and validate latest action "SetAccountBudget" is complete
+    And register batch provision labs for cleanup
     And click on logout
     Then validate login page is displayed
 
-  @regression @GCP_TC58
-  Scenario: GCP_TC58 - Lab Actions - Quota Duration, Quota Budget, Manually Remove Budget and Quota Top-Up Budget - Batch Provision Account
+  @regression @GCP_TC44
+  Scenario: GCP_TC44 - Lab Actions - Quota Duration, Quota Budget, Manually Remove Budget and Quota Top-Up Budget - Batch Provision Account
     Given open the browser and enter the Url
     And login as GCP tenant admin
     When click on select team option
-    And get test data from excel GCP_TC58
+    And get test data from excel GCP_TC44
     And search and select team
     And navigate to Batch Provisioning of Labs page
     And click on batch create button
@@ -357,15 +379,49 @@ Feature: Lab Actions GCP functionality
     Then assign quota budget policy to each batch lab and validate latest action "CreateAccountBudget" is complete
     Then access each batch lab and remove quota budget policy
     Then assign quota top-up budget policy to each batch lab and validate latest action "SetAccountBudget" is complete
+    And register batch provision labs for cleanup
     And click on logout
     Then validate login page is displayed
 
-  @regression @GCP_TC59
-  Scenario: GCP_TC59 - Bulk Delete all labs created in GCP_TC46-GCP_TC54 in one shot
+  @regression @GCP_TC45
+  Scenario: GCP_TC45 - Lab Actions - Submit Challenge, Set IAM Password and Jump to Console - Batch Provision Account
     Given open the browser and enter the Url
     And login as GCP tenant admin
     When click on select team option
-    And get test data from excel GCP_TC1
+    And get test data from excel GCP_TC45
+    And search and select team
+    And navigate to Batch Provisioning of Labs page
+    And click on batch create button
+    And in batch provision details page enter name and description
+    And click on next button
+    And in choose user page enter the user email address in the search box and click on search
+    And select the search listed user checkbox
+    And click on next button
+    And in the choose plan page provide plan id input in search box and select the listed plan
+    And click on next button
+    And click on next button
+    And click on next button
+    And click on finish button
+    And click on confirm button on create batch provisioning labs pop-up
+    Then in the batch provisioning summary table check user listed and status and lab id and details is getting generated
+    And copy those lab id's and navigate to all labs page
+    Then validate all lab is completion status in the latest action in all labs table
+    And select first batch lab for control panel actions
+    And search the created lab by id
+    Then access lab control panel
+    Then submit challenge and wait for completion
+    Then set iam password and wait for completion
+    Then jump to console and verify new tab opens
+    And register batch provision labs for cleanup
+    And click on logout
+    Then validate login page is displayed
+
+  @regression @GCP_TC50
+  Scenario: GCP_TC50 - Bulk Delete all labs created during the lab-actions run
+    Given open the browser and enter the Url
+    And login as GCP tenant admin
+    When click on select team option
+    And get test data from excel GCP_TC50
     And search and select team
     And navigate to labs page
     Then delete all registered labs and wait for completion

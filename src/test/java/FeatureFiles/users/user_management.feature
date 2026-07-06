@@ -667,6 +667,7 @@ Feature: User Actions
     When click on create button
     Then validate user created successfully
     When navigate to organization and click on users tab
+    And open advanced search dialog and disable exact match option
     And search by partial login id and verify results are returned
     And click on logout
     Then validate login page is displayed
@@ -752,7 +753,7 @@ Feature: User Actions
     Given open the browser and enter the Url
     And login as tenant admin
     When navigate to organization and click on users tab
-    And set users listing to show 5 entries
+    And verify default users listing shows 10 entries
     And verify pagination controls are visible
     And click on next page in users listing
     Then validate next page shows different users
@@ -761,15 +762,144 @@ Feature: User Actions
     And click on logout
     Then validate login page is displayed
 
-  @TC54 @regression @sorting
-  Scenario: TC54 - Verify sorting functionality works correctly for user listing columns
+  # ── U58-U75: Additional coverage (cancel buttons, bulk ops, search variants, etc.) ──
+
+  @TC54 @useractions @regression @negative @cancelRemove
+  Scenario: TC54 - Cancel button on remove user dialog does not delete the user
     Given open the browser and enter the Url
     And login as tenant admin
     When navigate to organization and click on users tab
-    And click on first name column header to sort ascending
-    Then validate users are sorted by first name ascending
-    And click on first name column header to sort descending
-    Then validate users are sorted by first name descending
+    And click on create a user button
+    Given enter all the required user creation details
+    When click on create button
+    Then validate user created successfully
+    When navigate to organization and click on users tab
+    And select the user and click on remove button
+    And click on cancel button in remove user dialog
+    Then validate user is not deleted after cancel
+    And click on logout
+    Then validate login page is displayed
+
+  @TC55 @useractions @regression @negative @cancelDeactivate
+  Scenario: TC55 - Cancel button on deactivate confirmation dialog keeps user active
+    Given open the browser and enter the Url
+    And login as tenant admin
+    When navigate to organization and click on users tab
+    And click on create a user button
+    Given enter all the required user creation details
+    When click on create button
+    Then validate user created successfully
+    When navigate to organization and click on users tab
+    And open the deactivate dialog for the user
+    And click on cancel button in deactivate dialog
+    Then validate user remains active after cancel
+    And click on logout
+    Then validate login page is displayed
+
+  @TC56 @useractions @regression @positive @notifyCheckbox
+  Scenario: TC56 - Send notification checkbox on password change is toggleable
+    Given open the browser and enter the Url
+    And login as tenant admin
+    When navigate to organization and click on users tab
+    And click on create a user button
+    Given enter all the required user creation details
+    When click on create button
+    Then validate user created successfully
+    When navigate to organization and click on users tab
+    When select the user and click on change password button
+    And toggle the notify user checkbox
+    And update the password and click on apply password button
+    Then validate password changed successfully
+    And click on logout
+    Then validate login page is displayed
+
+  @TC57 @useractions @regression @bulkActivate
+  Scenario: TC57 - Bulk activate multiple selected users at once
+    Given open the browser and enter the Url
+    And login as tenant admin
+    When navigate to organization and click on users tab
+    And select all users on first page using header checkbox
+    And click on deactivate button for all selected users
+    Then validate all users on first page are deactivated
+    When select all users on first page using header checkbox
+    And click on activate button for all selected users
+    Then validate all users on first page are activated
+    And click on logout
+    Then validate login page is displayed
+
+  @TC58 @useractions @regression @paginationPerPage
+  Scenario: TC58 - Verify users listing entries per page dropdown changes results count
+    Given open the browser and enter the Url
+    And login as tenant admin
+    When navigate to organization and click on users tab
+    And verify default users listing shows 10 entries
+    And change entries per page to 25
+    Then validate users listing shows 25 entries per page
+    And change entries per page to 50
+    Then validate users listing shows 50 entries per page
+    And click on logout
+    Then validate login page is displayed
+
+  @TC59 @useractions @regression @paginationLastPage
+  Scenario: TC59 - Verify pagination last page button navigates to the final page
+    Given open the browser and enter the Url
+    And login as tenant admin
+    When navigate to organization and click on users tab
+    And change entries per page to 100
+    And click on last page in users listing
+    Then validate last page is displayed
+    And click on first page in users listing
+    Then validate first page is displayed
+    And click on logout
+    Then validate login page is displayed
+
+  @TC60 @useractions @regression @refreshButton
+  Scenario: TC60 - Refresh button on users listing reloads the data
+    Given open the browser and enter the Url
+    And login as tenant admin
+    When navigate to organization and click on users tab
+    And click on refresh button on users listing
+    Then validate users listing is reloaded
+    And click on logout
+    Then validate login page is displayed
+
+  @TC61 @useractions @regression @exportExcel
+  Scenario: TC61 - Export users list as Excel file and verify download
+    Given open the browser and enter the Url
+    And login as tenant admin
+    When navigate to organization and click on users tab
+    And click on export button and select excel option
+    Then validate excel file is downloaded
+    And click on logout
+    Then validate login page is displayed
+
+  @TC62 @useractions @regression @exportPdf
+  Scenario: TC62 - Export users list as PDF file and verify download
+    Given open the browser and enter the Url
+    And login as tenant admin
+    When navigate to organization and click on users tab
+    And click on export button and select pdf option
+    Then validate pdf file is downloaded
+    And click on logout
+    Then validate login page is displayed
+
+  @TC63 @useractions @regression @exportFiltered
+  Scenario: TC63 - Export filtered users list contains only filtered results
+    Given open the browser and enter the Url
+    And login as tenant admin
+    When navigate to organization and click on users tab
+    And click on create a user button
+    Given enter all the required user creation details
+    When click on create button
+    Then validate user created successfully
+    When navigate to organization and click on users tab
+    And select the user and click on deactivate button
+    Then validate user deactivated successfully
+    When navigate to organization and click on users tab
+    And filter users by inactive status
+    And click on export button and select csv option
+    Then validate csv file is downloaded
+    And validate exported csv contains only inactive users
     And click on logout
     Then validate login page is displayed
 

@@ -271,7 +271,14 @@ public class LazyLab {
         int interval = 5;
         boolean launchRetried = false;
 
-        for (int elapsed = 0; elapsed < maxWaitTime; elapsed += interval) {
+        // Tracks real wall-clock time (not a loop-iteration counter) so a reload+
+        // relaunch cycle — which takes far longer than one `interval` — can't
+        // silently let this loop run well past its stated 300s budget, the same
+        // bug found (and fixed) in SingleLabRequest.verify_lab_is_created_successfully.
+        long windowStart = System.currentTimeMillis();
+        long maxWaitMillis = maxWaitTime * 1000L;
+
+        while (System.currentTimeMillis() - windowStart < maxWaitMillis) {
             Hook.base().page.waitForLoadState();
             if (WaitUtils.handleGatewayTimeout(Hook.base().page)) {
                 log.warn("Gateway timeout during lazy lab deployment polling — retrying after reload");
@@ -306,15 +313,19 @@ public class LazyLab {
                     Hook.base().page.waitForLoadState();
                     WaitUtils.pause(WaitUtils.EXTRA_LONG);
                     try {
+                        // Explicit wait before clicking — after a reload following a
+                        // failure state, the control panel can take longer to render
+                        // than the click's own retry budget, especially under heavy
+                        // concurrent load.
+                        WaitUtils.waitForVisible(Pages.getLabControlPanelPage().getLaunchLabButton(), WaitUtils.THIRTY_SEC);
                         Hook.base().shDriver.click(Pages.getLabControlPanelPage().getLaunchLabButton(), "re-launch lab button");
                         Hook.base().page.waitForLoadState();
                         WaitUtils.pause(WaitUtils.EXTRA_LONG);
                     } catch (Exception reLaunchEx) {
                         throw new RuntimeException("Lab launch failed and re-launch button not found: " + reLaunchEx.getMessage());
                     }
-                    // Reset polling timer for the re-launched lab
-                    elapsed = 0;
-                    maxWaitTime = 300;
+                    // Reset polling timer for the re-launched lab — a fresh 300s window
+                    windowStart = System.currentTimeMillis();
                     continue;
                 } else {
                     throw new RuntimeException("Lab failed even after re-launch attempt. Status: " + status);
@@ -327,7 +338,9 @@ public class LazyLab {
             Thread.sleep(interval * 1000L);
         }
 
-        throw new RuntimeException("Timeout: Lab did not complete within " + maxWaitTime + "s");
+        long actualElapsedSeconds = (System.currentTimeMillis() - windowStart) / 1000;
+        throw new RuntimeException("Timeout: Lab did not complete within "
+                + maxWaitTime + "s (actual elapsed: " + actualElapsedSeconds + "s)");
     }
 
     private void logout() throws Throwable {

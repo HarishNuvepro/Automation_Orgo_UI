@@ -1,0 +1,5 @@
+FIRST NAME,LAST NAME,E-MAIL,PASSWORD,EXTERNAL ID,LOGIN ID
+java44,program1,java446908940@gmail.com,Welcome123$,111,java44_v6908940
+java55,program2,java556908941@gmail.com,Welcome123$,112,java55_v6908941
+BadFn0,BadLn0,invalid_email_no_at_sign,badpassword123$,999,i6908940
+BadFn1,BadLn1,invalid_email_no_at_sign,badpassword123$,999,i6908941

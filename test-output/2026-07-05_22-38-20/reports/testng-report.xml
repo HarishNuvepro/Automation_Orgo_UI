@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testng-results failed="0" passed="1" skipped="0" total="1">
+    <suite duration-ms="277160" name="io.cucumber.core.plugin.TestNGFormatter">
+        <test duration-ms="277160" name="io.cucumber.core.plugin.TestNGFormatter">
+            <class name="Lab Actions AWS functionality">
+                <test-method duration-ms="276652" finished-at="2026-07-05T17:12:58.331358700Z" name="AWS_TC44 - Lab Actions - Quota Duration, Quota Budget, Manually Remove Budget and Quota Top-Up Budget - Batch Provision Account" started-at="2026-07-05T17:08:21.614371500Z" status="PASS"/>
+            </class>
+        </test>
+    </suite>
+</testng-results>

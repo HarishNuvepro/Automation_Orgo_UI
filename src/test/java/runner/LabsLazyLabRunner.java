@@ -49,7 +49,8 @@ public class LabsLazyLabRunner extends AbstractTestNGCucumberTests {
         new java.io.File(base).mkdirs();
         System.setProperty("cucumber.plugin",
                 "html:"   + base + "/cucumber.html,"  +
-                "testng:" + base + "/testng-report.xml");
+                "testng:" + base + "/testng-report.xml" + "," +
+                "rerun:" + base + "/failed_scenarios.txt");
         super.setUpClass();
     }
 

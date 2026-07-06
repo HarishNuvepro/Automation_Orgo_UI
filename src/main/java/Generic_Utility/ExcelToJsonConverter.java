@@ -34,7 +34,6 @@ public class ExcelToJsonConverter {
             Files.createDirectories(Paths.get(OUTPUT_DIR));
             convertLabSheet();
             convertUserSheet();
-            convertCredentialsSheet();
             log.info("Excel → JSON complete. Output: {}", Paths.get(OUTPUT_DIR).toAbsolutePath());
         } catch (Throwable e) {
             log.error("Excel → JSON conversion failed", e);
@@ -44,7 +43,7 @@ public class ExcelToJsonConverter {
 
     // ── Lab sheets — tabular: row 0 = optional header, remaining rows = test cases ──
     // Each platform sheet is loaded into the same map. TC_IDs must be unique across sheets
-    // (AWS uses TC1–TC16; GCP uses GCP_TC1, GCP_TC2 …; CSP will use CSP_TC1 etc.)
+    // (AWS uses TC1–TC50; GCP uses GCP_TC1–GCP_TC50; CSP will use CSP_TC1 etc.)
 
     private void convertLabSheet() throws Throwable {
         String[] awsHeaders = {
@@ -60,8 +59,8 @@ public class ExcelToJsonConverter {
         };
 
         Map<String, Map<String, String>> labData = new LinkedHashMap<>();
-        loadLabSheetInto(labData, "Aws_Lab", awsHeaders);
-        loadLabSheetInto(labData, "Gcp_Lab", gcpHeaders);
+        loadLabSheetInto(labData, "AWS Account Lab", awsHeaders);
+        loadLabSheetInto(labData, "GCP Account Lab", gcpHeaders);
 
         writeJson("lab_data.json", labData);
         log.info("Lab sheets → lab_data.json ({} test cases)", labData.size());
@@ -76,13 +75,13 @@ public class ExcelToJsonConverter {
                 String tcId = excel.getDataFromExcel(sheetName, i, 0);
                 if (tcId == null || tcId.isBlank() || tcId.equalsIgnoreCase("TC_ID")) continue;
                 // AWS sheet: Excel still has TC1–TC16; prefix to AWS_TC1–AWS_TC16 to match feature tags
-                if ("Aws_Lab".equals(sheetName) && !tcId.startsWith("AWS_")) {
+                if ("AWS Account Lab".equals(sheetName) && !tcId.startsWith("AWS_")) {
                     tcId = "AWS_" + tcId;
                 }
                 Map<String, String> row = new LinkedHashMap<>();
                 for (int col = 0; col < headers.length; col++) {
                     if (headers[col] != null) {
-                        String value = excel.getDataFromExcel(sheetName, i, col);
+                        String value = resolvePlaceholders(excel.getDataFromExcel(sheetName, i, col));
                         row.put(headers[col], value != null ? value : "");
                     }
                 }
@@ -166,26 +165,37 @@ public class ExcelToJsonConverter {
         log.info("User sheet → user_data.json ({} fields)", userData.size());
     }
 
-    // ── Credentials sheet — non-sensitive values only; secrets go to env vars ───
-
-    private void convertCredentialsSheet() throws Throwable {
-        Map<String, String> credData = new LinkedHashMap<>();
-        try {
-            credData.put("browser",         excel.getDataFromExcel("Credentials", 3, 3));
-            credData.put("invalidPassword", excel.getDataFromExcel("Credentials", 12, 1));
-            credData.put("invalidUsername", excel.getDataFromExcel("Credentials", 13, 1));
-            log.info("Credentials sheet → credentials.json (browser + negative-test values)");
-        } catch (Throwable e) {
-            log.warn("Credentials sheet not found or unreadable — writing empty values. " +
-                     "All credentials are loaded from the env file. Cause: {}", e.getMessage());
-            credData.put("browser",         "");
-            credData.put("invalidPassword", "");
-            credData.put("invalidUsername", "");
-        }
-        writeJson("credentials.json", credData);
-    }
-
     // ── internal ──────────────────────────────────────────────────────────────────
+
+    private static final java.util.regex.Pattern PLACEHOLDER =
+            java.util.regex.Pattern.compile("\\$\\{([^}]+)\\}");
+
+    /**
+     * Substitutes ${ENV_KEY} placeholders in a cell value with the value from the OS
+     * environment or the active .env file. Common lab values (plan IDs, team ID, and
+     * policy-name sets) live in .env so they can be changed in one place; the Excel
+     * cells reference them via ${...}.
+     *
+     * Cells with no placeholder are returned unchanged, so ordinary data — and every
+     * other sheet — is untouched. An unknown key is left as the literal ${KEY} (and
+     * logged) so a typo fails loudly downstream rather than silently blanking a value.
+     */
+    private String resolvePlaceholders(String value) {
+        if (value == null || value.indexOf("${") < 0) return value;
+        java.util.regex.Matcher m = PLACEHOLDER.matcher(value);
+        StringBuffer sb = new StringBuffer();
+        while (m.find()) {
+            String key = m.group(1).trim();
+            String resolved = CredentialManager.lookup(key);
+            if (resolved == null) {
+                log.warn("Placeholder ${{}} in test data has no env/.env value — left as-is", key);
+                resolved = m.group(0);
+            }
+            m.appendReplacement(sb, java.util.regex.Matcher.quoteReplacement(resolved));
+        }
+        m.appendTail(sb);
+        return sb.toString();
+    }
 
     private void writeJson(String filename, Object data) throws IOException {
         Path filePath = Paths.get(OUTPUT_DIR, filename);

@@ -28,9 +28,8 @@ public class TestDataManager {
     private static final AtomicBoolean initialized = new AtomicBoolean(false);
 
     // In-memory data — populated once, read-only after that
-    private static Map<String, Map<String, String>> labData     = new HashMap<>();
-    private static Map<String, String>               userData    = new HashMap<>();
-    private static Map<String, String>               credentials = new HashMap<>();
+    private static Map<String, Map<String, String>> labData  = new HashMap<>();
+    private static Map<String, String>               userData = new HashMap<>();
 
     private TestDataManager() {}
 
@@ -43,7 +42,6 @@ public class TestDataManager {
 
         try {
             DotEnvLoader.load();
-            CredentialManager.setExcelFallback(excel);
             new ExcelToJsonConverter(excel).convertAll();
             loadAll();
             initialized.set(true);
@@ -74,20 +72,14 @@ public class TestDataManager {
         return Collections.unmodifiableMap(userData);
     }
 
-    /** Returns a non-sensitive credential value (browser type, invalid test creds). */
-    public static String getCredential(String key) {
-        return credentials.getOrDefault(key, "");
-    }
-
     // ── Internal ─────────────────────────────────────────────────────────────
 
     private static void loadAll() throws IOException {
         Type labType  = new TypeToken<Map<String, Map<String, String>>>(){}.getType();
         Type flatType = new TypeToken<Map<String, String>>(){}.getType();
 
-        labData     = loadJson("lab_data.json",    labType);
-        userData    = loadJson("user_data.json",   flatType);
-        credentials = loadJson("credentials.json", flatType);
+        labData  = loadJson("lab_data.json",  labType);
+        userData = loadJson("user_data.json", flatType);
     }
 
     private static <T> T loadJson(String filename, Type type) throws IOException {

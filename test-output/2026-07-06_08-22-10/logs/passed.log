@@ -1,0 +1,250 @@
+====================================================================================================
+SCENARIO : AWS_TC46 - Lazy Lab Actions - Create, Stop, Start and Delete Lab - Account
+STATUS   : PASSED
+====================================================================================================
+08:22:13.482 [TestNG-PoolService-0] INFO  DotEnvLoader                   - Environment 'elb' loaded from C:\Users\HarishKumar\Downloads\Automation_Orgo\Automation_Orgo_UI_Test\Automation_Orgo_UI_Test\.env.elb — 14 key(s)
+08:22:25.876 [TestNG-PoolService-0] INFO  ExcelToJsonConverter           - AWS Account Lab sheet → 51 test cases loaded
+08:22:38.936 [TestNG-PoolService-0] INFO  ExcelToJsonConverter           - GCP Account Lab sheet → 51 test cases loaded
+08:22:38.996 [TestNG-PoolService-0] INFO  ExcelToJsonConverter           - Lab sheets → lab_data.json (102 test cases)
+08:22:39.452 [TestNG-PoolService-0] INFO  ExcelToJsonConverter           - User sheet → user_data.json (28 fields)
+08:22:39.453 [TestNG-PoolService-0] INFO  ExcelToJsonConverter           - Excel → JSON complete. Output: C:\Users\HarishKumar\Downloads\Automation_Orgo\Automation_Orgo_UI_Test\Automation_Orgo_UI_Test\src\test\resources\testdata
+08:22:39.484 [TestNG-PoolService-0] INFO  TestDataManager                - TestDataManager ready — 102 lab test cases, 28 user fields
+08:22:39.485 [TestNG-PoolService-0] INFO  Hook                           - Run folder: ./test-output/2026-07-06_08-22-10 | Thread: TestNG-PoolService-0
+08:22:51.517 [TestNG-PoolService-0] WARN  CredentialManager              - GEMINI_API_KEY not found in env or .env — using fallback from ConstantFilePath
+08:22:51.521 [TestNG-PoolService-0] INFO  Hook                           - Browser ready | Thread: TestNG-PoolService-0
+08:22:52.107 [TestNG-PoolService-0] INFO  HealingCache                   - Loaded — healed: 49, known failures: 95
+08:22:53.566 [TestNG-PoolService-0] INFO  SingleLabRequest               - [TC:AWS_TC46] Test data loaded | Thread: TestNG-PoolService-0
+08:22:58.711 [TestNG-PoolService-0] INFO  BatchProvision                 - Batch name: lazyaction178711
+08:23:22.720 [TestNG-PoolService-0] INFO  BatchProvision                 - All Lab IDs: 35120 35121
+08:23:30.665 [TestNG-PoolService-0] INFO  LazyLab                        - Lab 35120 status: Pending
+08:23:30.671 [TestNG-PoolService-0] INFO  LazyLab                        - Lab 35121 status: Pending
+08:23:30.671 [TestNG-PoolService-0] INFO  LazyLab                        - All 2 labs are in pending status
+08:23:32.240 [TestNG-PoolService-0] INFO  LazyLab                        - Users to process: 2
+08:23:32.240 [TestNG-PoolService-0] INFO  LazyLab                        - Processing user: qalbteststudenton27 | Lab: 35120
+08:24:31.603 [TestNG-PoolService-0] WARN  LazyLab                        - Deployment status element not visible after 30s: Error {
+  message='Timeout 30000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 30000ms exceeded.
+    at ProgressController.run (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-15501290819767177182\package\lib\server\progress.js:87:26)
+    at Frame.waitForSelector (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-15501290819767177182\package\lib\server\frames.js:619:23)
+    at FrameDispatcher.waitForSelector (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-15501290819767177182\package\lib\server\dispatchers\frameDispatcher.js:100:103)
+    at FrameDispatcher._handleCommand (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-15501290819767177182\package\lib\server\dispatchers\dispatcher.js:84:40)
+    at DispatcherConnection.dispatch (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-15501290819767177182\package\lib\server\dispatchers\dispatcher.js:351:39)
+}
+Call log:
+- waiting for locator("//span[@id='deploymentStatus']") to be visible
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+
+08:24:32.284 [TestNG-PoolService-0] INFO  LazyLab                        - Deployment Status: Create - Complete
+08:24:32.284 [TestNG-PoolService-0] INFO  LazyLab                        - Lab deployment complete
+08:25:06.370 [TestNG-PoolService-0] INFO  LazyLab                        - Processing user: qalbteststudenton26 | Lab: 35121
+08:26:06.210 [TestNG-PoolService-0] WARN  LazyLab                        - Deployment status element not visible after 30s: Error {
+  message='Timeout 30000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 30000ms exceeded.
+    at ProgressController.run (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-15501290819767177182\package\lib\server\progress.js:87:26)
+    at Frame.waitForSelector (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-15501290819767177182\package\lib\server\frames.js:619:23)
+    at FrameDispatcher.waitForSelector (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-15501290819767177182\package\lib\server\dispatchers\frameDispatcher.js:100:103)
+    at FrameDispatcher._handleCommand (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-15501290819767177182\package\lib\server\dispatchers\dispatcher.js:84:40)
+    at DispatcherConnection.dispatch (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-15501290819767177182\package\lib\server\dispatchers\dispatcher.js:351:39)
+}
+Call log:
+- waiting for locator("//span[@id='deploymentStatus']") to be visible
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+-   locator resolved to hidden <span id="deploymentStatus">Create - InProgress</span>
+
+08:26:06.242 [TestNG-PoolService-0] INFO  LazyLab                        - Deployment Status: 
+08:26:11.267 [TestNG-PoolService-0] INFO  LazyLab                        - Deployment Status: Create - Complete
+08:26:11.267 [TestNG-PoolService-0] INFO  LazyLab                        - Lab deployment complete
+08:26:23.693 [TestNG-PoolService-0] INFO  BatchProvision                 - Searching for batch: lazyaction178711
+08:26:29.444 [TestNG-PoolService-0] INFO  BatchProvision                 - All labs selected in batch details page
+08:26:29.446 [TestNG-PoolService-0] INFO  BatchLabActions                - Performing Stop action on all batch labs
+08:26:30.736 [TestNG-PoolService-0] INFO  BatchLabActions                - Confirmation modal accepted
+08:26:34.829 [TestNG-PoolService-0] INFO  BatchLabActions                - Stop — 2 status labels visible (expected 2)
+08:26:34.834 [TestNG-PoolService-0] INFO  BatchLabActions                - Action: Stop | Row 1 | Status: InProgress
+08:26:34.837 [TestNG-PoolService-0] INFO  BatchLabActions                - Action: Stop | Row 2 | Status: InProgress
+08:26:34.838 [TestNG-PoolService-0] INFO  BatchLabActions                - Stop not yet complete — retrying in 20s (20/600s elapsed)
+08:26:56.427 [TestNG-PoolService-0] INFO  BatchLabActions                - Stop — 2 status labels visible (expected 2)
+08:26:56.430 [TestNG-PoolService-0] INFO  BatchLabActions                - Action: Stop | Row 1 | Status: Complete
+08:26:56.433 [TestNG-PoolService-0] INFO  BatchLabActions                - Action: Stop | Row 2 | Status: Complete
+08:26:56.433 [TestNG-PoolService-0] INFO  BatchLabActions                - All 2 batch labs reached 'Stop' Complete
+08:26:57.456 [TestNG-PoolService-0] INFO  BatchProvision                 - All labs selected in batch details page
+08:26:57.457 [TestNG-PoolService-0] INFO  BatchLabActions                - Performing Start action on all batch labs
+08:26:58.560 [TestNG-PoolService-0] INFO  BatchLabActions                - Confirmation modal accepted
+08:27:02.665 [TestNG-PoolService-0] INFO  BatchLabActions                - Start — 2 status labels visible (expected 2)
+08:27:02.669 [TestNG-PoolService-0] INFO  BatchLabActions                - Action: Start | Row 1 | Status: Complete
+08:27:02.673 [TestNG-PoolService-0] INFO  BatchLabActions                - Action: Start | Row 2 | Status: Complete
+08:27:02.673 [TestNG-PoolService-0] INFO  BatchLabActions                - All 2 batch labs reached 'Start' Complete
+08:27:03.714 [TestNG-PoolService-0] INFO  BatchProvision                 - All labs selected in batch details page
+08:27:03.715 [TestNG-PoolService-0] INFO  BatchLabActions                - Performing Delete action on all batch labs
+08:27:04.837 [TestNG-PoolService-0] INFO  BatchLabActions                - Confirmation modal accepted
+08:27:08.917 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete — 2 rows, 2 status labels visible (expected 2)
+08:27:08.920 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 1 | Status: InProgress
+08:27:08.923 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 2 | Status: InProgress
+08:27:08.923 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete not yet complete — retrying in 30s (30/600s elapsed)
+08:27:40.498 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete — 2 rows, 2 status labels visible (expected 2)
+08:27:40.504 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 1 | Status: InProgress
+08:27:40.511 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 2 | Status: InProgress
+08:27:40.511 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete not yet complete — retrying in 30s (60/600s elapsed)
+08:28:12.147 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete — 2 rows, 2 status labels visible (expected 2)
+08:28:12.152 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 1 | Status: InProgress
+08:28:12.157 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 2 | Status: InProgress
+08:28:12.157 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete not yet complete — retrying in 30s (90/600s elapsed)
+08:28:43.817 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete — 2 rows, 2 status labels visible (expected 2)
+08:28:43.825 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 1 | Status: InProgress
+08:28:43.832 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 2 | Status: InProgress
+08:28:43.833 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete not yet complete — retrying in 30s (120/600s elapsed)
+08:29:15.518 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete — 2 rows, 2 status labels visible (expected 2)
+08:29:15.525 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 1 | Status: InProgress
+08:29:15.532 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 2 | Status: InProgress
+08:29:15.532 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete not yet complete — retrying in 30s (150/600s elapsed)
+08:29:47.145 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete — 2 rows, 2 status labels visible (expected 2)
+08:29:47.153 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 1 | Status: InProgress
+08:29:47.157 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 2 | Status: InProgress
+08:29:47.158 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete not yet complete — retrying in 30s (180/600s elapsed)
+08:30:18.830 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete — 2 rows, 2 status labels visible (expected 2)
+08:30:18.838 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 1 | Status: InProgress
+08:30:18.845 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 2 | Status: InProgress
+08:30:18.845 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete not yet complete — retrying in 30s (210/600s elapsed)
+08:30:50.534 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete — 2 rows, 2 status labels visible (expected 2)
+08:30:50.534 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 1 | Status: InProgress
+08:30:50.550 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 2 | Status: InProgress
+08:30:50.550 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete not yet complete — retrying in 30s (240/600s elapsed)
+08:31:22.290 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete — 2 rows, 2 status labels visible (expected 2)
+08:31:22.300 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 1 | Status: InProgress
+08:31:22.306 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 2 | Status: InProgress
+08:31:22.307 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete not yet complete — retrying in 30s (270/600s elapsed)
+08:31:53.977 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete — 2 rows, 2 status labels visible (expected 2)
+08:31:53.982 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 1 | Status: InProgress
+08:31:53.987 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 2 | Status: InProgress
+08:31:53.988 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete not yet complete — retrying in 30s (300/600s elapsed)
+08:32:25.719 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete — 2 rows, 2 status labels visible (expected 2)
+08:32:25.724 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 1 | Status: InProgress
+08:32:25.733 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 2 | Status: Complete
+08:32:25.733 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete not yet complete — retrying in 30s (330/600s elapsed)
+08:32:57.317 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete — 2 rows, 2 status labels visible (expected 2)
+08:32:57.321 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 1 | Status: Complete
+08:32:57.323 [TestNG-PoolService-0] INFO  BatchLabActions                - Delete | Row 2 | Status: Complete
+08:32:57.323 [TestNG-PoolService-0] INFO  BatchLabActions                - All 2 batch labs deleted successfully
+

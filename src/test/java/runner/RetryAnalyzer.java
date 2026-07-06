@@ -17,7 +17,7 @@ public class RetryAnalyzer implements IRetryAnalyzer {
 
     private static final Logger log = LoggerFactory.getLogger(RetryAnalyzer.class);
 
-    public static final int MAX_RETRY_COUNT = 2;
+    public static final int MAX_RETRY_COUNT = 0;
 
     private final ThreadLocal<Integer> retryCount = ThreadLocal.withInitial(() -> 0);
 

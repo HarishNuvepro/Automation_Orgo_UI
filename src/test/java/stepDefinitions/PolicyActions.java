@@ -58,7 +58,7 @@ public class PolicyActions {
         String policyName = getPolicyByIndex(0);
         log.info("Assigning Quota Duration policy: {}", policyName);
         reSearchLabById();
-        assignQuotaDurationPolicy(policyName);
+        assignPolicyAndWait(policyName, "NLDurationQuotaPolicy", null);
     }
 
     @Then("assign quota budget policy to the lab and validate latest action {string} is complete")
@@ -122,7 +122,13 @@ public class PolicyActions {
     // ── helpers ──────────────────────────────────────────────────────────────
 
     private String getPolicyByIndex(int index) {
-        String policies = SingleLabRequest.testData().get("PolicyName");
+        String policies = SingleLabRequest.testData().get("PolicyName").trim();
+        // Some Excel cells wrap the whole comma-separated value in literal quotes
+        // (e.g. "10hr quotaDuration_Automation,create budget10$_Automation,...") —
+        // strip them so the Select2 lookup gets the real option text.
+        if (policies.length() >= 2 && policies.startsWith("\"") && policies.endsWith("\"")) {
+            policies = policies.substring(1, policies.length() - 1);
+        }
         String[] parts = policies.split(",");
         return parts[index].trim();
     }
@@ -139,43 +145,6 @@ public class PolicyActions {
         WaitUtils.pause(WaitUtils.LONG);
 
         Hook.base().page.waitForLoadState();
-    }
-
-    /**
-     * Assigns a Quota Duration policy and validates a success notification appears.
-     * No table-level action polling — success message is sufficient.
-     */
-    private void assignQuotaDurationPolicy(String policyName) throws Throwable {
-        String labId = SingleLabRequest.getCreatedLabId();
-
-        Hook.base().shDriver.click(Pages.getLabsPage().getLabCheckboxById(labId), "lab checkbox for " + labId);
-        WaitUtils.pause(WaitUtils.SHORT);
-
-        Hook.base().shDriver.click(Pages.getLabsPage().getPoliciesDropdown(), "policies dropdown");
-        WaitUtils.pause(WaitUtils.SHORT);
-        Hook.base().shDriver.click(Pages.getLabsPage().getAssignPolicyLink(), "assign policy link");
-        WaitUtils.pause(WaitUtils.MEDIUM);
-        Hook.base().page.waitForLoadState();
-
-        Hook.base().page.locator("#policyAttachTypeFilter").selectOption("NLDurationQuotaPolicy");
-        WaitUtils.pause(WaitUtils.MEDIUM);
-
-        Hook.base().page.locator("#policyOperationModel .select2-selection--single").click();
-        WaitUtils.pause(WaitUtils.SHORT);
-        Hook.base().page.locator(".select2-search__field").fill(policyName);
-        WaitUtils.pause(WaitUtils.MEDIUM);
-        Hook.base().page.locator(".select2-results__option:has-text('" + policyName + "')").first().click();
-        WaitUtils.pause(WaitUtils.SHORT);
-        log.info("Quota Duration policy selected: {}", policyName);
-
-        Hook.base().page.locator("#policyOpBtn").click();
-        WaitUtils.pause(WaitUtils.SHORT);
-
-        // Wait up to 30 s for the success notification to appear
-        Hook.base().page.locator(".alert-success, .toast-success, .alert.alert-success")
-                .first()
-                .waitFor(new com.microsoft.playwright.Locator.WaitForOptions().setTimeout(30_000));
-        log.info("Quota Duration policy '{}' applied — success message confirmed", policyName);
     }
 
     /**

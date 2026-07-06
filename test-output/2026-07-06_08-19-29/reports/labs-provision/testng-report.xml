@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testng-results failed="0" passed="0" skipped="0" total="0">
+    <suite duration-ms="487" name="io.cucumber.core.plugin.TestNGFormatter">
+        <test duration-ms="487" name="io.cucumber.core.plugin.TestNGFormatter"/>
+    </suite>
+</testng-results>

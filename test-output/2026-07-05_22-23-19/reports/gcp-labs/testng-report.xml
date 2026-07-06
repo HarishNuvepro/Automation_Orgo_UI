@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testng-results failed="0" passed="1" skipped="0" total="1">
+    <suite duration-ms="160447" name="io.cucumber.core.plugin.TestNGFormatter">
+        <test duration-ms="160447" name="io.cucumber.core.plugin.TestNGFormatter">
+            <class name="Discover GCP policy names (throwaway)">
+                <test-method duration-ms="159864" finished-at="2026-07-05T16:56:00.891242500Z" name="Dump GCP policies" started-at="2026-07-05T16:53:21.001816800Z" status="PASS"/>
+            </class>
+        </test>
+    </suite>
+</testng-results>

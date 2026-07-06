@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testng-results failed="0" passed="1" skipped="0" total="1">
+    <suite duration-ms="647049" name="io.cucumber.core.plugin.TestNGFormatter">
+        <test duration-ms="647049" name="io.cucumber.core.plugin.TestNGFormatter">
+            <class name="Batch Provision with Lazy Lab Request AWS functionality">
+                <test-method duration-ms="645751" finished-at="2026-07-06T03:02:59.111904900Z" name="AWS_TC46 - Lazy Lab Actions - Create, Stop, Start and Delete Lab - Account" started-at="2026-07-06T02:52:13.304240200Z" status="PASS"/>
+            </class>
+        </test>
+    </suite>
+</testng-results>

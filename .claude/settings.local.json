@@ -20,7 +20,10 @@
       "Bash(mvn -q -DskipTests test-compile)",
       "Bash(mvn -DskipTests test-compile)",
       "Bash(python -c \"import pandas; print\\('ok'\\)\")",
-      "Bash(java -jar \"C:\\\\Users\\\\HarishKumar\\\\Downloads\\\\Automation_Orgo\\\\Automation_Orgo_UI_Test\\\\Automation_Orgo_UI_Test\\\\target\\\\classes\")"
+      "Bash(java -jar \"C:\\\\Users\\\\HarishKumar\\\\Downloads\\\\Automation_Orgo\\\\Automation_Orgo_UI_Test\\\\Automation_Orgo_UI_Test\\\\target\\\\classes\")",
+      "Bash(python -c \"import openpyxl; print\\('openpyxl available'\\)\")",
+      "Bash(pip install *)",
+      "Bash(python *)"
     ]
   }
 }

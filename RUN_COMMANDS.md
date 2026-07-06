@@ -112,6 +112,54 @@ mvn test "-Dtest=GcpLabsRunner" "-Dcucumber.filter.tags=@GCP_TC9"
 
 ---
 
+## Re-run Failed Test Cases
+
+Every runner writes a `failed_scenarios.txt` next to its `cucumber.html`/`testng-report.xml` (same report subfolder, via Cucumber's `rerun` plugin). It's overwritten on each run and lists only the scenarios that failed — empty if everything passed. Use `test-output/_latest/...` to always point at the most recent run regardless of its timestamp folder.
+
+All report subfolders live under `test-output/_latest/reports/<subfolder>/` — don't forget the `reports` segment.
+
+```powershell
+# Re-run only what failed in the last ParallelAllRunner run
+mvn test "-Dtest=ParallelAllRunner" "-Dcucumber.features=@test-output/_latest/reports/parallel/failed_scenarios.txt"
+
+# Same idea for other runners — path matches wherever that runner puts its reports
+mvn test "-Dtest=LabsProvisionRunner" "-Dcucumber.features=@test-output/_latest/reports/labs-provision/failed_scenarios.txt"
+mvn test "-Dtest=GcpLabsRunner" "-Dcucumber.features=@test-output/_latest/reports/gcp-labs/failed_scenarios.txt"
+mvn test "-Dtest=UserModuleRunner" "-Dcucumber.features=@test-output/_latest/reports/users/failed_scenarios.txt"
+mvn test "-Dtest=LoginModuleRunner" "-Dcucumber.features=@test-output/_latest/reports/login/failed_scenarios.txt"
+mvn test "-Dtest=LoginUserModuleRunner" "-Dcucumber.features=@test-output/_latest/reports/login-users/failed_scenarios.txt"
+mvn test "-Dtest=CleanupRunner" "-Dcucumber.features=@test-output/_latest/reports/cleanup/failed_scenarios.txt"
+mvn test "-Dtest=TestngRunner" "-Dcucumber.features=@test-output/_latest/reports/failed_scenarios.txt"
+```
+
+Reference — report subfolder per runner (append `/failed_scenarios.txt` to `test-output/_latest/reports/<subfolder>`):
+
+| Runner                            | Subfolder                    |
+| ---------------------------------- | ----------------------------- |
+| `ParallelAllRunner`               | `parallel`                  |
+| `LabsProvisionRunner`             | `labs-provision`             |
+| `GcpLabsRunner`                   | `gcp-labs`                  |
+| `LabsLazyLabRunner`               | `labs-lazy`                 |
+| `GcpLabsLazyLabRunner`            | `gcp-labs-lazy`             |
+| `LabsProvisionCleanupRunner`      | `labs-provision-cleanup`    |
+| `GcpLabsProvisionCleanupRunner`   | `gcp-labs-provision-cleanup`|
+| `CleanupRunner`                   | `cleanup`                   |
+| `LabsModuleRunner`                | `labs`                      |
+| `FastSmokeLabsRunner`             | `fast-smoke`                |
+| `UserModuleRunner`                | `users`                     |
+| `UserCreateRunner`                | `user-create`               |
+| `UserActionsRunner`               | `user-actions`              |
+| `LoginModuleRunner`               | `login`                     |
+| `LoginUserModuleRunner`           | `login-users`               |
+| `RegressionTestRunner`            | `regression`                |
+| `RolesModuleRunner`               | `roles`                     |
+| `SmokeTestRunner`                 | `smoke`                     |
+| `TestngRunner`                    | *(none — reports root itself)* |
+
+The `@` prefix tells Cucumber to read exact scenario locations from that file instead of scanning a feature directory or matching tags — it re-runs precisely what failed, nothing else. Combine with `-Dthread.count=N` as usual if the runner supports it.
+
+---
+
 ## Run by Tag
 
 ```powershell

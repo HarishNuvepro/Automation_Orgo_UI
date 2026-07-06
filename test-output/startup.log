@@ -1,1 +1,7 @@
-2026-07-01 10:39:10.908 [main] INFO  Generic_Utility.ExecutionContext     - Deleted old run folder: 2026-06-30_18-25-04
+2026-07-06 09:56:39.720 [main] INFO  Generic_Utility.DotEnvLoader         - Environment 'elb' loaded from C:\Users\HarishKumar\Downloads\Automation_Orgo\Automation_Orgo_UI_Test\Automation_Orgo_UI_Test\.env.elb — 28 key(s)
+2026-07-06 09:56:50.487 [main] INFO  G.ExcelToJsonConverter               - AWS Account Lab sheet → 51 test cases loaded
+2026-07-06 09:57:01.203 [main] INFO  G.ExcelToJsonConverter               - GCP Account Lab sheet → 51 test cases loaded
+2026-07-06 09:57:01.278 [main] INFO  G.ExcelToJsonConverter               - Lab sheets → lab_data.json (102 test cases)
+2026-07-06 09:57:01.802 [main] INFO  G.ExcelToJsonConverter               - User sheet → user_data.json (28 fields)
+2026-07-06 09:57:01.802 [main] INFO  G.ExcelToJsonConverter               - Excel → JSON complete. Output: C:\Users\HarishKumar\Downloads\Automation_Orgo\Automation_Orgo_UI_Test\Automation_Orgo_UI_Test\src\test\resources\testdata
+2026-07-06 09:57:01.838 [main] INFO  Generic_Utility.TestDataManager      - TestDataManager ready — 102 lab test cases, 28 user fields

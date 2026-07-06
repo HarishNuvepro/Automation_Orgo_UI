@@ -44,31 +44,7 @@ public class BatchPolicyActions {
     public void assign_quota_duration_policy_to_batch_labs() throws Throwable {
         String policyName = getPolicyByIndex(0);
         log.info("Assigning Quota Duration policy to all batch labs: {}", policyName);
-        Hook.base().shDriver.click(Pages.getLabsPage().getPoliciesDropdown(), "policies dropdown");
-        WaitUtils.pause(WaitUtils.SHORT);
-        Hook.base().shDriver.click(Pages.getLabsPage().getAssignPolicyLink(), "assign policy link");
-        WaitUtils.pause(WaitUtils.MEDIUM);
-        Hook.base().page.waitForLoadState();
-
-        Hook.base().page.locator("#policyAttachTypeFilter").selectOption("NLDurationQuotaPolicy");
-        WaitUtils.pause(WaitUtils.MEDIUM);
-
-        Hook.base().page.locator("#policyOperationModel .select2-selection--single").click();
-        WaitUtils.pause(WaitUtils.SHORT);
-        Hook.base().page.locator(".select2-search__field").fill(policyName);
-        WaitUtils.pause(WaitUtils.MEDIUM);
-        Hook.base().page.locator(".select2-results__option:has-text('" + policyName + "')").first().click();
-        WaitUtils.pause(WaitUtils.SHORT);
-        log.info("Quota Duration policy selected: {}", policyName);
-
-        Hook.base().page.locator("#policyOpBtn").click();
-        WaitUtils.pause(WaitUtils.SHORT);
-
-        Hook.base().page.locator(".alert-success, .toast-success, .alert.alert-success")
-                .first()
-                .waitFor(new com.microsoft.playwright.Locator.WaitForOptions().setTimeout(30_000));
-        log.info("Quota Duration policy '{}' applied to batch labs — success confirmed", policyName);
-        WaitUtils.pause(WaitUtils.TWENTY_SECONDS);
+        assignBatchPolicyAndWait(policyName, "NLDurationQuotaPolicy", null);
     }
 
     @Then("assign quota budget policy to each batch lab and validate latest action {string} is complete")
@@ -109,7 +85,15 @@ public class BatchPolicyActions {
             WaitUtils.pause(WaitUtils.LONG);
             log.info("Quota Budget policy '{}' removed from lab {}", policyName, labId);
 
-            Hook.base().page.goBack();
+            // The confirm-remove action can itself trigger a page reload right as goBack()
+            // fires, aborting one of the two in-flight navigations (net::ERR_ABORTED /
+            // "frame was detached"). The removal has already succeeded by this point —
+            // treat the navigation race as transient noise and continue.
+            try {
+                Hook.base().page.goBack();
+            } catch (Exception e) {
+                log.warn("goBack() navigation raced with a page reload (tolerated): {}", e.getMessage());
+            }
             WaitUtils.pause(WaitUtils.LONG);
             Hook.base().page.waitForLoadState();
         }
@@ -141,20 +125,79 @@ public class BatchPolicyActions {
     // ── helpers ───────────────────────────────────────────────────────────────
 
     private String getPolicyByIndex(int index) {
-        String policies = SingleLabRequest.testData().get("PolicyName");
+        String policies = SingleLabRequest.testData().get("PolicyName").trim();
+        // Some Excel cells wrap the whole comma-separated value in literal quotes —
+        // strip them so the Select2 lookup gets the real option text.
+        if (policies.length() >= 2 && policies.startsWith("\"") && policies.endsWith("\"")) {
+            policies = policies.substring(1, policies.length() - 1);
+        }
         return policies.split(",")[index].trim();
+    }
+
+    /**
+     * Robustly opens the Assign-Policy modal and selects the policy attach type.
+     *
+     * The Policies control is a Bootstrap dropdown and the "Assign Policy" link lives
+     * inside its menu — clicking the link while the menu is closed makes it "not visible".
+     * Driving this through shDriver is actively harmful here: its self-healing fallback
+     * ('//*[contains(@class,'button')]') clicks an unrelated toolbar button (e.g. Export)
+     * and falsely reports success, leaving the modal unopened and the next step stranded.
+     * So we use raw Playwright: open the menu, confirm the link is visible, click it, and
+     * confirm the modal's type filter rendered — retrying the whole sequence if either the
+     * menu or the modal fails to appear.
+     */
+    private void openAssignPolicyModalAndSelectType(String filterType) throws Throwable {
+        com.microsoft.playwright.Page page = Hook.base().page;
+        com.microsoft.playwright.Locator policiesToggle = Pages.getLabsPage().getPoliciesDropdown();
+        com.microsoft.playwright.Locator assignLink     = Pages.getLabsPage().getAssignPolicyLink();
+        com.microsoft.playwright.Locator typeFilter     = page.locator("#policyAttachTypeFilter");
+
+        SingleLabRequest.dismissDtButtonBackground();
+
+        int maxAttempts = 3;
+        for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+            page.waitForLoadState();
+
+            // Open the Policies dropdown (skip the toggle if its menu is already showing,
+            // since a second click would just close it again).
+            if (!assignLink.isVisible()) {
+                policiesToggle.click();
+            }
+            try {
+                assignLink.waitFor(new com.microsoft.playwright.Locator.WaitForOptions()
+                        .setState(com.microsoft.playwright.options.WaitForSelectorState.VISIBLE)
+                        .setTimeout(8_000));
+            } catch (Exception e) {
+                log.warn("Policies menu did not open (attempt {}/{}) — retrying", attempt, maxAttempts);
+                try { page.keyboard().press("Escape"); } catch (Exception ignored) {}
+                WaitUtils.pause(WaitUtils.SHORT);
+                continue;
+            }
+
+            assignLink.click();
+
+            // Confirm the modal actually rendered by waiting for its type filter to show.
+            try {
+                typeFilter.waitFor(new com.microsoft.playwright.Locator.WaitForOptions()
+                        .setState(com.microsoft.playwright.options.WaitForSelectorState.VISIBLE)
+                        .setTimeout(10_000));
+                typeFilter.selectOption(filterType);
+                log.info("Assign-Policy modal opened — type filter set to {}", filterType);
+                return;
+            } catch (Exception e) {
+                log.warn("Assign-Policy modal did not render (attempt {}/{}) — retrying", attempt, maxAttempts);
+                try { page.keyboard().press("Escape"); } catch (Exception ignored) {}
+                WaitUtils.pause(WaitUtils.SHORT);
+            }
+        }
+        Assert.fail("Could not open the Assign-Policy modal after " + maxAttempts
+                + " attempts (Policies dropdown → Assign Policy → type filter).");
     }
 
     /** Assigns a policy to a single already-selected lab and polls until that lab is Complete. */
     private void assignPerLabPolicyAndWait(String labId, String policyName,
             String filterType) throws Throwable {
-        Hook.base().shDriver.click(Pages.getLabsPage().getPoliciesDropdown(), "policies dropdown");
-        WaitUtils.pause(WaitUtils.LONG);
-        Hook.base().shDriver.click(Pages.getLabsPage().getAssignPolicyLink(), "assign policy link");
-        WaitUtils.pause(WaitUtils.MEDIUM);
-        Hook.base().page.waitForLoadState();
-
-        Hook.base().page.locator("#policyAttachTypeFilter").selectOption(filterType);
+        openAssignPolicyModalAndSelectType(filterType);
         WaitUtils.pause(WaitUtils.MEDIUM);
 
         Hook.base().page.locator("#policyOperationModel .select2-selection--single").click();
@@ -232,13 +275,7 @@ public class BatchPolicyActions {
     private void assignBatchPolicyAndWait(String policyName, String filterType,
             String expectedLatestAction) throws Throwable {
 
-        Hook.base().shDriver.click(Pages.getLabsPage().getPoliciesDropdown(), "policies dropdown");
-        WaitUtils.pause(WaitUtils.SHORT);
-        Hook.base().shDriver.click(Pages.getLabsPage().getAssignPolicyLink(), "assign policy link");
-        WaitUtils.pause(WaitUtils.MEDIUM);
-        Hook.base().page.waitForLoadState();
-
-        Hook.base().page.locator("#policyAttachTypeFilter").selectOption(filterType);
+        openAssignPolicyModalAndSelectType(filterType);
         WaitUtils.pause(WaitUtils.MEDIUM);
 
         Hook.base().page.locator("#policyOperationModel .select2-selection--single").click();

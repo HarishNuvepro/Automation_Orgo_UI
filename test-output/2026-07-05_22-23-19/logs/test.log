@@ -1,0 +1,15 @@
+2026-07-05 22:23:19.673 [main] INFO  Generic_Utility.ExecutionContext     - Created execution folder: ./test-output/2026-07-05_22-23-19
+2026-07-05 22:23:19.837 [main] INFO  Generic_Utility.ExecutionContext     - _latest → 2026-07-05_22-23-19
+2026-07-05 22:23:19.838 [main] INFO  runner.ExecutionSetupListener        - Suite 'Surefire suite' — run folder: ./test-output/2026-07-05_22-23-19
+2026-07-05 22:23:21.054 [TestNG-PoolService-0] INFO  Generic_Utility.DotEnvLoader         - Environment 'elb' loaded from C:\Users\HarishKumar\Downloads\Automation_Orgo\Automation_Orgo_UI_Test\Automation_Orgo_UI_Test\.env.elb — 14 key(s)
+2026-07-05 22:23:30.178 [TestNG-PoolService-0] INFO  G.ExcelToJsonConverter               - AWS Account Lab sheet → 51 test cases loaded
+2026-07-05 22:23:38.138 [TestNG-PoolService-0] INFO  G.ExcelToJsonConverter               - GCP Account Lab sheet → 51 test cases loaded
+2026-07-05 22:23:38.162 [TestNG-PoolService-0] INFO  G.ExcelToJsonConverter               - Lab sheets → lab_data.json (102 test cases)
+2026-07-05 22:23:38.392 [TestNG-PoolService-0] INFO  G.ExcelToJsonConverter               - User sheet → user_data.json (28 fields)
+2026-07-05 22:23:38.393 [TestNG-PoolService-0] INFO  G.ExcelToJsonConverter               - Excel → JSON complete. Output: C:\Users\HarishKumar\Downloads\Automation_Orgo\Automation_Orgo_UI_Test\Automation_Orgo_UI_Test\src\test\resources\testdata
+2026-07-05 22:23:38.405 [TestNG-PoolService-0] INFO  Generic_Utility.TestDataManager      - TestDataManager ready — 102 lab test cases, 28 user fields
+2026-07-05 22:23:38.405 [TestNG-PoolService-0] INFO  stepDefinitions.Hook                 - Run folder: ./test-output/2026-07-05_22-23-19 | Thread: TestNG-PoolService-0
+2026-07-05 22:23:46.106 [TestNG-PoolService-0] WARN  Generic_Utility.CredentialManager    - GEMINI_API_KEY not found in env or .env — using fallback from ConstantFilePath
+2026-07-05 22:23:46.109 [TestNG-PoolService-0] INFO  stepDefinitions.Hook                 - Browser ready | Thread: TestNG-PoolService-0
+2026-07-05 22:23:46.670 [TestNG-PoolService-0] INFO  Generic_Utility.HealingCache         - Loaded — healed: 49, known failures: 95
+2026-07-05 22:23:47.889 [TestNG-PoolService-0] INFO  stepDefinitions.SingleLabRequest     - [TC:GCP_TC34] Test data loaded | Thread: TestNG-PoolService-0

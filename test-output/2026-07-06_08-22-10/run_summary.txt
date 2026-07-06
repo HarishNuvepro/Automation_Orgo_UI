@@ -1,0 +1,4 @@
+Run folder : ./test-output/2026-07-06_08-22-10
+Started    : 2026-07-06 08:32:59
+------------------------------------------------------------------
+PASSED  [ 10m 45s]  AWS_TC46 - Lazy Lab Actions - Create, Stop, Start and Delete Lab - Account

@@ -34,6 +34,13 @@ public class SingleLabRequest {
         return tlCreatedLabId.get();
     }
 
+    /** Lets other flows (e.g. batch provisioning) point the shared "created lab"
+     *  reference at one of their own labs, so single-lab steps like "search the
+     *  created lab by id" / "access lab control panel" can be reused unchanged. */
+    public static void setCreatedLabId(String labId) {
+        tlCreatedLabId.set(labId);
+    }
+
     @When("get test data from excel {word}")
     public void get_test_data_from_excel(String tcId) {
         testData().clear();
@@ -163,21 +170,34 @@ public class SingleLabRequest {
 
         Hook.base().page.waitForLoadState();
         WaitUtils.pause(WaitUtils.EXTRA_LONG);
-        // Lab control panel loads asynchronously — wait for the status element before polling
+        // Lab control panel loads asynchronously — give the status element a short
+        // window to appear before falling into the real polling loop below (which
+        // handles a not-yet-visible element fine regardless). Observed across a run
+        // of 15 scenarios: this wait failed 8/15 times at 30s — since the loop below
+        // tolerates a miss either way, a shorter wait just saves time on those cases
+        // without changing the outcome for the ones where it succeeds quickly.
         try {
             controlPanel.getLatestStatusText().waitFor(
                     new com.microsoft.playwright.Locator.WaitForOptions()
                             .setState(com.microsoft.playwright.options.WaitForSelectorState.VISIBLE)
-                            .setTimeout(30_000));
+                            .setTimeout(10_000));
         } catch (Exception e) {
-            log.warn("Deployment status element not visible after 30s — proceeding: {}", e.getMessage());
+            log.warn("Deployment status element not visible after 10s — proceeding: {}", e.getMessage());
         }
 
         int maxWaitTime = 300;
         int interval    = 5;
         int blankCount  = 0;
 
-        for (int elapsed = 0; elapsed < maxWaitTime; elapsed += interval) {
+        // Tracks real wall-clock time rather than counting loop iterations —
+        // a reload+recovery cycle (page.reload() + waitForLoadState() + pause)
+        // takes far longer than one `interval`, so an iteration counter silently
+        // let this loop run for 9+ minutes on a genuinely stuck deployment
+        // (observed on AWS_TC6) instead of honoring the stated 300s budget.
+        long startTime = System.currentTimeMillis();
+        long maxWaitMillis = maxWaitTime * 1000L;
+
+        while (System.currentTimeMillis() - startTime < maxWaitMillis) {
             Hook.base().page.waitForLoadState();
             if (WaitUtils.handleGatewayTimeout(Hook.base().page)) {
                 log.warn("Gateway timeout during lab creation polling — retrying after reload");
@@ -235,7 +255,87 @@ public class SingleLabRequest {
             Thread.sleep(interval * 1000L);
         }
 
-        throw new RuntimeException("Timeout: Lab deployment did not complete within " + maxWaitTime + "s");
+        long actualElapsedSeconds = (System.currentTimeMillis() - startTime) / 1000;
+        throw new RuntimeException("Timeout: Lab deployment did not complete within "
+                + maxWaitTime + "s (actual elapsed: " + actualElapsedSeconds + "s)");
+    }
+
+    // ── Group B negative tests — duplicate plan request / abandoned request ──
+
+    /**
+     * The app's actual duplicate-subscription behavior wasn't known ahead of
+     * time, so this accepts either outcome: a warning/error blocking the repeat
+     * request, or the app allowing it and creating a second lab. Either is fine —
+     * the point is confirming the app handles a repeat request cleanly rather
+     * than erroring out or hanging.
+     */
+    @Then("validate requesting the same plan again is handled without errors")
+    public void validate_requesting_the_same_plan_again_is_handled_without_errors() throws Throwable {
+        Hook.base().page.waitForLoadState();
+        WaitUtils.pause(WaitUtils.LONG);
+
+        boolean warningShown = false;
+        try {
+            warningShown = Hook.base().page.locator("div.alert, .toast, span[data-notify='message']")
+                    .filter(new com.microsoft.playwright.Locator.FilterOptions().setHasText(
+                            java.util.regex.Pattern.compile("already|duplicate|exist",
+                                    java.util.regex.Pattern.CASE_INSENSITIVE)))
+                    .first().isVisible();
+        } catch (Exception ignored) {
+        }
+
+        if (warningShown) {
+            log.info("Duplicate plan request correctly blocked with a warning/error message");
+        } else {
+            log.info("Duplicate plan request was allowed by the app — validating a second lab was created");
+            verify_lab_is_created_successfully();
+        }
+    }
+
+    /** No explicit Cancel button exists on the Subscribe Plan page — abandonment
+     *  is simulated by navigating straight to the labs listing without ever
+     *  clicking Subscribe. */
+    @And("abandon the lab request without subscribing")
+    public void abandon_the_lab_request_without_subscribing() throws Throwable {
+        Hook.base().shDriver.click(Pages.getOrganizationDropdownPage().getLabsTab(), "labs tab");
+        WaitUtils.pause(WaitUtils.MEDIUM);
+        Hook.base().shDriver.click(Pages.getLabsDropdownPage().getLabsLink(), "labs link");
+        Hook.base().page.waitForLoadState();
+        WaitUtils.pause(WaitUtils.MEDIUM);
+    }
+
+    /**
+     * A global "total labs" count comparison is unreliable on this shared, live
+     * environment — other concurrent activity can shift the count independent of
+     * this scenario (the same class of issue previously found with TC57 in the
+     * Users module). Instead of comparing counts, this confirms no success
+     * indicator appeared and we landed cleanly on the plain labs listing (not a
+     * lab-detail page carrying a newly created lab's id).
+     */
+    @Then("validate no new lab was created from the abandoned request")
+    public void validate_no_new_lab_was_created_from_the_abandoned_request() throws Throwable {
+        String currentUrl = Hook.base().page.url();
+        Assert.assertFalse(currentUrl.contains("id="),
+                "URL should not carry a lab id after abandoning the request, but was: " + currentUrl);
+
+        boolean successIndicatorVisible = false;
+        try {
+            successIndicatorVisible = Hook.base().page
+                    .locator("span[data-notify='message'], .toast, div.alert-success")
+                    .filter(new com.microsoft.playwright.Locator.FilterOptions().setHasText(
+                            java.util.regex.Pattern.compile("created|success",
+                                    java.util.regex.Pattern.CASE_INSENSITIVE)))
+                    .first().isVisible();
+        } catch (Exception ignored) {
+        }
+        Assert.assertFalse(successIndicatorVisible,
+                "No 'lab created'/success indicator should be visible after abandoning the request");
+
+        boolean labsPageLoaded = Pages.getLabsPage().getRefreshBtn().isVisible();
+        Assert.assertTrue(labsPageLoaded,
+                "Should land cleanly on the labs listing page after abandoning the request");
+
+        log.info("Confirmed: no success indicator after abandoning the lab request; landed cleanly on labs listing");
     }
 
     @Then("verify expiry date values are loading on lab control panel")

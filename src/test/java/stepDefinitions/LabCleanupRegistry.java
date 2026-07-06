@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Accumulates lab IDs across scenarios so AWS_TC59 / GCP_TC59 can delete them all in one shot.
+ * Accumulates lab IDs across scenarios so AWS_TC50 / GCP_TC50 can delete them all in one shot.
  * Static (not ThreadLocal) — intentionally shared across all scenarios in a run.
  */
 public class LabCleanupRegistry {

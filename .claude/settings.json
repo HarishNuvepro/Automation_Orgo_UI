@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mvn -q -o test -Dtest=UserModuleRunner -Dcucumber.filter.tags=\"@TC30 or @TC33 or @TC34 or @TC11 or @TC12\")",
+      "Bash(mvn -q -o test -Dtest=UserModuleRunner -Dcucumber.filter.tags=\"@TC57\")",
+      "Bash(awk 'NR%2==0{print \"  next: \"$0} NR%2==1{print $0}')",
+      "Bash(mvn -q -o test \"-Dtest=GcpLabsRunner\" \"-Dcucumber.filter.tags=@zz_discover\")",
+      "Bash(mvn -o test \"-Dtest=ZzVerifyEnv\")"
+    ]
+  }
+}

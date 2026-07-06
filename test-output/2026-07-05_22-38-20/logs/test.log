@@ -1,0 +1,90 @@
+2026-07-05 22:38:20.334 [main] INFO  Generic_Utility.ExecutionContext     - Created execution folder: ./test-output/2026-07-05_22-38-20
+2026-07-05 22:38:20.502 [main] INFO  Generic_Utility.ExecutionContext     - _latest → 2026-07-05_22-38-20
+2026-07-05 22:38:21.674 [main] INFO  Generic_Utility.DotEnvLoader         - Environment 'elb' loaded from C:\Users\HarishKumar\Downloads\Automation_Orgo\Automation_Orgo_UI_Test\Automation_Orgo_UI_Test\.env.elb — 14 key(s)
+2026-07-05 22:38:32.854 [main] INFO  G.ExcelToJsonConverter               - AWS Account Lab sheet → 51 test cases loaded
+2026-07-05 22:38:42.425 [main] INFO  G.ExcelToJsonConverter               - GCP Account Lab sheet → 51 test cases loaded
+2026-07-05 22:38:42.466 [main] INFO  G.ExcelToJsonConverter               - Lab sheets → lab_data.json (102 test cases)
+2026-07-05 22:38:42.849 [main] INFO  G.ExcelToJsonConverter               - User sheet → user_data.json (28 fields)
+2026-07-05 22:38:42.849 [main] INFO  G.ExcelToJsonConverter               - Excel → JSON complete. Output: C:\Users\HarishKumar\Downloads\Automation_Orgo\Automation_Orgo_UI_Test\Automation_Orgo_UI_Test\src\test\resources\testdata
+2026-07-05 22:38:42.873 [main] INFO  Generic_Utility.TestDataManager      - TestDataManager ready — 102 lab test cases, 28 user fields
+2026-07-05 22:38:42.874 [main] INFO  stepDefinitions.Hook                 - Run folder: ./test-output/2026-07-05_22-38-20 | Thread: main
+2026-07-05 22:38:52.281 [main] WARN  Generic_Utility.CredentialManager    - GEMINI_API_KEY not found in env or .env — using fallback from ConstantFilePath
+2026-07-05 22:38:52.281 [main] INFO  stepDefinitions.Hook                 - Browser ready | Thread: main
+2026-07-05 22:38:52.918 [main] INFO  Generic_Utility.HealingCache         - Loaded — healed: 49, known failures: 95
+2026-07-05 22:38:54.643 [main] INFO  stepDefinitions.SingleLabRequest     - [TC:AWS_TC44] Test data loaded | Thread: main
+2026-07-05 22:38:59.900 [main] INFO  stepDefinitions.BatchProvision       - Batch name: test5239899
+2026-07-05 22:39:21.086 [main] INFO  stepDefinitions.BatchProvision       - All Lab IDs: 35110 35111
+2026-07-05 22:39:29.143 [main] INFO  stepDefinitions.BatchProvision       - Lab 35110 status: Complete
+2026-07-05 22:39:29.149 [main] INFO  stepDefinitions.BatchProvision       - Lab 35111 status: Complete
+2026-07-05 22:39:29.149 [main] INFO  stepDefinitions.BatchProvision       - All 2 labs completed
+2026-07-05 22:39:30.486 [main] INFO  stepDefinitions.BatchProvision       - Searching for batch: test5239899
+2026-07-05 22:39:35.982 [main] INFO  stepDefinitions.BatchProvision       - All labs selected in batch details page
+2026-07-05 22:39:35.982 [main] INFO  stepDefinitions.BatchPolicyActions   - Assigning Quota Duration policy to all batch labs: 10hr quotaDuration_Automation
+2026-07-05 22:39:36.502 [main] INFO  stepDefinitions.BatchPolicyActions   - Assign-Policy modal opened — type filter set to NLDurationQuotaPolicy
+2026-07-05 22:39:40.016 [main] INFO  stepDefinitions.BatchPolicyActions   - Policy selected: 10hr quotaDuration_Automation (filter: NLDurationQuotaPolicy)
+2026-07-05 22:39:43.691 [main] INFO  stepDefinitions.BatchPolicyActions   - Policy '10hr quotaDuration_Automation' — 2 status labels visible (expected 2)
+2026-07-05 22:39:43.691 [main] INFO  stepDefinitions.BatchPolicyActions   - Policy: 10hr quotaDuration_Automation | Row 1 | Status: Complete
+2026-07-05 22:39:43.707 [main] INFO  stepDefinitions.BatchPolicyActions   - Policy: 10hr quotaDuration_Automation | Row 2 | Status: Complete
+2026-07-05 22:39:43.707 [main] INFO  stepDefinitions.BatchPolicyActions   - Policy '10hr quotaDuration_Automation' complete for all 2 batch labs
+2026-07-05 22:39:43.707 [main] INFO  stepDefinitions.BatchPolicyActions   - Assigning Quota Budget policy individually to each batch lab: create budget10$_Automation
+2026-07-05 22:39:43.707 [main] INFO  stepDefinitions.BatchPolicyActions   - Assigning Quota Budget to lab: 35110
+2026-07-05 22:39:47.231 [main] INFO  stepDefinitions.BatchPolicyActions   - Assign-Policy modal opened — type filter set to NLCostQuotaPolicy
+2026-07-05 22:39:50.437 [main] INFO  stepDefinitions.BatchPolicyActions   - Policy selected for lab 35110: create budget10$_Automation (filter: NLCostQuotaPolicy)
+2026-07-05 22:39:53.555 [main] INFO  stepDefinitions.BatchPolicyActions   - Lab 35110 | Policy: create budget10$_Automation | Status: InProgress
+2026-07-05 22:39:53.555 [main] INFO  stepDefinitions.BatchPolicyActions   - Policy 'create budget10$_Automation' not complete for lab 35110 — retrying in 30s (30/600s elapsed)
+2026-07-05 22:40:24.641 [main] INFO  stepDefinitions.BatchPolicyActions   - Lab 35110 | Policy: create budget10$_Automation | Status: Complete
+2026-07-05 22:40:24.641 [main] INFO  stepDefinitions.BatchPolicyActions   - Policy 'create budget10$_Automation' complete for lab 35110
+2026-07-05 22:40:24.641 [main] INFO  stepDefinitions.BatchPolicyActions   - Assigning Quota Budget to lab: 35111
+2026-07-05 22:40:28.134 [main] INFO  stepDefinitions.BatchPolicyActions   - Assign-Policy modal opened — type filter set to NLCostQuotaPolicy
+2026-07-05 22:40:31.344 [main] INFO  stepDefinitions.BatchPolicyActions   - Policy selected for lab 35111: create budget10$_Automation (filter: NLCostQuotaPolicy)
+2026-07-05 22:40:34.446 [main] INFO  stepDefinitions.BatchPolicyActions   - Lab 35111 | Policy: create budget10$_Automation | Status: InProgress
+2026-07-05 22:40:34.446 [main] INFO  stepDefinitions.BatchPolicyActions   - Policy 'create budget10$_Automation' not complete for lab 35111 — retrying in 30s (30/600s elapsed)
+2026-07-05 22:41:05.499 [main] INFO  stepDefinitions.BatchPolicyActions   - Lab 35111 | Policy: create budget10$_Automation | Status: Complete
+2026-07-05 22:41:05.499 [main] INFO  stepDefinitions.BatchPolicyActions   - Policy 'create budget10$_Automation' complete for lab 35111
+2026-07-05 22:41:05.499 [main] INFO  stepDefinitions.BatchPolicyActions   - Accessing lab 35110 to remove quota budget policy: create budget10$_Automation
+2026-07-05 22:41:17.916 [main] INFO  stepDefinitions.BatchPolicyActions   - Quota Budget policy 'create budget10$_Automation' removed from lab 35110
+2026-07-05 22:41:17.931 [main] WARN  stepDefinitions.BatchPolicyActions   - goBack() navigation raced with a page reload (tolerated): Error {
+  message='net::ERR_ABORTED; maybe frame was detached?
+  name='Error
+  stack='Error: net::ERR_ABORTED; maybe frame was detached?
+    at FrameManager.frameAbortedNavigation (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-7853633335284757364\package\lib\server\frames.js:216:14)
+    at FrameManager.requestFailed (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-7853633335284757364\package\lib\server\frames.js:276:12)
+    at CRNetworkManager._onLoadingFailed (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-7853633335284757364\package\lib\server\chromium\crNetworkManager.js:458:134)
+    at CRSession.emit (node:events:514:28)
+    at C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-7853633335284757364\package\lib\server\chromium\crConnection.js:160:14
+}
+Call log:
+- waiting for navigation until "load"
+
+2026-07-05 22:41:19.943 [main] INFO  stepDefinitions.BatchPolicyActions   - Accessing lab 35111 to remove quota budget policy: create budget10$_Automation
+2026-07-05 22:41:32.197 [main] INFO  stepDefinitions.BatchPolicyActions   - Quota Budget policy 'create budget10$_Automation' removed from lab 35111
+2026-07-05 22:41:32.205 [main] WARN  stepDefinitions.BatchPolicyActions   - goBack() navigation raced with a page reload (tolerated): Error {
+  message='net::ERR_ABORTED; maybe frame was detached?
+  name='Error
+  stack='Error: net::ERR_ABORTED; maybe frame was detached?
+    at FrameManager.frameAbortedNavigation (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-7853633335284757364\package\lib\server\frames.js:216:14)
+    at FrameManager.requestFailed (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-7853633335284757364\package\lib\server\frames.js:276:12)
+    at CRNetworkManager._onLoadingFailed (C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-7853633335284757364\package\lib\server\chromium\crNetworkManager.js:458:134)
+    at CRSession.emit (node:events:514:28)
+    at C:\Users\HARISH~1\AppData\Local\Temp\playwright-java-7853633335284757364\package\lib\server\chromium\crConnection.js:160:14
+}
+Call log:
+- waiting for navigation until "load"
+
+2026-07-05 22:41:34.214 [main] INFO  stepDefinitions.BatchPolicyActions   - Assigning Quota Top-Up Budget policy individually to each batch lab: Set Budget20$_Automation
+2026-07-05 22:41:34.216 [main] INFO  stepDefinitions.BatchPolicyActions   - Assigning Quota Top-Up to lab: 35110
+2026-07-05 22:41:37.725 [main] INFO  stepDefinitions.BatchPolicyActions   - Assign-Policy modal opened — type filter set to NLCostQuotaPolicy
+2026-07-05 22:41:40.881 [main] INFO  stepDefinitions.BatchPolicyActions   - Policy selected for lab 35110: Set Budget20$_Automation (filter: NLCostQuotaPolicy)
+2026-07-05 22:41:43.995 [main] INFO  stepDefinitions.BatchPolicyActions   - Lab 35110 | Policy: Set Budget20$_Automation | Status: InProgress
+2026-07-05 22:41:43.997 [main] INFO  stepDefinitions.BatchPolicyActions   - Policy 'Set Budget20$_Automation' not complete for lab 35110 — retrying in 30s (30/600s elapsed)
+2026-07-05 22:42:15.076 [main] INFO  stepDefinitions.BatchPolicyActions   - Lab 35110 | Policy: Set Budget20$_Automation | Status: Complete
+2026-07-05 22:42:15.078 [main] INFO  stepDefinitions.BatchPolicyActions   - Policy 'Set Budget20$_Automation' complete for lab 35110
+2026-07-05 22:42:15.078 [main] INFO  stepDefinitions.BatchPolicyActions   - Assigning Quota Top-Up to lab: 35111
+2026-07-05 22:42:18.553 [main] INFO  stepDefinitions.BatchPolicyActions   - Assign-Policy modal opened — type filter set to NLCostQuotaPolicy
+2026-07-05 22:42:21.777 [main] INFO  stepDefinitions.BatchPolicyActions   - Policy selected for lab 35111: Set Budget20$_Automation (filter: NLCostQuotaPolicy)
+2026-07-05 22:42:24.883 [main] INFO  stepDefinitions.BatchPolicyActions   - Lab 35111 | Policy: Set Budget20$_Automation | Status: InProgress
+2026-07-05 22:42:24.883 [main] INFO  stepDefinitions.BatchPolicyActions   - Policy 'Set Budget20$_Automation' not complete for lab 35111 — retrying in 30s (30/600s elapsed)
+2026-07-05 22:42:55.977 [main] INFO  stepDefinitions.BatchPolicyActions   - Lab 35111 | Policy: Set Budget20$_Automation | Status: Complete
+2026-07-05 22:42:55.977 [main] INFO  stepDefinitions.BatchPolicyActions   - Policy 'Set Budget20$_Automation' complete for lab 35111
+2026-07-05 22:42:55.987 [main] INFO  stepDefinitions.LabActions           - Batch lab 35110 registered for final bulk delete
+2026-07-05 22:42:55.992 [main] INFO  stepDefinitions.LabActions           - Batch lab 35111 registered for final bulk delete

@@ -284,7 +284,14 @@ public class LabActions {
     /** Sets the mySubscriptionsTable page-size dropdown to the given value (e.g. "100"). */
     private void setTablePageSize(String size) {
         try {
-            Pages.getLabsPage().getPageSizeSelect().selectOption(size);
+            // Same pattern as the proven Users-module page-size change: wait for the
+            // dropdown to actually be visible before selecting. Without this wait, the
+            // select could fail on a not-yet-rendered table, get silently swallowed by
+            // the catch below, and leave the page size at its 10-per-page default —
+            // which is exactly why cleanup was processing labs in sets of 10.
+            com.microsoft.playwright.Locator pageSizeSelect = Pages.getLabsPage().getPageSizeSelect();
+            WaitUtils.waitForVisible(pageSizeSelect, WaitUtils.THIRTY_SEC);
+            pageSizeSelect.selectOption(size);
             WaitUtils.pause(WaitUtils.MEDIUM);
             Hook.base().page.waitForLoadState();
             log.info("Table page size set to {}", size);

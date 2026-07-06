@@ -126,19 +126,19 @@
       "healCount": 1,
       "lastHealedAt": 1779460090119
     },
-    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732879\u0027]/following-sibling::td[8]//label": {
-      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
-      "healingMethod": "fallback",
-      "elementName": "status 32879",
-      "healCount": 1,
-      "lastHealedAt": 1779460963299
-    },
     "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732678\u0027]/following-sibling::td[8]//label": {
       "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
       "healingMethod": "fallback",
       "elementName": "status 32678",
       "healCount": 1,
       "lastHealedAt": 1779433914613
+    },
+    "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732879\u0027]/following-sibling::td[8]//label": {
+      "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
+      "healingMethod": "fallback",
+      "elementName": "status 32879",
+      "healCount": 1,
+      "lastHealedAt": 1779460963299
     },
     "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732834\u0027]/following-sibling::td[8]//label": {
       "healedLocator": "//*[contains(@class,\u0027button\u0027)]",
@@ -321,13 +321,6 @@
       "elementName": "status 32881",
       "healCount": 1,
       "lastHealedAt": 1779461097369
-    },
-    "Locator@//a[contains(@href,\u0027logout\u0027)]": {
-      "healedLocator": "//a[contains(text(),\u0027Sign out\u0027)]",
-      "healingMethod": "fallback",
-      "elementName": "logout button",
-      "healCount": 1,
-      "lastHealedAt": 1782826045717
     },
     "Locator@//table[@id\u003d\u0027mySubscriptionsTable\u0027]//td[text()\u003d\u002732675\u0027]/following-sibling::td[8]//label": {
       "healedLocator": "//*[contains(@class,\u0027button\u0027)]",

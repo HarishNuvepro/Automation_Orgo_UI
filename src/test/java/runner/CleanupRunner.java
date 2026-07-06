@@ -14,7 +14,7 @@ import org.testng.annotations.BeforeClass;
     dryRun     = false,
     plugin     = { "pretty" },
     monochrome = true,
-    tags       = "@AWS_TC59 or @GCP_TC59"
+    tags       = "@AWS_TC50 or @GCP_TC50"
 )
 public class CleanupRunner extends AbstractTestNGCucumberTests {
 
@@ -25,7 +25,8 @@ public class CleanupRunner extends AbstractTestNGCucumberTests {
         new java.io.File(base).mkdirs();
         System.setProperty("cucumber.plugin",
                 "html:"   + base + "/cucumber.html," +
-                "testng:" + base + "/testng-report.xml");
+                "testng:" + base + "/testng-report.xml" + "," +
+                "rerun:" + base + "/failed_scenarios.txt");
         super.setUpClass();
     }
     // No @DataProvider override — runs sequentially after all parallel scenarios complete

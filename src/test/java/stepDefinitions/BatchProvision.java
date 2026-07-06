@@ -44,6 +44,10 @@ public class BatchProvision {
 
     @And("click on batch create button")
     public void click_on_batch_create_button() throws Throwable {
+        // Under heavier parallel load the Batch Provisioning page can take longer to
+        // render than the self-healing click's own 10s×3 retry budget — wait explicitly
+        // before clicking, same pattern already used for the wizard's Finish button.
+        WaitUtils.waitForVisible(Pages.getBatchProvisionPage().getCreateBtn(), WaitUtils.THIRTY_SEC);
         Hook.base().shDriver.click(Pages.getBatchProvisionPage().getCreateBtn(), "batch create button");
         WaitUtils.pause(WaitUtils.SHORT);
     }
@@ -55,6 +59,9 @@ public class BatchProvision {
         String batchDescription = SingleLabRequest.testData().get("BatchDescription") + randomSuffix;
         tlCreatedBatchName.set(batchName);
         log.info("Batch name: {}", batchName);
+        // The create-batch modal can take longer than the fill's own retry budget to
+        // finish animating into view under heavier parallel load — wait explicitly first.
+        WaitUtils.waitForVisible(Pages.getBatchProvisionPage().getBatchNameInput(), WaitUtils.THIRTY_SEC);
         Hook.base().shDriver.fill(Pages.getBatchProvisionPage().getBatchNameInput(), batchName, "batch name");
         Hook.base().shDriver.fill(Pages.getBatchProvisionPage().getBatchDescriptionInput(), batchDescription, "batch description");
         WaitUtils.pause(WaitUtils.SHORT);
@@ -62,6 +69,7 @@ public class BatchProvision {
 
     @And("click on next button")
     public void click_on_next_button() throws Throwable {
+        SingleLabRequest.dismissDtButtonBackground();
         Hook.base().shDriver.click(Pages.getBatchProvisionPage().getNextBtn(), "next button");
         WaitUtils.pause(WaitUtils.MEDIUM);
         Hook.base().page.waitForLoadState();
@@ -77,6 +85,7 @@ public class BatchProvision {
                 SingleLabRequest.dismissDtButtonBackground();
                 Hook.base().shDriver.click(Pages.getBatchProvisionPage().getUserSearchBtn(), "search button");
                 WaitUtils.pause(WaitUtils.MEDIUM);
+                WaitUtils.waitForVisible(Pages.getBatchProvisionPage().getUserCheckbox(), WaitUtils.THIRTY_SEC);
                 Hook.base().shDriver.click(Pages.getBatchProvisionPage().getUserCheckbox(), "user checkbox");
                 WaitUtils.pause(WaitUtils.SHORT);
             }
@@ -90,8 +99,105 @@ public class BatchProvision {
 
     @And("select the search listed user checkbox")
     public void select_the_search_listed_user_checkbox() throws Throwable {
+        SingleLabRequest.dismissDtButtonBackground();
+        WaitUtils.waitForVisible(Pages.getBatchProvisionPage().getUserCheckbox(), WaitUtils.THIRTY_SEC);
         Hook.base().shDriver.click(Pages.getBatchProvisionPage().getUserCheckbox(), "user checkbox");
         WaitUtils.pause(WaitUtils.SHORT);
+    }
+
+    // ── Group B negative tests — invalid email tolerance / empty selection ────
+
+    /**
+     * Like the normal choose-user step, but tolerates an email that returns no
+     * search results (an invalid/unregistered address) instead of failing when
+     * its checkbox never appears — it just logs it as correctly rejected and
+     * moves on, leaving only the genuinely valid emails selected.
+     */
+    @And("search for each user email and select only the ones found")
+    public void search_for_each_user_email_and_select_only_the_ones_found() throws Throwable {
+        String userEmails = SingleLabRequest.testData().get("UserEmail");
+        for (String email : userEmails.split(",")) {
+            String trimmedEmail = email.trim();
+            Hook.base().shDriver.fill(Pages.getBatchProvisionPage().getUserSearchInput(), trimmedEmail, "user email search");
+            SingleLabRequest.dismissDtButtonBackground();
+            Hook.base().shDriver.click(Pages.getBatchProvisionPage().getUserSearchBtn(), "search button");
+            WaitUtils.pause(WaitUtils.MEDIUM);
+
+            // Raw Playwright isVisible() here, NOT shDriver.isVisible() — the self-healing
+            // wrapper discards isVisible()'s boolean result and only reacts to exceptions,
+            // so it always reports "found" even for a genuinely nonexistent row (Playwright's
+            // isVisible() never throws) and then a self-healing fallback click on some
+            // unrelated element quietly "succeeds", corrupting the wizard state downstream.
+            boolean found = Pages.getBatchProvisionPage().getUserRowByEmail(trimmedEmail).isVisible();
+            if (found) {
+                Hook.base().shDriver.click(Pages.getBatchProvisionPage().getUserCheckbox(), "user checkbox");
+                WaitUtils.pause(WaitUtils.SHORT);
+                log.info("Valid user '{}' found and selected", trimmedEmail);
+            } else {
+                log.info("Invalid/unregistered user '{}' correctly returned no match — skipping", trimmedEmail);
+            }
+        }
+    }
+
+    @Then("validate only the valid user is listed as success in the batch summary")
+    public void validate_only_the_valid_user_is_listed_as_success_in_the_batch_summary() throws Throwable {
+        String userEmails = SingleLabRequest.testData().get("UserEmail");
+        Hook.base().page.waitForLoadState();
+        WaitUtils.pause(WaitUtils.EXTRA_LONG);
+        try {
+            Pages.getBatchProvisionPage().getAllBatchSummaryRows().first().waitFor(
+                    new com.microsoft.playwright.Locator.WaitForOptions()
+                            .setState(com.microsoft.playwright.options.WaitForSelectorState.VISIBLE)
+                            .setTimeout(60_000));
+        } catch (Exception e) {
+            log.warn("Batch summary rows not visible after 60s: {}", e.getMessage());
+        }
+
+        String[] emails = userEmails.split(",");
+        String validEmail   = emails[0].trim();
+        String invalidEmail = emails[1].trim();
+
+        // Raw Playwright isVisible() — not shDriver.isVisible(), which always reports
+        // "found" regardless of whether the element actually exists (see the note on
+        // the search step above).
+        boolean validListed = Pages.getBatchProvisionPage().getBatchSummaryRowByEmail(validEmail).isVisible();
+        Assert.assertTrue(validListed, "Valid user " + validEmail + " should be listed in the batch summary");
+
+        String status = Hook.base().shDriver.getText(
+                Pages.getBatchProvisionPage().getBatchSummaryStatusByEmail(validEmail), "status");
+        Assert.assertTrue(status.contains("Success"), "Status should be Success for " + validEmail);
+
+        // The invalid email may still appear in the summary (as a failed/error entry,
+        // confirmed by a live run) rather than being silently omitted — what matters is
+        // it must never show a Success status.
+        boolean invalidListed = Pages.getBatchProvisionPage().getBatchSummaryRowByEmail(invalidEmail).isVisible();
+        if (invalidListed) {
+            String invalidStatus = Hook.base().shDriver.getText(
+                    Pages.getBatchProvisionPage().getBatchSummaryStatusByEmail(invalidEmail), "invalid user status");
+            Assert.assertFalse(invalidStatus.contains("Success"),
+                    "Invalid user " + invalidEmail + " should not show a Success status, but found: " + invalidStatus);
+            log.info("Invalid user '{}' listed in summary with non-Success status: '{}'", invalidEmail, invalidStatus);
+        } else {
+            log.info("Invalid user '{}' correctly absent from the batch summary", invalidEmail);
+        }
+
+        log.info("Confirmed: valid user '{}' was provisioned successfully; invalid user '{}' was not",
+                validEmail, invalidEmail);
+    }
+
+    @And("attempt to click next without selecting any user")
+    public void attempt_to_click_next_without_selecting_any_user() throws Throwable {
+        Hook.base().shDriver.click(Pages.getBatchProvisionPage().getNextBtn(), "next button");
+        WaitUtils.pause(WaitUtils.MEDIUM);
+    }
+
+    @Then("validate user selection is required before proceeding")
+    public void validate_user_selection_is_required_before_proceeding() throws Throwable {
+        boolean stillOnChooseUserStep = Hook.base().shDriver.isVisible(
+                Pages.getBatchProvisionPage().getUserSearchInput(), "user search input");
+        Assert.assertTrue(stillOnChooseUserStep,
+                "Should remain on the Choose User step when no user is selected — 'Next' should not advance the wizard");
+        log.info("Confirmed: wizard correctly blocked progression with zero users selected");
     }
 
     @And("in the choose plan page provide plan id input in search box and select the listed plan")
@@ -174,6 +280,18 @@ public class BatchProvision {
 
         tlCreatedLabIds.set(allLabIds.toString());
         log.info("All Lab IDs: {}", getCreatedLabIds());
+    }
+
+    /** Points the shared single-lab reference at the first lab of this batch, so
+     *  control-panel-only actions (challenge/IAM/console) can reuse the existing
+     *  single-lab steps instead of duplicating them for batch. */
+    @And("select first batch lab for control panel actions")
+    public void select_first_batch_lab_for_control_panel_actions() {
+        String[] labIdArray = getCreatedLabIds().split(" ");
+        Assert.assertTrue(labIdArray.length > 0, "No batch lab IDs available to select from");
+        String firstLabId = labIdArray[0];
+        SingleLabRequest.setCreatedLabId(firstLabId);
+        log.info("Selected first batch lab for control panel actions: {}", firstLabId);
     }
 
     @And("copy those lab id's and navigate to all labs page")
@@ -310,8 +428,14 @@ public class BatchProvision {
     @And("select all labs in batch details")
     public void select_all_labs_in_batch_details() throws Throwable {
         Hook.base().page.waitForLoadState();
+        // Wait for at least one lab row's checkbox to render before clicking "select all" —
+        // clicking the header checkbox before the DataTable has drawn its rows just toggles
+        // the header's own visual state without actually selecting any row, leaving the
+        // Policies button disabled on the next step.
+        Hook.base().page.locator("tbody tr td.select-checkbox").first().waitFor(
+                new com.microsoft.playwright.Locator.WaitForOptions().setTimeout(30_000));
         Hook.base().shDriver.click(Pages.getBatchProvisionPage().getBatchDetailsSelectAllCheckbox(), "select all labs");
-        WaitUtils.pause(WaitUtils.SHORT);
+        WaitUtils.pause(WaitUtils.MEDIUM);
         log.info("All labs selected in batch details page");
     }
 

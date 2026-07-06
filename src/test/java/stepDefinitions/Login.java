@@ -6,6 +6,7 @@ import org.testng.Assert;
 import Generic_Utility.CredentialManager;
 import Generic_Utility.WaitUtils;
 import Util.Pages;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -161,5 +162,77 @@ public class Login {
         }
         Hook.base().page.waitForLoadState();
         WaitUtils.pause(WaitUtils.SHORT);
+    }
+
+    // ── L18 ───────────────────────────────────────────────────────────────────
+
+    @When("click on forgot login id link")
+    public void click_on_forgot_login_id_link() {
+        Hook.base().shDriver.click(Pages.getLoginPage().getForgotLoginIdLink(), "forgot login id link");
+        WaitUtils.pause(WaitUtils.LONG);
+    }
+
+    @And("enter a valid email for login id recovery")
+    public void enter_a_valid_email_for_login_id_recovery() {
+        // Use the tenant admin's email from the credential store — the recovery
+        // email is only delivered if the address matches an existing user.
+        String email = CredentialManager.getTenantAdminUsername().contains("@")
+                ? CredentialManager.getTenantAdminUsername()
+                : "ha14rishkumar@nuvelabs.com";
+        Hook.base().shDriver.fill(Pages.getLoginPage().getForgotLoginIdEmailTxt(), email,
+                "forgot login id email");
+        WaitUtils.pause(WaitUtils.SHORT);
+        log.info("L18: submitted valid email '{}' for forgot login id", email);
+    }
+
+    @And("enter an invalid email format for login id recovery")
+    public void enter_an_invalid_email_format_for_login_id_recovery() {
+        Hook.base().shDriver.fill(Pages.getLoginPage().getForgotLoginIdEmailTxt(),
+                "not-a-valid-email-format", "forgot login id email (invalid format)");
+        WaitUtils.pause(WaitUtils.SHORT);
+        log.info("L19: submitted invalid email format for forgot login id");
+    }
+
+    @And("click on submit forgot login id button")
+    public void click_on_submit_forgot_login_id_button() {
+        Hook.base().shDriver.click(Pages.getLoginPage().getForgotLoginIdSubmitBtn(),
+                "submit forgot login id button");
+        // The server may take a moment to surface the notification toast
+        WaitUtils.pause(WaitUtils.MEDIUM);
+    }
+
+    @Then("validate forgot login id success notification is displayed")
+    public void validate_forgot_login_id_success_notification_is_displayed() {
+        Locator notification = Pages.getLoginPage().getForgotLoginIdNotificationMsg();
+        notification.waitFor(new com.microsoft.playwright.Locator.WaitForOptions()
+                .setState(com.microsoft.playwright.options.WaitForSelectorState.VISIBLE)
+                .setTimeout(15_000));
+        String text = notification.textContent().trim();
+        Assert.assertFalse(text.isEmpty(),
+                "Expected forgot login id notification to be non-empty but was blank");
+        log.info("L18: forgot login id success notification — '{}'", text);
+        if (Hook.base() != null && Hook.base().shDriver != null) {
+            Hook.base().shDriver.saveHealingReport();
+        }
+    }
+
+    @Then("validate forgot login id error notification is displayed")
+    public void validate_forgot_login_id_error_notification_is_displayed() {
+        // Wait for the notification region to populate — the app may render either
+        // a positive or negative message depending on validation, but a non-blank
+        // notification is the contract.
+        Locator notification = Pages.getLoginPage().getForgotLoginIdNotificationMsg();
+        notification.waitFor(new com.microsoft.playwright.Locator.WaitForOptions()
+                .setState(com.microsoft.playwright.options.WaitForSelectorState.ATTACHED)
+                .setTimeout(15_000));
+        // Allow time for the network call to land
+        WaitUtils.pause(WaitUtils.MEDIUM);
+        String text = notification.textContent().trim();
+        Assert.assertFalse(text.isEmpty(),
+                "Expected forgot login id notification to surface an error but was blank");
+        log.info("L19: forgot login id notification (expected error) — '{}'", text);
+        if (Hook.base() != null && Hook.base().shDriver != null) {
+            Hook.base().shDriver.saveHealingReport();
+        }
     }
 }

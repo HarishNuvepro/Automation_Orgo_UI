@@ -9,97 +9,95 @@ import org.slf4j.LoggerFactory;
  * Priority for every key:
  *   1. OS / CI environment variable   → System.getenv("KEY")
  *   2. .env file in project root      → DotEnvLoader.get("KEY")
- *   3. Excel fallback                 → ExcelUtility.getDataFromExcel(...)
+ *
+ * All credentials live in the active .env.<environment> file (see DotEnvLoader).
+ * There is no Excel fallback — the Credentials sheet has been removed.
  *
  * Environment variables / .env keys:
  *   BASE_URL, BROWSER_TYPE,
  *   MSP_ADMIN_USERNAME, MSP_ADMIN_PASSWORD,
+ *   SYS_ADMIN_USERNAME, SYS_ADMIN_PASSWORD,
  *   TENANT_ADMIN_USERNAME, TENANT_ADMIN_PASSWORD,
+ *   GCP_TENANT_ADMIN_USERNAME, GCP_TENANT_ADMIN_PASSWORD,
  *   USER_USERNAME, USER_PASSWORD,
+ *   INVALID_USERNAME, INVALID_PASSWORD,
  *   GEMINI_API_KEY
  */
 public final class CredentialManager {
 
     private static final Logger log = LoggerFactory.getLogger(CredentialManager.class);
 
-    private static ExcelUtility excel;
-
     private CredentialManager() {}
-
-    /** Called once by TestDataManager.initialize() before any credential is read. */
-    public static void setExcelFallback(ExcelUtility eLib) {
-        excel = eLib;
-    }
 
     // ── URL / Browser ─────────────────────────────────────────────────────────
 
     public static String getBaseUrl() {
-        return resolve("BASE_URL", "Credentials", 3, 1);
+        return resolve("BASE_URL");
     }
 
     public static String getBrowser() {
         String value = fromEnvOrDotEnv("BROWSER_TYPE");
-        return (value != null) ? value : TestDataManager.getCredential("browser");
+        return (value != null) ? value : "Chrome";
     }
 
     // ── MSP Admin ────────────────────────────────────────────────────────────
 
     public static String getMspAdminUsername() {
-        return resolve("MSP_ADMIN_USERNAME", "Credentials", 4, 1);
+        return resolve("MSP_ADMIN_USERNAME");
     }
 
     public static String getMspAdminPassword() {
-        return resolve("MSP_ADMIN_PASSWORD", "Credentials", 5, 1);
+        return resolve("MSP_ADMIN_PASSWORD");
     }
 
     // ── System Admin ─────────────────────────────────────────────────────────
 
     public static String getSysAdminUsername() {
-        return resolve("SYS_ADMIN_USERNAME", "Credentials", 6, 1);
+        return resolve("SYS_ADMIN_USERNAME");
     }
 
     public static String getSysAdminPassword() {
-        return resolve("SYS_ADMIN_PASSWORD", "Credentials", 7, 1);
+        return resolve("SYS_ADMIN_PASSWORD");
     }
 
     // ── Tenant Admin ─────────────────────────────────────────────────────────
 
     public static String getTenantAdminUsername() {
-        return resolve("TENANT_ADMIN_USERNAME", "Credentials", 10, 1);
+        return resolve("TENANT_ADMIN_USERNAME");
     }
 
     public static String getTenantAdminPassword() {
-        return resolve("TENANT_ADMIN_PASSWORD", "Credentials", 11, 1);
+        return resolve("TENANT_ADMIN_PASSWORD");
     }
 
     // ── GCP Tenant Admin ─────────────────────────────────────────────────────
 
     public static String getGcpTenantAdminUsername() {
-        return resolve("GCP_TENANT_ADMIN_USERNAME", "Credentials", 14, 1);
+        return resolve("GCP_TENANT_ADMIN_USERNAME");
     }
 
     public static String getGcpTenantAdminPassword() {
-        return resolve("GCP_TENANT_ADMIN_PASSWORD", "Credentials", 15, 1);
+        return resolve("GCP_TENANT_ADMIN_PASSWORD");
     }
 
     // ── Regular User ─────────────────────────────────────────────────────────
 
     public static String getUserUsername() {
-        return resolve("USER_USERNAME", "Credentials", 8, 1);
+        return resolve("USER_USERNAME");
     }
 
     public static String getUserPassword() {
-        return resolve("USER_PASSWORD", "Credentials", 9, 1);
+        return resolve("USER_PASSWORD");
     }
 
-    // ── Negative-test credentials (non-sensitive — stored in credentials.json) ─
+    // ── Negative-test credentials ───────────────────────────────────────────
 
     public static String getInvalidPassword() {
-        return TestDataManager.getCredential("invalidPassword");
+        return resolve("INVALID_PASSWORD");
     }
 
     public static String getInvalidUsername() {
-        return TestDataManager.getCredential("invalidUsername");
+        return resolve("INVALID_USERNAME");
     }
 
     // ── Gemini API Key ────────────────────────────────────────────────────────
@@ -111,22 +109,29 @@ public final class CredentialManager {
         return ConstantFilePath.geminiApiKey;
     }
 
+    // ── Public helpers ────────────────────────────────────────────────────────
+
+    /**
+     * Optional lookup used to resolve ${KEY} placeholders in Excel data cells.
+     * Resolution order: OS env var → active .env file. Returns null if the key is
+     * defined in neither (caller decides how to handle a missing key).
+     */
+    public static String lookup(String key) {
+        return fromEnvOrDotEnv(key);
+    }
+
     // ── Internal helpers ──────────────────────────────────────────────────────
 
     /**
-     * Resolution order: OS env var → .env file → Excel.
+     * Resolution order: OS env var → .env file. Throws if neither has the key.
      */
-    private static String resolve(String envKey, String sheet, int row, int col) {
+    private static String resolve(String envKey) {
         String value = fromEnvOrDotEnv(envKey);
         if (value != null) return value;
 
-        log.debug("'{}' not in env or .env — reading from Excel", envKey);
-        try {
-            return excel.getDataFromExcel(sheet, row, col);
-        } catch (Throwable t) {
-            log.error("Failed to read credential '{}' from Excel", envKey, t);
-            throw new RuntimeException("Credential '" + envKey + "' not configured", t);
-        }
+        log.error("Credential '{}' not found in OS env or .env file", envKey);
+        throw new RuntimeException("Credential '" + envKey + "' not configured — "
+                + "add it to the active .env.<environment> file");
     }
 
     /**
